@@ -9,6 +9,11 @@ import SwiftUI
 
 struct PostGridView: View {
     
+    var posts: [Post]
+    
+    private let imageDimention: CGFloat = (UIScreen.main.bounds.width / 3) - 1
+    
+    
     private let gridItems: [GridItem] = [
         .init(.flexible(), spacing: 1),
         .init(.flexible(), spacing: 1),
@@ -30,5 +35,5 @@ struct PostGridView: View {
 }
 
 #Preview {
-    PostGridView()
+    PostGridView(posts: Post.MOCK_POSTS)
 }
