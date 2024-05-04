@@ -29,6 +29,10 @@
 		C670F6BD2B24B7FF00EF8D57 /* CreateUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C670F6BC2B24B7FF00EF8D57 /* CreateUsernameView.swift */; };
 		C670F6BF2B24BD7700EF8D57 /* CreatePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C670F6BE2B24BD7700EF8D57 /* CreatePasswordView.swift */; };
 		C670F6C12B24BFD600EF8D57 /* CompletedSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C670F6C02B24BFD600EF8D57 /* CompletedSignUp.swift */; };
+		C6A851F22BE6707E00118FBE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A851F12BE6707E00118FBE /* MapView.swift */; };
+		C6A851F42BE670F000118FBE /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A851F32BE670F000118FBE /* MapViewModel.swift */; };
+		C6A851F62BE6714600118FBE /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A851F52BE6714600118FBE /* LocationDetailView.swift */; };
+		C6A851FB2BE67A3200118FBE /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A851FA2BE67A3200118FBE /* SearchBarView.swift */; };
 		C6AD4FEA2B7BA63B0051EB8D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FE92B7BA63B0051EB8D /* User.swift */; };
 		C6AD4FEC2B7BAEC30051EB8D /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FEB2B7BAEC30051EB8D /* CurrentUserProfileView.swift */; };
 		C6AD4FEE2B7BB2AB0051EB8D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FED2B7BB2AB0051EB8D /* Post.swift */; };
@@ -67,6 +71,10 @@
 		C670F6BC2B24B7FF00EF8D57 /* CreateUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameView.swift; sourceTree = "<group>"; };
 		C670F6BE2B24BD7700EF8D57 /* CreatePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordView.swift; sourceTree = "<group>"; };
 		C670F6C02B24BFD600EF8D57 /* CompletedSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedSignUp.swift; sourceTree = "<group>"; };
+		C6A851F12BE6707E00118FBE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		C6A851F32BE670F000118FBE /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		C6A851F52BE6714600118FBE /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		C6A851FA2BE67A3200118FBE /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		C6AD4FE92B7BA63B0051EB8D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C6AD4FEB2B7BAEC30051EB8D /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
 		C6AD4FED2B7BB2AB0051EB8D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -281,8 +289,12 @@
 		C670F6A82B22123C00EF8D57 /* UploadPost */ = {
 			isa = PBXGroup;
 			children = (
+				C6A851F72BE6718B00118FBE /* View Model */,
+				C6A851F12BE6707E00118FBE /* MapView.swift */,
+				C6A851F52BE6714600118FBE /* LocationDetailView.swift */,
 				C6AD4FF32B7CC3E20051EB8D /* UploadPostView.swift */,
 				C6AD4FF52B7CF70C0051EB8D /* UploadPostViewModel.swift */,
+				C6A851FA2BE67A3200118FBE /* SearchBarView.swift */,
 			);
 			path = UploadPost;
 			sourceTree = "<group>";
@@ -295,6 +307,14 @@
 				C6AD4FEF2B7BB99B0051EB8D /* PostGridView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		C6A851F72BE6718B00118FBE /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C6A851F32BE670F000118FBE /* MapViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		C6AD4FE82B7BA62D0051EB8D /* Model */ = {
@@ -466,6 +486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6A851F42BE670F000118FBE /* MapViewModel.swift in Sources */,
 				C670F6B32B23115D00EF8D57 /* FeedCell.swift in Sources */,
 				C6AD4FF42B7CC3E20051EB8D /* UploadPostView.swift in Sources */,
 				C670F6AC2B22139800EF8D57 /* ProfileView.swift in Sources */,
@@ -473,12 +494,14 @@
 				C670F6B72B23340200EF8D57 /* LoginView.swift in Sources */,
 				C60BA7492B989C9C0037D99B /* EditProfileViewModel.swift in Sources */,
 				C6AD50072B7D05280051EB8D /* AuthService.swift in Sources */,
+				C6A851F22BE6707E00118FBE /* MapView.swift in Sources */,
 				C60EF31E2B7E430700CB7E06 /* UserService.swift in Sources */,
 				C6AD4FEE2B7BB2AB0051EB8D /* Post.swift in Sources */,
 				C670F6912B220C0C00EF8D57 /* InstagramApp.swift in Sources */,
 				C6AD4FEC2B7BAEC30051EB8D /* CurrentUserProfileView.swift in Sources */,
 				C670F6B92B24B34F00EF8D57 /* AddEmailView.swift in Sources */,
 				C6AD4FF02B7BB99B0051EB8D /* PostGridView.swift in Sources */,
+				C6A851FB2BE67A3200118FBE /* SearchBarView.swift in Sources */,
 				C670F6BD2B24B7FF00EF8D57 /* CreateUsernameView.swift in Sources */,
 				C6AD500B2B7D12E80051EB8D /* ContentViewModel.swift in Sources */,
 				C60BA7452B9896FA0037D99B /* EditProfileView.swift in Sources */,
@@ -490,6 +513,7 @@
 				C6AD4FEA2B7BA63B0051EB8D /* User.swift in Sources */,
 				C670F6BB2B24B6F000EF8D57 /* IGTextFieldModifier.swift in Sources */,
 				C670F6C12B24BFD600EF8D57 /* CompletedSignUp.swift in Sources */,
+				C6A851F62BE6714600118FBE /* LocationDetailView.swift in Sources */,
 				C670F6AF2B2219A200EF8D57 /* UserStatView.swift in Sources */,
 				C670F6B12B23110900EF8D57 /* FeedView.swift in Sources */,
 				C60EF3222B7E45B000CB7E06 /* SearchViewModel.swift in Sources */,
@@ -632,6 +656,9 @@
 				DEVELOPMENT_TEAM = 872972XYW2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSLocationUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -662,6 +689,9 @@
 				DEVELOPMENT_TEAM = 872972XYW2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSLocationUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
