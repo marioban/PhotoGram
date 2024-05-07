@@ -289,12 +289,8 @@
 		C670F6A82B22123C00EF8D57 /* UploadPost */ = {
 			isa = PBXGroup;
 			children = (
+				C6A851FC2BE8F35900118FBE /* View */,
 				C6A851F72BE6718B00118FBE /* View Model */,
-				C6A851F12BE6707E00118FBE /* MapView.swift */,
-				C6A851F52BE6714600118FBE /* LocationDetailView.swift */,
-				C6AD4FF32B7CC3E20051EB8D /* UploadPostView.swift */,
-				C6AD4FF52B7CF70C0051EB8D /* UploadPostViewModel.swift */,
-				C6A851FA2BE67A3200118FBE /* SearchBarView.swift */,
 			);
 			path = UploadPost;
 			sourceTree = "<group>";
@@ -313,8 +309,20 @@
 			isa = PBXGroup;
 			children = (
 				C6A851F32BE670F000118FBE /* MapViewModel.swift */,
+				C6AD4FF52B7CF70C0051EB8D /* UploadPostViewModel.swift */,
 			);
 			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C6A851FC2BE8F35900118FBE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C6A851F12BE6707E00118FBE /* MapView.swift */,
+				C6A851F52BE6714600118FBE /* LocationDetailView.swift */,
+				C6AD4FF32B7CC3E20051EB8D /* UploadPostView.swift */,
+				C6A851FA2BE67A3200118FBE /* SearchBarView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C6AD4FE82B7BA62D0051EB8D /* Model */ = {
@@ -657,8 +665,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
-				INFOPLIST_KEY_NSLocationUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to improve our services";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -690,8 +698,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
-				INFOPLIST_KEY_NSLocationUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to improve our services";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

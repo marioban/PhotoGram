@@ -18,7 +18,7 @@ struct ProfileHeaderView: View {
         VStack(spacing: 10) {
             // MARK: Profile pic and stats
             HStack {
-                Image(user.profileImageUrl ?? "")
+                Image(user.profileImageUrl ?? "default_profile")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 80, height: 80)
@@ -28,9 +28,7 @@ struct ProfileHeaderView: View {
                 
                 HStack(spacing: 8) {
                     UserStatView(value: 3, title: "Posts")
-                    
                     UserStatView(value: 25, title: "Followers")
-                    
                     UserStatView(value: 25, title: "Following")
                 }
             }
@@ -43,18 +41,20 @@ struct ProfileHeaderView: View {
                     Text(fullName)
                         .font(.footnote)
                         .fontWeight(.semibold)
+                        .foregroundColor(Color.primary)  // Adaptive text color
                 }
                 
                 if let bio = user.bio {
                     Text(bio)
                         .font(.footnote)
+                        .foregroundColor(Color.secondary)  // Less emphasized text color
                 }
                 
                 Text(user.username)
+                    .foregroundColor(Color.primary)  // Adaptive text color
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
-            
             
             //edit button
             Button {
@@ -68,19 +68,19 @@ struct ProfileHeaderView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(width: 360,height: 32)
-                    .foregroundColor(user.isCurrentUser ? .black : .white)
-                    .background(user.isCurrentUser ? .white : Color(.systemBlue))
+                    .foregroundColor(.white) // Consistent text color for buttons
+                    .background(user.isCurrentUser ? Color.gray : Color.blue) // Adaptive button background
                     .cornerRadius(6.0)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
-                            .stroke(user.isCurrentUser ? .gray : .clear, lineWidth: 1)
+                            .stroke(Color.gray, lineWidth: 1) // Consistent border color
                     )
             }
             
             Divider()
         }
         .fullScreenCover(isPresented: $showEditProfile, content: {
-            Text("edit profile view")
+            Text("edit profile view")  // Placeholder for actual edit view
         })
     }
 }

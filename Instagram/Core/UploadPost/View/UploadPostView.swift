@@ -7,6 +7,7 @@ struct UploadPostView: View {
     @State private var imagePickerPresented = false
     @StateObject var viewModel = UploadPostViewModel()
     @Binding var tabIndex: Int
+    @Environment(\.dismiss) private var dismiss
     
     // State variable to control navigation
     @State private var navigateToLocation = false
@@ -14,13 +15,13 @@ struct UploadPostView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Action toolbar
                 HStack {
                     Button {
                         caption = ""
                         viewModel.selectedImage = nil
                         viewModel.postImage = nil
                         tabIndex = 0
+                        dismiss()
                     } label: {
                         Text("Cancel")
                             .fontWeight(.semibold)
@@ -42,7 +43,7 @@ struct UploadPostView: View {
                 }
                 .padding(.horizontal)
                 
-                // Post image and caption
+                
                 HStack(spacing: 8) {
                     if let image = viewModel.postImage {
                         image
@@ -53,22 +54,34 @@ struct UploadPostView: View {
                     }
                     
                     TextField("Enter your caption", text: $caption, axis: .vertical)
-                        .frame(height: 100) // Fixed height to align with the image
+                        .frame(height: 100)
                 }
                 .padding()
                 
-                Button("Location") {
-                    navigateToLocation = true
-                }
-                .padding()
-                .background(
-                    NavigationLink(
-                        destination: MapView().navigationBarBackButtonHidden(true),
-                        isActive: $navigateToLocation
-                    ) {
-                        EmptyView()
+                // Location Button and Display
+                HStack {
+                    Button("Location") {
+                        navigateToLocation = true
                     }
-                )
+                    .padding()
+                    .background(
+                        NavigationLink(
+                            destination: MapView(uploadPostViewModel: viewModel).navigationBarBackButtonHidden(true),
+                            isActive: $navigateToLocation
+                        ) {
+                            EmptyView()
+                        }
+                    )
+
+                    if let locationDetail = viewModel.locationDetail {
+                        LocationDetailView(
+                            coordinate: locationDetail.coordinate,
+                            streetName: locationDetail.streetName,
+                            city: locationDetail.city,
+                            establishmentName: locationDetail.establishmentName
+                        )
+                    }
+                }
                 
                 Spacer()
             }

@@ -1,10 +1,3 @@
-//
-//  SearchView.swift
-//  Instagram
-//
-//  Created by Mario Ban on 08.12.2023..
-//
-
 import SwiftUI
 
 struct SearchView: View {
@@ -21,24 +14,25 @@ struct SearchView: View {
                                 Image(systemName: "person.circle")
                                     .resizable()
                                     .scaledToFill()
-                                    .foregroundStyle(Color.gray)
+                                    .foregroundColor(.gray) // Use dynamic color for icon
                                     .frame(width: 40, height: 40)
                                     .clipShape(Circle())
                                 VStack(alignment: .leading) {
                                     Text(user.username)
                                         .fontWeight(.semibold)
+                                        .foregroundColor(Color.primary) // Dynamic primary color for text
                                     
                                     if let fullName = user.fullName {
-                                        Text(user.fullName ?? "")
+                                        Text(fullName)
+                                            .foregroundColor(Color.secondary) // Use secondary color for less emphasis
                                     }
                                 }
                                 .font(.footnote)
                                 
-                                
                                 Spacer()
                             }
-                            .foregroundStyle(Color.black)
                             .padding(.horizontal)
+                            .background(Color(UIColor.systemBackground))
                         }
                     }
                 }
@@ -53,7 +47,6 @@ struct SearchView: View {
         }
     }
 }
-
 
 #Preview {
     SearchView()

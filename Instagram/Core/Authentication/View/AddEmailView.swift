@@ -1,10 +1,3 @@
-//
-//  AddEmailView.swift
-//  Instagram
-//
-//  Created by Mario Ban on 09.12.2023..
-//
-
 import SwiftUI
 
 struct AddEmailView: View {
@@ -16,12 +9,13 @@ struct AddEmailView: View {
             Text("Add your email")
                 .font(.title)
                 .fontWeight(.semibold)
+                .foregroundColor(Color.primary) // Use system color that adapts to theme
                 .padding(.top)
             
             Text("You'll use this email to sign into your account")
                 .font(.subheadline)
                 .fontWeight(.light)
-                .foregroundStyle(Color.gray)
+                .foregroundColor(Color.secondary) // Subtle text in both themes
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
             
@@ -36,9 +30,9 @@ struct AddEmailView: View {
                 Text("Next")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundStyle(Color.white)
-                    .frame(width: 360,height: 44)
-                    .background(Color(.systemBlue))
+                    .foregroundColor(.white) // White text for contrast on button
+                    .frame(width: 360, height: 44)
+                    .background(Color.blue) // System color that adapts slightly between modes
                     .cornerRadius(8)
                     .padding(.top)
             }
@@ -46,12 +40,14 @@ struct AddEmailView: View {
             Spacer()
         }
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Image(systemName: "chevron.left")
-                    .imageScale(.large)
-                    .onTapGesture {
-                        dismiss()
-                    }
+            ToolbarItem(placement: .navigationBarLeading) { // Adjusted for correct placement
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "chevron.left")
+                        .imageScale(.large)
+                        .foregroundColor(Color.primary) // Ensure the icon is visible in both light and dark mode
+                }
             }
         }
     }
@@ -59,4 +55,5 @@ struct AddEmailView: View {
 
 #Preview {
     AddEmailView()
+    .environmentObject(RegistrationViewModel())
 }

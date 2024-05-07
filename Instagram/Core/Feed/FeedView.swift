@@ -1,10 +1,3 @@
-//
-//  FeedView.swift
-//  Instagram
-//
-//  Created by Mario Ban on 08.12.2023..
-//
-
 import SwiftUI
 
 struct FeedView: View {
@@ -21,19 +14,24 @@ struct FeedView: View {
             .navigationTitle("Feed")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Image("Instagram_logo")
                         .resizable()
+                        .scaledToFit()
                         .frame(width: 100, height: 32)
                 }
 
-                ToolbarItem(placement: .topBarTrailing) {
-                    Image(systemName: "paperplane")
-                        .resizable()
-                        .imageScale(.large)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        // Assume this would open the direct messages or similar functionality
+                        print("Direct message view opened")
+                    }) {
+                        Image(systemName: "message")
+                            .resizable()
+                            .frame(width: 25, height: 25)  // Correctly sizing the icon
+                    }
+                    .foregroundColor(Color.primary)  // Ensures icon color adapts to light/dark mode
                 }
-
-
             }
         }
     }
