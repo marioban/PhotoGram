@@ -40,10 +40,11 @@
 		C6AD4FF22B7CBE340051EB8D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FF12B7CBE330051EB8D /* ProfileHeaderView.swift */; };
 		C6AD4FF42B7CC3E20051EB8D /* UploadPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FF32B7CC3E20051EB8D /* UploadPostView.swift */; };
 		C6AD4FF62B7CF70C0051EB8D /* UploadPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FF52B7CF70C0051EB8D /* UploadPostViewModel.swift */; };
-		C6AD4FF82B7CFC970051EB8D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6AD4FF72B7CFC970051EB8D /* GoogleService-Info.plist */; };
 		C6AD50072B7D05280051EB8D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD50062B7D05280051EB8D /* AuthService.swift */; };
 		C6AD500B2B7D12E80051EB8D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD500A2B7D12E80051EB8D /* ContentViewModel.swift */; };
 		C6AD500E2B7D166A0051EB8D /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD500D2B7D166A0051EB8D /* RegistrationViewModel.swift */; };
+		C6D5929D2BF204F6006F57ED /* Models+FunctionsExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D5929C2BF204F6006F57ED /* Models+FunctionsExt.swift */; };
+		C6F34BA22BF357E500612CB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6F34BA12BF357E500612CB6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		C60EF31B2B7E09BD00CB7E06 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C60EF31D2B7E430700CB7E06 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		C60EF3212B7E45B000CB7E06 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		C610A1E32BF34FCB00D6A3E4 /* InstagramRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InstagramRelease.entitlements; sourceTree = "<group>"; };
 		C670F68D2B220C0C00EF8D57 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C670F6902B220C0C00EF8D57 /* InstagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramApp.swift; sourceTree = "<group>"; };
 		C670F6922B220C0C00EF8D57 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,10 +84,13 @@
 		C6AD4FF12B7CBE330051EB8D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		C6AD4FF32B7CC3E20051EB8D /* UploadPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostView.swift; sourceTree = "<group>"; };
 		C6AD4FF52B7CF70C0051EB8D /* UploadPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewModel.swift; sourceTree = "<group>"; };
-		C6AD4FF72B7CFC970051EB8D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C6AD50062B7D05280051EB8D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C6AD500A2B7D12E80051EB8D /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		C6AD500D2B7D166A0051EB8D /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		C6D5929B2BEE71E1006F57ED /* Instagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Instagram.entitlements; sourceTree = "<group>"; };
+		C6D5929C2BF204F6006F57ED /* Models+FunctionsExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+FunctionsExt.swift"; sourceTree = "<group>"; };
+		C6F34BA12BF357E500612CB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C6F34BA32BF3592000612CB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F406C1CDF0BF3CF286AF1088 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -174,13 +179,16 @@
 		C670F68F2B220C0C00EF8D57 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				C6F34BA32BF3592000612CB6 /* Info.plist */,
+				C610A1E32BF34FCB00D6A3E4 /* InstagramRelease.entitlements */,
+				C6D5929B2BEE71E1006F57ED /* Instagram.entitlements */,
 				C6AD4FE82B7BA62D0051EB8D /* Model */,
 				C670F6A12B2211CE00EF8D57 /* Services */,
 				C670F6A02B2211C600EF8D57 /* Extentions */,
 				C670F69F2B2211C100EF8D57 /* Core */,
 				C670F69E2B2211BA00EF8D57 /* App */,
 				C670F6942B220C0E00EF8D57 /* Assets.xcassets */,
-				C6AD4FF72B7CFC970051EB8D /* GoogleService-Info.plist */,
+				C6F34BA12BF357E500612CB6 /* GoogleService-Info.plist */,
 				C670F6962B220C0E00EF8D57 /* Preview Content */,
 			);
 			path = Instagram;
@@ -330,6 +338,7 @@
 			children = (
 				C6AD4FE92B7BA63B0051EB8D /* User.swift */,
 				C6AD4FED2B7BB2AB0051EB8D /* Post.swift */,
+				C6D5929C2BF204F6006F57ED /* Models+FunctionsExt.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -440,8 +449,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C670F6982B220C0E00EF8D57 /* Preview Assets.xcassets in Resources */,
+				C6F34BA22BF357E500612CB6 /* GoogleService-Info.plist in Resources */,
 				C670F6952B220C0E00EF8D57 /* Assets.xcassets in Resources */,
-				C6AD4FF82B7CFC970051EB8D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +518,7 @@
 				C6AD4FEC2B7BAEC30051EB8D /* CurrentUserProfileView.swift in Sources */,
 				C670F6B92B24B34F00EF8D57 /* AddEmailView.swift in Sources */,
 				C6AD4FF02B7BB99B0051EB8D /* PostGridView.swift in Sources */,
+				C6D5929D2BF204F6006F57ED /* Models+FunctionsExt.swift in Sources */,
 				C6A851FB2BE67A3200118FBE /* SearchBarView.swift in Sources */,
 				C670F6BD2B24B7FF00EF8D57 /* CreateUsernameView.swift in Sources */,
 				C6AD500B2B7D12E80051EB8D /* ContentViewModel.swift in Sources */,
@@ -658,20 +668,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Instagram/Instagram.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Instagram/Preview Content\"";
 				DEVELOPMENT_TEAM = 872972XYW2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Instagram/Info.plist;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to improve our services";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -679,6 +691,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marioban.Instagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -691,20 +704,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Instagram/InstagramRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Instagram/Preview Content\"";
 				DEVELOPMENT_TEAM = 872972XYW2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Instagram/Info.plist;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to improve our services";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -712,6 +727,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marioban.Instagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

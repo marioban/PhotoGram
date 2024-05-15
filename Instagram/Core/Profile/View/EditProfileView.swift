@@ -24,25 +24,25 @@ struct EditProfileView: View {
                     Button("Cancel") {
                         dismiss()
                     }
-                    .foregroundColor(Color.primary)  // Adaptable text color for buttons
+                    .foregroundColor(Color.primary)
                     
                     Spacer()
                     
                     Text("Edit Profile")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.primary)  // Adaptable text color for titles
+                        .foregroundColor(Color.primary)
                     
                     Spacer()
                     
                     Button {
-                        print("Update profile info")
+                        Task { try await viewModel.updateUserData() }
                     } label: {
                         Text("Done")
                             .font(.subheadline)
                             .fontWeight(.semibold)
                     }
-                    .foregroundColor(Color.primary)  // Adaptable text color for buttons
+                    .foregroundColor(Color.primary)
                 }
                 .padding(.horizontal)
                 
@@ -58,13 +58,13 @@ struct EditProfileView: View {
                             .scaledToFill()
                             .clipShape(Circle())
                             .frame(width: 80, height: 80)
-                            .overlay(Circle().stroke(Color.gray, lineWidth: 2))  // Added a border to highlight the image
+                            .overlay(Circle().stroke(Color.gray, lineWidth: 2))
                     } else {
                         Image(systemName: "person.circle.fill")
                             .resizable()
                             .scaledToFill()
-                            .foregroundColor(Color.primary)  // Adaptable icon color
-                            .background(Color.secondary)  // Adaptable background for better contrast
+                            .foregroundColor(Color.primary)
+                            .background(Color.secondary)
                             .clipShape(Circle())
                             .frame(width: 80, height: 80)
                     }
@@ -72,7 +72,7 @@ struct EditProfileView: View {
                     Text("Edit Profile Picture")
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.primary)  // Adaptable text color
+                        .foregroundColor(Color.primary)
                 }
             }
             .padding(.vertical, 8)
@@ -98,12 +98,12 @@ struct EditProfileRowView: View {
             Text(title)
                 .padding(.leading, 8)
                 .frame(width: 100, alignment: .leading)
-                .foregroundColor(Color.primary)  // Adaptable text color
+                .foregroundColor(Color.primary)
             
             VStack {
                 TextField(placeholder, text: $text)
-                    .foregroundColor(Color.primary)  // Adaptable text color
-                    .textFieldStyle(PlainTextFieldStyle())  // Removing style to apply custom
+                    .foregroundColor(Color.primary)
+                    .textFieldStyle(PlainTextFieldStyle())  
                 
                 Divider()
             }

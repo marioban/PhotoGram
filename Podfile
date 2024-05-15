@@ -9,5 +9,5 @@ target 'Instagram' do
 	
 	pod 'FirebaseAuth'
 	pod 'FirebaseFirestore'
-
+	pod 'GoogleSignIn'
 end

@@ -9,17 +9,6 @@ import Foundation
 import MapKit
 import CoreLocation
 
-struct IdentifiableAnnotation: Identifiable {
-    let id: UUID
-    var annotation: MKPointAnnotation
-    
-    init(annotation: MKPointAnnotation) {
-        self.id = UUID()
-        self.annotation = annotation
-    }
-}
-
-
 class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion()
     @Published var searchText = ""

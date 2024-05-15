@@ -41,17 +41,15 @@ struct ProfileHeaderView: View {
                     Text(fullName)
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.primary)  // Adaptive text color
                 }
                 
                 if let bio = user.bio {
                     Text(bio)
                         .font(.footnote)
-                        .foregroundColor(Color.secondary)  // Less emphasized text color
                 }
                 
                 Text(user.username)
-                    .foregroundColor(Color.primary)  // Adaptive text color
+                    
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
@@ -68,19 +66,19 @@ struct ProfileHeaderView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(width: 360,height: 32)
-                    .foregroundColor(.white) // Consistent text color for buttons
-                    .background(user.isCurrentUser ? Color.gray : Color.blue) // Adaptive button background
+                    .foregroundColor(.white)
+                    .background(user.isCurrentUser ? Color.gray : Color.blue)
                     .cornerRadius(6.0)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color.gray, lineWidth: 1) // Consistent border color
+                            .stroke(user.isCurrentUser ? Color.gray : .clear, lineWidth: 1)
                     )
             }
             
             Divider()
         }
         .fullScreenCover(isPresented: $showEditProfile, content: {
-            Text("edit profile view")  // Placeholder for actual edit view
+            EditProfileView(user: user)
         })
     }
 }

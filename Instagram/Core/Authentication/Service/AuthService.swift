@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
+import GoogleSignIn
+import AuthenticationServices
 
 class AuthService {
     
@@ -64,5 +67,7 @@ class AuthService {
         try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
     }
 
-    
+    func googleSignIn() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+    }
 }

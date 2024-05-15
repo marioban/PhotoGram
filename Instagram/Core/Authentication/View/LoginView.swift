@@ -16,7 +16,7 @@ struct LoginView: View {
                 
                 Spacer()
                 
-                Image("Instagram_logo")  // Ensure you have a version of this logo that looks good on both light and dark backgrounds
+                Image("Instagram_logo")  
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 100)
@@ -40,7 +40,7 @@ struct LoginView: View {
                         .padding(.trailing, 28)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                .foregroundColor(Color.primary)  // Adapts to light or dark mode
+                .foregroundColor(Color.primary)
                 
                 Button {
                     Task { try await viewModel.signIn() }
@@ -48,9 +48,9 @@ struct LoginView: View {
                     Text("Login")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)  // White text for buttons is usually safe for readability
+                        .foregroundColor(.white)
                         .frame(width: 360, height: 44)
-                        .background(Color.blue)  // System blue adapts slightly between modes
+                        .background(Color.blue)
                         .cornerRadius(8)
                 }
                 .padding(.vertical)
@@ -62,15 +62,17 @@ struct LoginView: View {
                     Text("OR")
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.gray)  // Adapts to light or dark mode but is static in color
+                        .foregroundColor(Color.gray)
                     VStack {
                         Divider()
                     }
                 }
                 .padding(.horizontal, 24)
                 
-                socialLoginButton(imageName: "facebook-logo", buttonText: "Login with Facebook")
-                socialLoginButton(imageName: "google-logo", buttonText: "Login with Google", topPadding: 10)
+                socialLoginButton(imageType: .asset(name: "google-logo"), buttonText: "Login with Google", topPadding: 10)
+                socialLoginButton(imageType: .asset(name: "github-logo"), buttonText: "Login with GitHub", topPadding: 10)
+                socialLoginButton(imageType: .asset(name: "apple-logo"), buttonText: "Login with Apple", topPadding: 10)
+
                 
                 Spacer()
                 Divider()
@@ -91,12 +93,26 @@ struct LoginView: View {
     }
     
     @ViewBuilder
-    private func socialLoginButton(imageName: String, buttonText: String, topPadding: CGFloat = 0) -> some View {
+    private func socialLoginButton(imageType: ImageType, buttonText: String, topPadding: CGFloat = 0) -> some View {
         HStack {
-            Image(imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 30, height: 30)
+            Group {
+                switch imageType {
+                case .system(let name):
+                    Image(systemName: name)
+                    .resizable()
+                case .asset(let name):
+                    Image(name)
+                    .resizable()
+                }
+            }
+            .scaledToFit()
+            .frame(width: 30, height: 30)
+            .background(
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 30, height: 30)
+            )
+            .clipShape(Circle())
             
             Button {
                 print("\(buttonText)")
@@ -107,7 +123,7 @@ struct LoginView: View {
             }
         }
         .padding(.top, topPadding)
-        .foregroundColor(Color.primary)  // Ensures text adapts to light/dark mode
+        .foregroundColor(Color.primary)
     }
 }
 
