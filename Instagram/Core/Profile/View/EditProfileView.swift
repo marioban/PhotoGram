@@ -37,6 +37,7 @@ struct EditProfileView: View {
                     
                     Button {
                         Task { try await viewModel.updateUserData() }
+                        dismiss()
                     } label: {
                         Text("Done")
                             .font(.subheadline)
@@ -60,13 +61,7 @@ struct EditProfileView: View {
                             .frame(width: 80, height: 80)
                             .overlay(Circle().stroke(Color.gray, lineWidth: 2))
                     } else {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .foregroundColor(Color.primary)
-                            .background(Color.secondary)
-                            .clipShape(Circle())
-                            .frame(width: 80, height: 80)
+                        CircularProfileImageView(user: viewModel.user,size: .large)
                     }
                     
                     Text("Edit Profile Picture")
@@ -79,7 +74,7 @@ struct EditProfileView: View {
             
             // Edit profile info
             VStack {
-                EditProfileRowView(title: "Name", placeholder: "Enter your name", text: $viewModel.name)
+                EditProfileRowView(title: "Name", placeholder: "Enter your name", text: $viewModel.fullname)
                 EditProfileRowView(title: "Bio", placeholder: "Enter your bio", text: $viewModel.bio)
             }
             

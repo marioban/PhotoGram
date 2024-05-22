@@ -11,23 +11,13 @@ struct ProfileView: View {
     
     let user: User
     
-    private let gridItems: [GridItem] = [
-        .init(.flexible(), spacing: 1),
-        .init(.flexible(), spacing: 1),
-        .init(.flexible(), spacing: 1)
-    ]
-
-    var posts: [Post] {
-        return Post.MOCK_POSTS.filter({$0.user?.username == user.username})
-    }
-    
     var body: some View {
         ScrollView {
             // MARK: Header
             ProfileHeaderView(user: user)
             
             //MARK: Post grid
-            PostGridView(posts: posts)
+            PostGridView(user: user)
         }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)

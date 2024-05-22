@@ -7,7 +7,6 @@ struct UploadPostView: View {
     @State private var imagePickerPresented = false
     @StateObject var viewModel = UploadPostViewModel()
     @Binding var tabIndex: Int
-    @Environment(\.dismiss) private var dismiss
     
     // State variable to control navigation
     @State private var navigateToLocation = false
@@ -17,11 +16,7 @@ struct UploadPostView: View {
             VStack {
                 HStack {
                     Button {
-                        caption = ""
-                        viewModel.selectedImage = nil
-                        viewModel.postImage = nil
-                        tabIndex = 0
-                        dismiss()
+                        clearPostDataAndReturnToFeed()
                     } label: {
                         Text("Cancel")
                             .fontWeight(.semibold)
@@ -35,7 +30,10 @@ struct UploadPostView: View {
                     Spacer()
                     
                     Button {
-                        print("Upload")
+                        Task {
+                            try await viewModel.uploadPost(caption: caption)
+                            clearPostDataAndReturnToFeed()
+                        }
                     } label: {
                         Text("Upload")
                             .fontWeight(.semibold)
@@ -90,5 +88,12 @@ struct UploadPostView: View {
             })
             .photosPicker(isPresented: $imagePickerPresented, selection: $viewModel.selectedImage)
         }
+    }
+    
+    func clearPostDataAndReturnToFeed() {
+        caption = ""
+        viewModel.selectedImage = nil
+        viewModel.postImage = nil
+        tabIndex = 0
     }
 }

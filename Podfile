@@ -9,5 +9,7 @@ target 'Instagram' do
 	
 	pod 'FirebaseAuth'
 	pod 'FirebaseFirestore'
+  pod 'Firebase/Storage'
 	pod 'GoogleSignIn'
+  pod 'Kingfisher'
 end

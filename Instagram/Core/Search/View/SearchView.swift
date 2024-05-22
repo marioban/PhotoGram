@@ -11,20 +11,15 @@ struct SearchView: View {
                     ForEach(viewModel.users) { user in
                         NavigationLink(value: user) {
                             HStack {
-                                Image(systemName: "person.circle")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .foregroundColor(.gray) // Use dynamic color for icon
-                                    .frame(width: 40, height: 40)
-                                    .clipShape(Circle())
+                                CircularProfileImageView(user: user, size: .xSmall)
                                 VStack(alignment: .leading) {
                                     Text(user.username)
                                         .fontWeight(.semibold)
-                                        .foregroundColor(Color.primary) // Dynamic primary color for text
+                                        .foregroundColor(Color.primary)
                                     
-                                    if let fullName = user.fullName {
+                                    if let fullName = user.fullname {
                                         Text(fullName)
-                                            .foregroundColor(Color.secondary) // Use secondary color for less emphasis
+                                            .foregroundColor(Color.secondary) 
                                     }
                                 }
                                 .font(.footnote)

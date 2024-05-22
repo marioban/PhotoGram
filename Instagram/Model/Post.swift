@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 struct Post: Identifiable, Hashable, Codable {
     let id: String
@@ -13,7 +14,7 @@ struct Post: Identifiable, Hashable, Codable {
     let caption: String?
     var likes: Int
     var imageUrl: String
-    let timeStamp: Date
+    let timeStamp: Timestamp
     var user: User?
 }
 
@@ -25,7 +26,7 @@ extension Post {
               caption: "What have I ever done to make you treat me so disrespectfuly",
               likes: 224,
               imageUrl: "vito-corleone",
-              timeStamp: Date(),
+              timeStamp: Timestamp(),
               user: User.MOCK_USERS[0]),
         
             .init(id: NSUUID().uuidString,
@@ -33,7 +34,7 @@ extension Post {
                   caption: "F FBI",
                   likes: 224,
                   imageUrl: "sonny-corleone",
-                  timeStamp: Date(),
+                  timeStamp: Timestamp(),
                   user: User.MOCK_USERS[1]),
         
             .init(id: NSUUID().uuidString,
@@ -41,7 +42,7 @@ extension Post {
                   caption: "Havana",
                   likes: 224,
                   imageUrl: "michael-corleone",
-                  timeStamp: Date(),
+                  timeStamp: Timestamp(),
                   user: User.MOCK_USERS[2]),
         
             .init(id: NSUUID().uuidString,
@@ -49,7 +50,7 @@ extension Post {
                   caption: "Think about a price",
                   likes: 224,
                   imageUrl: "michael-corleone-price",
-                  timeStamp: Date(),
+                  timeStamp: Timestamp(),
                   user: User.MOCK_USERS[2]),
         
             .init(id: NSUUID().uuidString,
@@ -57,7 +58,7 @@ extension Post {
                   caption: "",
                   likes: 224,
                   imageUrl: "don-barzini",
-                  timeStamp: Date(),
+                  timeStamp: Timestamp(),
                   user: User.MOCK_USERS[3]),
         
             .init(id: NSUUID().uuidString,
@@ -65,7 +66,7 @@ extension Post {
                   caption: "",
                   likes: 224,
                   imageUrl: "luca-brasi",
-                  timeStamp: Date(),
+                  timeStamp: Timestamp(),
                   user: User.MOCK_USERS[4])
     ]
 }
