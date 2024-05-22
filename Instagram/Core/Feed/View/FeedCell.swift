@@ -26,7 +26,7 @@ struct FeedCell: View {
             // Post image
             KFImage(URL(string: post.imageUrl))
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 .frame(height: 400)
                 .clipShape(Rectangle())
             

@@ -26,14 +26,13 @@ struct FeedView: View {
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        // Assume this would open the direct messages or similar functionality
                         print("Direct message view opened")
                     }) {
                         Image(systemName: "message")
                             .resizable()
-                            .frame(width: 25, height: 25)  // Correctly sizing the icon
+                            .frame(width: 25, height: 25)
                     }
-                    .foregroundColor(Color.primary)  // Ensures icon color adapts to light/dark mode
+                    .foregroundColor(Color.primary) 
                 }
             }
         }
