@@ -3,6 +3,7 @@ import SwiftUI
 struct FeedView: View {
     
     @StateObject var viewModel = FeedViewModel()
+    @State private var showComments = false
     
     var body: some View {
         NavigationStack {

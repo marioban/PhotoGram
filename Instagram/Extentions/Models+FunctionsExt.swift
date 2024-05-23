@@ -15,7 +15,7 @@ struct UserService {
     
     private static let usersCollection = Firestore.firestore().collection("users")
     
-    static func fetchuser(withUid uid: String) async throws -> User {
+    static func fetchUser(withUid uid: String) async throws -> User {
         let snapshot = try await usersCollection.document(uid).getDocument()
         return try snapshot.data(as: User.self)
     }
@@ -23,7 +23,6 @@ struct UserService {
     @MainActor
     static func fetchAllUsers() async throws -> [User]{
         let snapshot = try await usersCollection.getDocuments()
-        let documents = snapshot.documents
         return snapshot.documents.compactMap({ try? $0.data(as: User.self)})
     }
     
@@ -77,24 +76,73 @@ struct ImageUploader {
 }
 
 struct PostService {
+    
     private static let postsCollection = Firestore.firestore().collection("posts")
     
+    //MARK: Fetch
     static func fetchFeedPosts() async throws -> [Post] {
-        let snapshot = try await postsCollection.getDocuments()
+        let snapshot = try await Firestore.firestore().collection("posts").order(by: "timeStamp", descending: true).getDocuments()
         var posts = try snapshot.documents.compactMap({try $0.data(as: Post.self)})
         
-        for i in 0 ..< posts.count {
+        for i in 0..<posts.count {
             let post = posts[i]
-            let ownerUid = post.ownerUid ?? ""
-            let postUser = try await UserService.fetchuser(withUid: ownerUid)
-            posts[i].user = postUser
+            let ownerUid = post.ownerUid
+            if let postUser = try? await UserService.fetchUser(withUid: ownerUid) {
+                posts[i].user = postUser
+            } else {
+                print("Failed to fetch user for post \(i)")
+            }
         }
         
         return posts
     }
     
+    
     static func fetchUserPosts(uid: String) async throws -> [Post] {
         let snapshot = try await postsCollection.whereField("ownerUid", isEqualTo: uid).getDocuments()
-        return try snapshot.documents.compactMap({try $0.data(as: Post.self)})
+        return try snapshot.documents.compactMap { try $0.data(as: Post.self) }
+    }
+    
+    //MARK: Likes
+    
+    static func likePost(_ post: Post) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        async let _ = try await postsCollection.document(post.id).collection("post-likes").document(uid).setData([:])
+        async let _ = try await postsCollection.document(post.id).updateData(["likes" : post.likes + 1])
+        async let _ = Firestore.firestore().collection("users").document(uid).collection("user-likes").document(post.id).setData([:])
+    }
+    
+    static func unlikePost(_ post: Post) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        async let _ = try await postsCollection.document(post.id).collection("post-likes").document(uid).delete()
+        async let _ = try await postsCollection.document(post.id).updateData(["likes" : post.likes - 1])
+        async let _ = Firestore.firestore().collection("users").document(uid).collection("user-likes").document(post.id).delete()
+    }
+    
+    static func checkIfUserLikedPost(_ post: Post) async throws -> Bool {
+        guard let uid = Auth.auth().currentUser?.uid else { return false }
+        
+        let snapshot = try await Firestore.firestore().collection("users").document(uid).collection("user-likes").document(post.id).getDocument()
+        return snapshot.exists
+    }
+}
+
+
+struct CommentService {
+    private let postsCollection = Firestore.firestore().collection("posts")
+    
+    let postId: String
+    
+    func uploadComment(_ comment: Comment) async throws {
+        guard let commentData = try? Firestore.Encoder().encode(comment) else { return }
+        
+        try await postsCollection.document(postId).collection("post-comments").addDocument(data: commentData)
+    }
+    
+    func fetchComments() async throws -> [Comment] {
+        let snapshot = try await postsCollection.document(postId).collection("post-comments").order(by: "timestamp", descending: false).getDocuments()
+        
+        return snapshot.documents.compactMap({ try? $0.data(as: Comment.self)})
     }
 }

@@ -10,12 +10,14 @@ import Firebase
 
 struct Post: Identifiable, Hashable, Codable {
     let id: String
-    let ownerUid: String?
+    let ownerUid: String
     let caption: String?
     var likes: Int
     var imageUrl: String
     let timeStamp: Timestamp
     var user: User?
+    
+    var didLike: Bool? = false
 }
 
 
