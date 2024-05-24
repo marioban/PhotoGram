@@ -1,12 +1,25 @@
 import SwiftUI
 import UIKit
 import Kingfisher
+import Photos
 
 struct FeedCell: View {
-    let post: Post
-    @State private var isLiked = false
-    @State private var showingShareSheet = false
-    @State private var itemsToShare = [Any]()
+    @ObservedObject var viewModel: FeedCellViewModel
+    private var post: Post {
+        return viewModel.post
+    }
+    
+    private var didLike: Bool {
+        return post.didLike ?? false
+    }
+    
+    init(post: Post) {
+        self.viewModel = FeedCellViewModel(post: post)
+    }
+    
+    @State private var showComments = false
+    @State private var showingDownloadAlert = false
+    @State private var downloadAlertMessage = ""
     
     var body: some View {
         VStack {
@@ -26,30 +39,40 @@ struct FeedCell: View {
             // Post image
             KFImage(URL(string: post.imageUrl))
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 .frame(height: 400)
                 .clipShape(Rectangle())
             
             // Action buttons
             HStack(spacing: 16) {
                 Button(action: {
-                    isLiked.toggle()
+                    handleLikeTapped()
                 }) {
-                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                    Image(systemName: didLike ? "heart.fill" : "heart")
                         .imageScale(.large)
-                        .foregroundColor(isLiked ? .red : .primary)
+                        .foregroundColor(didLike ? .red : .primary)
                 }
                 
                 Button(action: {
-                    print("Comment on post")
+                    $showComments.wrappedValue.toggle()
                 }) {
                     Image(systemName: "bubble.right")
                         .imageScale(.large)
                         .foregroundColor(Color.primary)
                 }
                 
-                Button(action: sharePost) {
-                    Image(systemName: "paperplane")
+                Button(action: {}) {
+                    ShareLink(item: URL(string: post.imageUrl) ?? URL(fileURLWithPath: "")) {
+                        Image(systemName: "paperplane")
+                            .imageScale(.large)
+                            .foregroundColor(Color.primary)
+                    }
+                }
+                
+                Button(action: {
+                    downloadImage(from: post.imageUrl)
+                }) {
+                    Image(systemName: "arrow.down.to.line")
                         .imageScale(.large)
                         .foregroundColor(Color.primary)
                 }
@@ -60,13 +83,15 @@ struct FeedCell: View {
             .padding(.top, 4)
             
             // Likes
-            Text("\(post.likes) likes")
-                .font(.footnote)
-                .fontWeight(.semibold)
-                .foregroundColor(Color.primary)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 8)
-                .padding(.top, 1)
+            if post.likes > 0 {
+                Text("\(post.likes) likes")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color.primary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 8)
+                    .padding(.top, 1)
+            }
             
             // Caption
             HStack {
@@ -86,15 +111,36 @@ struct FeedCell: View {
                 .padding(.leading, 8)
                 .padding(.top, 1)
         }
-        .sheet(isPresented: $showingShareSheet) {
-            ShareSheet(items: itemsToShare)
+        .sheet(isPresented: $showComments) {
+            CommentsView(post: post)
+                .presentationDragIndicator(.visible)
+        }
+        .alert(isPresented: $showingDownloadAlert) {
+            Alert(title: Text("Download Complete"), message: Text(downloadAlertMessage), dismissButton: .default(Text("OK")))
         }
     }
     
-    private func sharePost() {
-        // Customize this array with actual data you want to share
-        itemsToShare = ["Check out this post: \(post.caption ?? "Interesting post!")"]
-        showingShareSheet = true
+    private func handleLikeTapped() {
+        Task {
+            if didLike {
+                try await viewModel.unlike()
+            } else {
+                try await viewModel.like()
+            }
+        }
+    }
+    
+    private func downloadImage(from urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, let image = UIImage(data: data) else { return }
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            DispatchQueue.main.async {
+                self.downloadAlertMessage = "Image has been saved to your Photos. Open the Photos app to view it."
+                self.showingDownloadAlert = true
+            }
+        }
+        task.resume()
     }
 }
 

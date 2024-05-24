@@ -48,5 +48,7 @@ class UploadPostViewModel: ObservableObject {
         guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
         
         try await postRef.setData(encodedPost)
+        try await PostService.fetchFeedPosts() // does not work
+        try await PostService.fetchUserPosts(uid: uid)
     }
 }
