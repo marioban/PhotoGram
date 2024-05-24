@@ -8,10 +8,28 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
-    
-    let user: User
-    
+    @ObservedObject var viewModel: ProfileViewModel
     @State private var showEditProfile = false
+    
+    private var isFollowed: Bool {
+        return user.isFollowed ?? false
+    }
+    
+    private var user: User {
+        return viewModel.user
+    }
+    
+    private var buttonTitle: String {
+        if user.isCurrentUser {
+            return "Edit Profile"
+        } else {
+            return isFollowed ? "Following" : "Follow"
+        }
+    }
+    
+    init(user: User) {
+        self.viewModel = ProfileViewModel(user: user)
+    }
     
     var body: some View {
         
@@ -50,10 +68,10 @@ struct ProfileHeaderView: View {
                 if user.isCurrentUser {
                     showEditProfile.toggle()
                 } else {
-                    print("Follow user")
+                    handleFollowTapped()
                 }
             } label: {
-                Text(user.isCurrentUser ? "Edit Profile" : "Follow")
+                Text(buttonTitle)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(width: 360,height: 32)
@@ -71,6 +89,14 @@ struct ProfileHeaderView: View {
         .fullScreenCover(isPresented: $showEditProfile, content: {
             EditProfileView(user: user)
         })
+    }
+    
+    func handleFollowTapped() {
+        if isFollowed {
+            viewModel.unfollow()
+        } else {
+            viewModel.follow()
+        }
     }
 }
 
