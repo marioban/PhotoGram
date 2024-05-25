@@ -27,6 +27,30 @@ struct ProfileHeaderView: View {
         }
     }
     
+    private var buttonBackgroundColor: Color {
+        if user.isCurrentUser || isFollowed {
+            return .white
+        } else {
+            return Color(.systemBlue)
+        }
+    }
+    
+    private var buttonForegroundColor: Color {
+        if user.isCurrentUser || isFollowed {
+            return .black
+        } else {
+            return .white
+        }
+    }
+    
+    private var buttonBorderColor: Color {
+        if user.isCurrentUser || isFollowed {
+            return .gray
+        } else {
+            return .clear
+        }
+    }
+    
     init(user: User) {
         self.viewModel = ProfileViewModel(user: user)
     }
@@ -41,9 +65,9 @@ struct ProfileHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 8) {
-                    UserStatView(value: 3, title: "Posts")
-                    UserStatView(value: 25, title: "Followers")
-                    UserStatView(value: 25, title: "Following")
+                    UserStatView(value: user.stats?.postCount ?? 0, title: "Posts")
+                    UserStatView(value: user.stats?.followersCount ?? 0, title: "Followers")
+                    UserStatView(value: user.stats?.followingCount ?? 0, title: "Following")
                 }
             }
             .padding(.horizontal)
@@ -74,18 +98,22 @@ struct ProfileHeaderView: View {
                 Text(buttonTitle)
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .frame(width: 360,height: 32)
-                    .foregroundColor(.white)
-                    .background(user.isCurrentUser ? Color.gray : Color.blue)
-                    .cornerRadius(6.0)
+                    .frame(width: 360, height: 30)
+                    .foregroundColor(buttonForegroundColor)
+                    .background(buttonBackgroundColor)
+                    .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
-                            .stroke(user.isCurrentUser ? Color.gray : .clear, lineWidth: 1)
+                            .stroke(buttonBorderColor, lineWidth: 1)
                     )
             }
             
             Divider()
         }
+        .onAppear(perform: {
+            viewModel.fetchUserStats()
+            viewModel.checkIfUserIsFollowed()
+        })
         .fullScreenCover(isPresented: $showEditProfile, content: {
             EditProfileView(user: user)
         })

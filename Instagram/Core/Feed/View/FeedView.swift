@@ -15,6 +15,14 @@ struct FeedView: View {
                 }
                 .padding(.top, 8)
             }
+            .refreshable {
+                // This is the key addition to add pull to refresh
+                do {
+                    try await viewModel.fetchPosts()
+                } catch {
+                    print("Failed to fetch posts: \(error)")
+                }
+            }
             .navigationTitle("Feed")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -24,7 +32,7 @@ struct FeedView: View {
                         .scaledToFit()
                         .frame(width: 100, height: 32)
                 }
-
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         print("Direct message view opened")

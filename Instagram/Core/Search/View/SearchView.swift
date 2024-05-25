@@ -8,7 +8,7 @@ struct SearchView: View {
         NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 12) {
-                    ForEach(viewModel.users) { user in
+                    ForEach(viewModel.filteredUsers) { user in  // Use filteredUsers here
                         NavigationLink(value: user) {
                             HStack {
                                 CircularProfileImageView(user: user, size: .xSmall)
@@ -19,11 +19,10 @@ struct SearchView: View {
                                     
                                     if let fullName = user.fullname {
                                         Text(fullName)
-                                            .foregroundColor(Color.secondary) 
+                                            .foregroundColor(Color.secondary)
                                     }
                                 }
                                 .font(.footnote)
-                                
                                 Spacer()
                             }
                             .padding(.horizontal)
@@ -33,15 +32,19 @@ struct SearchView: View {
                 }
                 .padding(.top, 8)
                 .searchable(text: $searchText, prompt: "Search...")
+                .onChange(of: searchText) { newValue in
+                    viewModel.filterUsers(for: newValue) // Call filter method on text change
+                }
             }
             .navigationDestination(for: User.self, destination: { user in
-                ProfileView(user: user)
+                ProfileView(user: user)  // Ensure ProfileView can be refreshed or observe user changes
             })
             .navigationTitle("Explore")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
+
 
 #Preview {
     SearchView()

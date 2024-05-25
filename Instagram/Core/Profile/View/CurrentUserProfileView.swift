@@ -9,17 +9,27 @@ import SwiftUI
 
 struct CurrentUserProfileView: View {
     
-    let user: User
+    @StateObject var viewModel: ProfileViewModel
+    
+    init(user: User) {
+        _viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+    }
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 // MARK: Header
-                ProfileHeaderView(user: user)
+                ProfileHeaderView(user: viewModel.user)
                 
                 //MARK: Post grid
-                PostGridView(user: user)
+                PostGridView(user: viewModel.user)
             }
+            .refreshable {
+                viewModel.refreshProfile()
+            }
+            .onAppear(perform: {
+                viewModel.refreshProfile()
+            })
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
