@@ -9,6 +9,7 @@ import Foundation
 
 class SearchViewModel: ObservableObject {
     @Published var users = [User]()
+    @Published var filteredUsers = [User]()
     
     init() {
         Task { try await fetchAllUsers()}
@@ -16,6 +17,16 @@ class SearchViewModel: ObservableObject {
     
     @MainActor
     func fetchAllUsers() async throws {
-        self.users = try await UserService.fetchAllUsers()
+        let fetchedUsers = try await UserService.fetchAllUsers()
+        self.users = fetchedUsers
+        self.filteredUsers = fetchedUsers
+    }
+    
+    func filterUsers(for query: String) {
+        if query.isEmpty {
+            filteredUsers = users
+        } else {
+            filteredUsers = users.filter { $0.username.lowercased().contains(query.lowercased()) }
+        }
     }
 }

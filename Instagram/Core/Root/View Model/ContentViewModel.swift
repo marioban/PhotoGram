@@ -22,13 +22,18 @@ class ContentViewModel: ObservableObject {
     }
     
     func setupSubscribers() {
-        service.$userSession.sink{ [weak self] userSession in
+        service.$userSession.sink { [weak self] userSession in
+            print("User session updated: \(String(describing: userSession))")
             self?.userSession = userSession
         }
         .store(in: &cancellables)
-        
-        UserService.shared.$currentUser.sink{ [weak self] currentUser in
+
+        UserService.shared.$currentUser.sink { [weak self] currentUser in
+            print("Current user updated: \(String(describing: currentUser))")
             self?.currentUser = currentUser
+            if let user = currentUser {
+                print("User details: \(user)")
+            }
         }
         .store(in: &cancellables)
     }
