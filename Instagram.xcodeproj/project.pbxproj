@@ -31,7 +31,9 @@
 		C67666322C009F84008BDD3A /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67666312C009F84008BDD3A /* Timestamp.swift */; };
 		C67666342C00C967008BDD3A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67666332C00C967008BDD3A /* Constants.swift */; };
 		C67666362C00CF4E008BDD3A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67666352C00CF4E008BDD3A /* ProfileViewModel.swift */; };
-		C67666382C00F4ED008BDD3A /* UserListConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67666372C00F4ED008BDD3A /* UserListConfig.swift */; };
+		C67666382C00F4ED008BDD3A /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67666372C00F4ED008BDD3A /* UserList.swift */; };
+		C676663A2C022C00008BDD3A /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67666392C022C00008BDD3A /* UserListView.swift */; };
+		C676663C2C022C4E008BDD3A /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C676663B2C022C4D008BDD3A /* UserListViewModel.swift */; };
 		C683A6622BFCADD200139DC8 /* CircularProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C683A6612BFCADD200139DC8 /* CircularProfileImageView.swift */; };
 		C683A6662BFCC5FD00139DC8 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C683A6652BFCC5FD00139DC8 /* FeedViewModel.swift */; };
 		C683A66A2BFDDB0100139DC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C683A6692BFDDB0100139DC8 /* GoogleService-Info.plist */; };
@@ -86,7 +88,9 @@
 		C67666312C009F84008BDD3A /* Timestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
 		C67666332C00C967008BDD3A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C67666352C00CF4E008BDD3A /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		C67666372C00F4ED008BDD3A /* UserListConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListConfig.swift; sourceTree = "<group>"; };
+		C67666372C00F4ED008BDD3A /* UserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
+		C67666392C022C00008BDD3A /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
+		C676663B2C022C4D008BDD3A /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
 		C683A6612BFCADD200139DC8 /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
 		C683A6652BFCC5FD00139DC8 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		C683A6692BFDDB0100139DC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -355,6 +359,7 @@
 				C670F6AE2B2219A200EF8D57 /* UserStatView.swift */,
 				C6AD4FEF2B7BB99B0051EB8D /* PostGridView.swift */,
 				C683A6612BFCADD200139DC8 /* CircularProfileImageView.swift */,
+				C67666392C022C00008BDD3A /* UserListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				C683A66B2BFDE49100139DC8 /* PostGridViewModel.swift */,
+				C676663B2C022C4D008BDD3A /* UserListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -419,7 +425,7 @@
 				C6AD4FE92B7BA63B0051EB8D /* User.swift */,
 				C6AD4FED2B7BB2AB0051EB8D /* Post.swift */,
 				C683A6792BFF650700139DC8 /* Comment.swift */,
-				C67666372C00F4ED008BDD3A /* UserListConfig.swift */,
+				C67666372C00F4ED008BDD3A /* UserList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -584,7 +590,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C67666382C00F4ED008BDD3A /* UserListConfig.swift in Sources */,
+				C67666382C00F4ED008BDD3A /* UserList.swift in Sources */,
 				C67666322C009F84008BDD3A /* Timestamp.swift in Sources */,
 				C6A851F42BE670F000118FBE /* MapViewModel.swift in Sources */,
 				C670F6B32B23115D00EF8D57 /* FeedCell.swift in Sources */,
@@ -595,12 +601,14 @@
 				C670F6B72B23340200EF8D57 /* LoginView.swift in Sources */,
 				C67666342C00C967008BDD3A /* Constants.swift in Sources */,
 				C60BA7492B989C9C0037D99B /* EditProfileViewModel.swift in Sources */,
+				C676663C2C022C4E008BDD3A /* UserListViewModel.swift in Sources */,
 				C6AD50072B7D05280051EB8D /* AuthService.swift in Sources */,
 				C6A851F22BE6707E00118FBE /* MapView.swift in Sources */,
 				C6AD4FEE2B7BB2AB0051EB8D /* Post.swift in Sources */,
 				C683A66C2BFDE49100139DC8 /* PostGridViewModel.swift in Sources */,
 				C670F6912B220C0C00EF8D57 /* InstagramApp.swift in Sources */,
 				C6AD4FEC2B7BAEC30051EB8D /* CurrentUserProfileView.swift in Sources */,
+				C676663A2C022C00008BDD3A /* UserListView.swift in Sources */,
 				C670F6B92B24B34F00EF8D57 /* AddEmailView.swift in Sources */,
 				C683A6622BFCADD200139DC8 /* CircularProfileImageView.swift in Sources */,
 				C67666362C00CF4E008BDD3A /* ProfileViewModel.swift in Sources */,

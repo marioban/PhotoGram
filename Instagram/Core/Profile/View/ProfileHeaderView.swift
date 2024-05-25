@@ -66,20 +66,26 @@ struct ProfileHeaderView: View {
                 
                 HStack(spacing: 8) {
                     UserStatView(value: user.stats?.postCount ?? 0, title: "Posts")
-                    UserStatView(value: user.stats?.followersCount ?? 0, title: "Followers")
-                    UserStatView(value: user.stats?.followingCount ?? 0, title: "Following")
+                    
+                    NavigationLink(value: UserList.followers(uid: user.id)) {
+                        UserStatView(value: user.stats?.followersCount ?? 0, title: "Followers")
+                    }
+                    
+                    NavigationLink(value: UserList.following(uid: user.id)) {
+                        UserStatView(value: user.stats?.followingCount ?? 0, title: "Following")
+                    }
+                    
                 }
             }
             .padding(.horizontal)
             
             //MARK: Name and bio
             VStack(alignment: .leading, spacing: 4) {
-                
-                Text(user.fullname ?? "")
+                Text(viewModel.user.fullname ?? "")
                     .font(.footnote)
                     .fontWeight(.semibold)
                 
-                if let bio = user.bio {
+                if let bio = viewModel.user.bio {
                     Text(bio)
                         .font(.footnote)
                 }
@@ -110,9 +116,13 @@ struct ProfileHeaderView: View {
             
             Divider()
         }
+        .navigationDestination(for: UserList.self, destination: { config in
+            UserListView(config: config)
+        })
         .onAppear(perform: {
-            viewModel.fetchUserStats()
-            viewModel.checkIfUserIsFollowed()
+            Task {
+                await viewModel.refreshProfile()
+            }
         })
         .fullScreenCover(isPresented: $showEditProfile, content: {
             EditProfileView(user: user)

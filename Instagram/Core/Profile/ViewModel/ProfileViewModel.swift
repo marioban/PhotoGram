@@ -43,12 +43,19 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    //MARK: pull to refresh
-    func refreshProfile() {
+    func refreshProfile() async {
         do {
-            // Re-fetch user stats and potentially other user data
-            Task { self.user.stats = try await UserService.fetchUserStats(uid: user.id) }
-            Task { self.user = try await UserService.fetchUser(withUid: user.id) } // Assuming this fetches the latest user data
+            // Fetch latest user data
+            let updatedUser = try await UserService.fetchUser(withUid: user.id)
+            let updatedStats = try await UserService.fetchUserStats(uid: user.id)
+            let isFollowed = try await UserService.checkIfUserIsFollowed(uid: user.id)
+            
+            // Update all properties at once to ensure UI consistency
+            DispatchQueue.main.async { [weak self] in
+                self?.user = updatedUser
+                self?.user.stats = updatedStats
+                self?.user.isFollowed = isFollowed
+            }
         } catch {
             print("Error refreshing profile: \(error)")
         }

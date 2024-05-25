@@ -25,11 +25,8 @@ struct CurrentUserProfileView: View {
                 PostGridView(user: viewModel.user)
             }
             .refreshable {
-                viewModel.refreshProfile()
+                await viewModel.refreshProfile()
             }
-            .onAppear(perform: {
-                viewModel.refreshProfile()
-            })
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
