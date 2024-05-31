@@ -33,7 +33,7 @@ struct MainTabView: View {
                 }
                 .tag(2)
 
-            Text("Notifications") // Placeholder view
+            NotificationsView()
                 .onAppear {
                     selectedIndex = 3
                 }

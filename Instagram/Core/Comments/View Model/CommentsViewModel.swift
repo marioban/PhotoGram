@@ -27,6 +27,8 @@ class CommentsViewModel: ObservableObject {
         let comment = Comment(postOwnerUid: post.ownerUid, commentText: comment, postId: post.id, timestamp: Timestamp(), commentOwnerUid: uid)
         try await service.uploadComment(comment)
         try await fetchComments()
+        
+        NotificationManager.shared.uploadCommentNotification(toUid: post.ownerUid, post: post)
     }
     
     func fetchComments() async throws {

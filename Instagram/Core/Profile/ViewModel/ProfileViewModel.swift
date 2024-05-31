@@ -20,6 +20,8 @@ class ProfileViewModel: ObservableObject {
         Task {
             try await UserService.follow(uid: user.id)
             user.isFollowed = true
+            
+            NotificationManager.shared.uploadFollowNotification(toUid: user.id)
         }
     }
     
@@ -45,12 +47,10 @@ class ProfileViewModel: ObservableObject {
     
     func refreshProfile() async {
         do {
-            // Fetch latest user data
             let updatedUser = try await UserService.fetchUser(withUid: user.id)
             let updatedStats = try await UserService.fetchUserStats(uid: user.id)
             let isFollowed = try await UserService.checkIfUserIsFollowed(uid: user.id)
             
-            // Update all properties at once to ensure UI consistency
             DispatchQueue.main.async { [weak self] in
                 self?.user = updatedUser
                 self?.user.stats = updatedStats
