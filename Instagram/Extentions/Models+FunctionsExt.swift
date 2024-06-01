@@ -262,9 +262,17 @@ class NotificationService {
         let notifications = snapshot.documents.compactMap({try? $0.data(as: Notification.self)})
         
         let filterByType = notifications.filter({ $0.type == type}) //gets all notifications by type
-        guard let notificationToDelete = filterByType.first(where: {$0.postId == post?.id}) else {return} //gets notifications for that post
         
-        try await FirebaseConstants.UserNotificationCollection(uid: uid).document(notificationToDelete.id).delete()
+        if type == .follow {
+            for notification in filterByType {
+                try await FirebaseConstants.UserNotificationCollection(uid: uid).document(notification.id).delete()
+            }
+        } else {
+            guard let notificationToDelete = filterByType.first(where: {$0.postId == post?.id}) else {return} //gets notifications for that post
+            
+            try await FirebaseConstants.UserNotificationCollection(uid: uid).document(notificationToDelete.id).delete()
+        }
+        
     }
 }
 
@@ -289,6 +297,14 @@ class NotificationManager {
             try await service.deleteNotification(toUid: notificationOwnerUid, type: .like, post: post)
         } catch {
             print("DEBUG: Failed to delete")
+        }
+    }
+    
+    func deleteFollowNotification(notificatinOwnerUid: String) async {
+        do {
+            try await service.deleteNotification(toUid: notificatinOwnerUid, type: .follow)
+        } catch {
+            print("DEBUG: Failed to delete follow notification")
         }
     }
     
