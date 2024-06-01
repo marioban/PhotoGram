@@ -162,22 +162,32 @@ struct ImageUploader {
 struct PostService {
     
     //MARK: Fetch
-    static func fetchFeedPosts() async throws -> [Post] {
-        let snapshot = try await FirebaseConstants.PostCollection.order(by: "timeStamp", descending: true).getDocuments()
-        var posts = try snapshot.documents.compactMap({try $0.data(as: Post.self)})
+    static func fetchFeedPosts(startingAfter document: DocumentSnapshot? = nil) async throws -> ([Post], DocumentSnapshot?) {
+        // Define the query with pagination and sorting.
+        var query = FirebaseConstants.PostCollection.order(by: "timeStamp", descending: true).limit(to: 10)
+        if let lastDocument = document {
+            query = query.start(afterDocument: lastDocument)
+        }
+
+        // Execute the query to fetch posts.
+        let snapshot = try await query.getDocuments()
+        var posts = try snapshot.documents.compactMap { try $0.data(as: Post.self) }
         
+        // Iterate through fetched posts to enrich them with user details.
         for i in 0..<posts.count {
-            let post = posts[i]
-            let ownerUid = post.ownerUid
-            if let postUser = try? await UserService.fetchUser(withUid: ownerUid) {
-                posts[i].user = postUser
-            } else {
-                print("Failed to fetch user for post \(i)")
+            let ownerUid = posts[i].ownerUid
+            do {
+                let user = try await UserService.fetchUser(withUid: ownerUid)
+                posts[i].user = user
+            } catch {
+                print("Failed to fetch user for post \(i): \(error)")
             }
         }
-        
-        return posts
+
+        let lastSnapshot = snapshot.documents.last
+        return (posts, lastSnapshot)
     }
+
     
     
     static func fetchUserPosts(uid: String) async throws -> [Post] {
@@ -208,6 +218,10 @@ struct PostService {
         let snapshot = try await FirebaseConstants.UsersCollection.document(uid).collection("user-likes").document(post.id).getDocument()
         return snapshot.exists
     }
+    
+    static func fetchPost(_ postId: String) async throws -> Post {
+        return try await FirebaseConstants.PostCollection.document(postId).getDocument(as: Post.self)
+    }
 }
 
 
@@ -226,4 +240,82 @@ struct CommentService {
         
         return snapshot.documents.compactMap({ try? $0.data(as: Comment.self)})
     }
+}
+
+
+class NotificationService {
+    
+    func fetchNotifications() async throws -> [Notification] {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return []}
+        
+        let snapshot = try await FirebaseConstants.UserNotificationCollection(uid: currentUid).order(by: "timestamp", descending: true).getDocuments()
+        
+        return snapshot.documents.compactMap({ try? $0.data(as: Notification.self)})
+    }
+    
+    func uploadNotification(toUid uid: String, type: NotificationType, post: Post? = nil) {
+        guard let currentUid = Auth.auth().currentUser?.uid, uid != currentUid else { return }
+        let ref = FirebaseConstants.UserNotificationCollection(uid: uid).document()
+        
+        let notification = Notification(id: ref.documentID, postId: post?.id, timestamp: Timestamp(), notificationSenderUid: currentUid, type: type)
+        
+        guard let notificationData = try? Firestore.Encoder().encode(notification) else { return }
+        ref.setData(notificationData)
+    }
+    
+    func deleteNotification(toUid uid: String, type: NotificationType, post: Post? = nil) async throws {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        let snapshot = try await FirebaseConstants.UserNotificationCollection(uid: uid).whereField("notificationSenderUid", isEqualTo: currentUid)
+            .getDocuments()
+        
+        let notifications = snapshot.documents.compactMap({try? $0.data(as: Notification.self)})
+        
+        let filterByType = notifications.filter({ $0.type == type}) //gets all notifications by type
+        
+        if type == .follow {
+            for notification in filterByType {
+                try await FirebaseConstants.UserNotificationCollection(uid: uid).document(notification.id).delete()
+            }
+        } else {
+            guard let notificationToDelete = filterByType.first(where: {$0.postId == post?.id}) else {return} //gets notifications for that post
+            
+            try await FirebaseConstants.UserNotificationCollection(uid: uid).document(notificationToDelete.id).delete()
+        }
+        
+    }
+}
+
+class NotificationManager {
+    private let service = NotificationService()
+    static let shared = NotificationManager()
+    
+    func uploadLikeNotification(toUid uid: String, post: Post) {
+        service.uploadNotification(toUid: uid, type: .like, post: post)
+    }
+    
+    func uploadCommentNotification(toUid uid: String, post: Post) {
+        service.uploadNotification(toUid: uid, type: .comment, post: post)
+    }
+    
+    func uploadFollowNotification(toUid uid: String) {
+        service.uploadNotification(toUid: uid, type: .follow)
+    }
+    
+    func deleteLikeNotification(notificationOwnerUid: String, post: Post) async {
+        do {
+            try await service.deleteNotification(toUid: notificationOwnerUid, type: .like, post: post)
+        } catch {
+            print("DEBUG: Failed to delete")
+        }
+    }
+    
+    func deleteFollowNotification(notificatinOwnerUid: String) async {
+        do {
+            try await service.deleteNotification(toUid: notificatinOwnerUid, type: .follow)
+        } catch {
+            print("DEBUG: Failed to delete follow notification")
+        }
+    }
+    
 }
