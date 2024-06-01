@@ -11,17 +11,19 @@ struct FeedView: View {
                 LazyVStack(spacing: 32) {
                     ForEach(viewModel.posts) { post in
                         FeedCell(post: post)
+                            .onAppear{
+                                if post == viewModel.posts.last {
+                                    Task {
+                                        await viewModel.loadMorePosts()
+                                    }
+                                }
+                            }
                     }
                 }
                 .padding(.top, 8)
             }
             .refreshable {
-                // This is the key addition to add pull to refresh
-                do {
-                    try await viewModel.fetchPosts()
-                } catch {
-                    print("Failed to fetch posts: \(error)")
-                }
+                await viewModel.loadMorePosts()
             }
             .navigationTitle("Feed")
             .navigationBarTitleDisplayMode(.inline)
@@ -41,7 +43,7 @@ struct FeedView: View {
                             .resizable()
                             .frame(width: 25, height: 25)
                     }
-                    .foregroundColor(Color.primary) 
+                    .foregroundColor(Color.primary)
                 }
             }
         }

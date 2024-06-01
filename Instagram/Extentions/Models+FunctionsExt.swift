@@ -162,22 +162,32 @@ struct ImageUploader {
 struct PostService {
     
     //MARK: Fetch
-    static func fetchFeedPosts() async throws -> [Post] {
-        let snapshot = try await FirebaseConstants.PostCollection.order(by: "timeStamp", descending: true).getDocuments()
-        var posts = try snapshot.documents.compactMap({try $0.data(as: Post.self)})
+    static func fetchFeedPosts(startingAfter document: DocumentSnapshot? = nil) async throws -> ([Post], DocumentSnapshot?) {
+        // Define the query with pagination and sorting.
+        var query = FirebaseConstants.PostCollection.order(by: "timeStamp", descending: true).limit(to: 10)
+        if let lastDocument = document {
+            query = query.start(afterDocument: lastDocument)
+        }
+
+        // Execute the query to fetch posts.
+        let snapshot = try await query.getDocuments()
+        var posts = try snapshot.documents.compactMap { try $0.data(as: Post.self) }
         
+        // Iterate through fetched posts to enrich them with user details.
         for i in 0..<posts.count {
-            let post = posts[i]
-            let ownerUid = post.ownerUid
-            if let postUser = try? await UserService.fetchUser(withUid: ownerUid) {
-                posts[i].user = postUser
-            } else {
-                print("Failed to fetch user for post \(i)")
+            let ownerUid = posts[i].ownerUid
+            do {
+                let user = try await UserService.fetchUser(withUid: ownerUid)
+                posts[i].user = user
+            } catch {
+                print("Failed to fetch user for post \(i): \(error)")
             }
         }
-        
-        return posts
+
+        let lastSnapshot = snapshot.documents.last
+        return (posts, lastSnapshot)
     }
+
     
     
     static func fetchUserPosts(uid: String) async throws -> [Post] {
