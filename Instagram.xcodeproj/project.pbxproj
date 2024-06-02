@@ -62,6 +62,7 @@
 		C6DCA48B2C08CFFC00BB2EC4 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48A2C08CFFC00BB2EC4 /* NotificationCell.swift */; };
 		C6DCA48D2C08D26400BB2EC4 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48C2C08D26300BB2EC4 /* Notification.swift */; };
 		C6DCA48F2C08D3E900BB2EC4 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48E2C08D3E900BB2EC4 /* NotificationViewModel.swift */; };
+		C6DCA4912C0B858100BB2EC4 /* FirebaseAuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA4902C0B858100BB2EC4 /* FirebaseAuthUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +125,7 @@
 		C6DCA48A2C08CFFC00BB2EC4 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C6DCA48C2C08D26300BB2EC4 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		C6DCA48E2C08D3E900BB2EC4 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		C6DCA4902C0B858100BB2EC4 /* FirebaseAuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthUser.swift; sourceTree = "<group>"; };
 		C6F34BA32BF3592000612CB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F406C1CDF0BF3CF286AF1088 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -267,6 +269,7 @@
 				C6D5929C2BF204F6006F57ED /* Models+FunctionsExt.swift */,
 				C67666312C009F84008BDD3A /* Timestamp.swift */,
 				C67666332C00C967008BDD3A /* Constants.swift */,
+				C6DCA4902C0B858100BB2EC4 /* FirebaseAuthUser.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 				C683A6662BFCC5FD00139DC8 /* FeedViewModel.swift in Sources */,
 				C6AD4FEA2B7BA63B0051EB8D /* User.swift in Sources */,
 				C670F6BB2B24B6F000EF8D57 /* IGTextFieldModifier.swift in Sources */,
+				C6DCA4912C0B858100BB2EC4 /* FirebaseAuthUser.swift in Sources */,
 				C670F6C12B24BFD600EF8D57 /* CompletedSignUp.swift in Sources */,
 				C6A851F62BE6714600118FBE /* LocationDetailView.swift in Sources */,
 				C670F6AF2B2219A200EF8D57 /* UserStatView.swift in Sources */,

@@ -12,14 +12,28 @@ import FirebaseFirestore
 import GoogleSignIn
 import AuthenticationServices
 
-class AuthService {
+class AuthService: ObservableObject {
     
     @Published var userSession: FirebaseAuth.User?
-    
+    @Published var isAnonymous = false
     static let shared = AuthService()
     
-    init() {
+    private init() {
         Task { try await loadUserData()}
+    }
+    
+    func enterAnonymousMode() {
+        isAnonymous = true
+        userSession = nil
+        UserService.shared.currentUser = nil
+        self.objectWillChange.send()
+    }
+    
+    func exitAnonymousMode() {
+        isAnonymous = false
+        Task {
+            try await loadUserData()
+        }
     }
     
     @MainActor
@@ -44,7 +58,7 @@ class AuthService {
             throw error
         }
     }
-
+    
     @MainActor
     func loadUserData() async throws {
         self.userSession = Auth.auth().currentUser
@@ -65,7 +79,7 @@ class AuthService {
         let encodedUser = try Firestore.Encoder().encode(user)
         try await FirebaseConstants.UsersCollection.document(user.id).setData(encodedUser)
     }
-
+    
     func googleSignIn() {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
     }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FeedView: View {
-    
+    @EnvironmentObject var authService: AuthService
     @StateObject var viewModel = FeedViewModel()
     @State private var showComments = false
     
@@ -25,6 +25,11 @@ struct FeedView: View {
             .refreshable {
                 await viewModel.loadMorePosts()
             }
+            .onAppear {
+                if authService.isAnonymous {
+                    Task {await viewModel.loadMorePosts()}
+                }
+            }
             .navigationTitle("Feed")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -35,15 +40,14 @@ struct FeedView: View {
                         .frame(width: 100, height: 32)
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        print("Direct message view opened")
-                    }) {
-                        Image(systemName: "message")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                if authService.isAnonymous {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            authService.exitAnonymousMode()
+                        }) {
+                            Image(systemName: "door.left.hand.open")
+                        }
                     }
-                    .foregroundColor(Color.primary)
                 }
             }
         }

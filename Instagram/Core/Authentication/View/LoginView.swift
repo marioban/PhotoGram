@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var authService: AuthService
     @StateObject var viewModel = LoginViewModel()
+    @StateObject var registrationViewModel = RegistrationViewModel()
     
     var body: some View {
         NavigationStack {
@@ -71,13 +73,17 @@ struct LoginView: View {
                 
                 socialLoginButton(imageType: .asset(name: "google-logo"), buttonText: "Login with Google", topPadding: 10)
                 socialLoginButton(imageType: .asset(name: "github-logo"), buttonText: "Login with GitHub", topPadding: 10)
-                socialLoginButton(imageType: .asset(name: "apple-logo"), buttonText: "Login with Apple", topPadding: 10)
+                socialLoginButton(imageType: .system(name: "theatermasks.circle"), buttonText: "Go Anonymus", topPadding: 10)
+                    .onTapGesture {
+                        authService.enterAnonymousMode()
+                    }
 
                 
                 Spacer()
                 Divider()
                 NavigationLink {
                     AddEmailView()
+                        .environmentObject(registrationViewModel)
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack(spacing: 3) {

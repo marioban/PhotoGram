@@ -5,6 +5,8 @@ import Photos
 
 struct FeedCell: View {
     @ObservedObject var viewModel: FeedCellViewModel
+    @EnvironmentObject var authService: AuthService
+    
     private var post: Post {
         return viewModel.post
     }
@@ -20,6 +22,7 @@ struct FeedCell: View {
     @State private var showComments = false
     @State private var showingDownloadAlert = false
     @State private var downloadAlertMessage = ""
+    @State private var showLoginView = false
     
     var body: some View {
         VStack {
@@ -46,7 +49,9 @@ struct FeedCell: View {
             // Action buttons
             HStack(spacing: 16) {
                 Button(action: {
-                    handleLikeTapped()
+                    performActionOrLogin {
+                        handleLikeTapped()
+                    }
                 }) {
                     Image(systemName: didLike ? "heart.fill" : "heart")
                         .imageScale(.large)
@@ -54,7 +59,9 @@ struct FeedCell: View {
                 }
                 
                 Button(action: {
-                    $showComments.wrappedValue.toggle()
+                    performActionOrLogin {
+                        $showComments.wrappedValue.toggle()
+                    }
                 }) {
                     Image(systemName: "bubble.right")
                         .imageScale(.large)
@@ -70,11 +77,16 @@ struct FeedCell: View {
                 }
                 
                 Button(action: {
-                    downloadImage(from: post.imageUrl)
+                    performActionOrLogin {
+                            downloadImage(from: post.imageUrl)
+                    }
                 }) {
                     Image(systemName: "arrow.down.to.line")
                         .imageScale(.large)
                         .foregroundColor(Color.primary)
+                }
+                .sheet(isPresented: $showLoginView) {
+                    LoginView()
                 }
                 
                 Spacer()
@@ -141,6 +153,14 @@ struct FeedCell: View {
             }
         }
         task.resume()
+    }
+    
+    private func performActionOrLogin(_ action: @escaping () -> Void) {
+        if authService.isAnonymous {
+            showLoginView = true
+        } else {
+            action()
+        }
     }
 }
 
