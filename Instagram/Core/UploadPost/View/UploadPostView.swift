@@ -1,6 +1,7 @@
 import SwiftUI
 import PhotosUI
 import MapKit
+import UIKit
 
 struct UploadPostView: View {
     @State private var caption = ""
@@ -32,6 +33,7 @@ struct UploadPostView: View {
                     Button {
                         Task {
                             try await viewModel.uploadPost(caption: caption)
+                            NotificationCenter.default.post(name: NSNotification.Name("PostUploaded"), object: nil)
                             clearPostDataAndReturnToFeed()
                         }
                     } label: {

@@ -44,6 +44,10 @@ class FeedCellViewModel: ObservableObject {
     }
     
     func checkIfUserLikedPost() async throws {
-        self.post.didLike = try await PostService.checkIfUserLikedPost(post)
+        do {
+            self.post.didLike = try await PostService.checkIfUserLikedPost(post)
+        } catch {
+            print("Error checking like status: \(error)")
+        }
     }
 }

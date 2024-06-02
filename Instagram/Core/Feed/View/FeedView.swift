@@ -41,7 +41,7 @@ struct FeedView: View {
                 }
                 
                 if authService.isAnonymous {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             authService.exitAnonymousMode()
                         }) {
