@@ -79,8 +79,4 @@ class AuthService: ObservableObject {
         let encodedUser = try Firestore.Encoder().encode(user)
         try await FirebaseConstants.UsersCollection.document(user.id).setData(encodedUser)
     }
-    
-    func googleSignIn() {
-        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-    }
 }
