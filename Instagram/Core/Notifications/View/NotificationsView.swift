@@ -23,6 +23,12 @@ struct NotificationsView: View {
             .refreshable {
                 await viewModel.fetchNotifications()
             }
+            .navigationDestination(for: User.self, destination: { user in
+                ProfileView(user: user)
+            })
+            .navigationDestination(for: Post.self, destination: { post in
+                FeedCell(viewModel: FeedCellViewModel(post: post))
+            })
             .navigationTitle("Notifications")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

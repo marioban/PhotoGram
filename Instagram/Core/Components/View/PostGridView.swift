@@ -19,13 +19,16 @@ struct PostGridView: View {
     var body: some View {
         LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3), spacing: 2) {
             ForEach(viewModel.posts) { post in
-                KFImage(URL(string: post.imageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: imageDimension, height: imageDimension)
-                    .clipped()
-                    .cornerRadius(5)
-                    .shadow(radius: 2)
+                NavigationLink(destination: FeedCell(viewModel: FeedCellViewModel(post: post))) {
+                    KFImage(URL(string: post.imageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: imageDimension, height: imageDimension)
+                        .clipped()
+                        .cornerRadius(5)
+                        .shadow(radius: 2)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
         }
         .padding(2)

@@ -95,16 +95,17 @@ struct PostImageView: View {
             if let url = URL(string: imageUrl), !imageUrl.isEmpty {
                 KFImage(url)
                     .resizable()
-                    .scaledToFill()
-                    .frame(minHeight: 200, maxHeight: 350)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxHeight: 400)
                     .clipped()
             } else {
-                Color.gray.frame(minHeight: 200, maxHeight: 300)
+                Color.gray.frame(height: 200)
             }
         }
         .cornerRadius(10)
     }
 }
+
 
 
 struct ActionButtonsView: View {
