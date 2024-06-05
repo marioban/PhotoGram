@@ -34,7 +34,8 @@ struct CurrentUserProfileView: View {
                     Button {
                         AuthService.shared.signout()
                     } label: {
-                        Image(systemName: "line.3.horizontal")
+                        Image(systemName: "door.left.hand.open")
+                            .foregroundColor(.black)
                     }
                 }
             }
