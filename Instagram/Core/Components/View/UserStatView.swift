@@ -14,13 +14,20 @@ struct UserStatView: View {
     var body: some View {
         VStack {
             Text("\(value)")
-                .font(.headline)
-                .fontWeight(.semibold)
-            Text(("\(title)"))
-                .font(.footnote)
+                .font(.system(size: 20))
+                .fontWeight(.bold)
+                .scaleEffect(value > 0 ? 1.1 : 1.0)
+                .animation(.easeOut(duration: 0.2), value: value)
+            Text(title)
+                .font(.caption)
+                .fontWeight(.medium)
         }
-        .opacity(value == 0 ? 0.5 : 1.0)
-        .frame(width: 76)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 16)
+        .foregroundColor(.white)
+        .shadow(color: value > 0 ? Color.blue.opacity(0.5) : Color.clear, radius: 5, x: 0, y: 5)
+        .background(value > 0 ? AnyView(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.blue.opacity(0.7)]), startPoint: .topLeading, endPoint: .bottomTrailing)) : AnyView(Color.gray.opacity(0.5)))
+        .clipShape(Capsule())
     }
 }
 
