@@ -1,16 +1,15 @@
 import SwiftUI
 
 struct FeedView: View {
-    
     @StateObject var viewModel = FeedViewModel()
     @State private var showComments = false
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 32) {
                     ForEach(viewModel.posts) { post in
-                        FeedCell(post: post)
+                        FeedCell(viewModel: FeedCellViewModel(post: post))
                             .onAppear{
                                 if post == viewModel.posts.last {
                                     Task {
@@ -21,6 +20,7 @@ struct FeedView: View {
                     }
                 }
                 .padding(.top, 8)
+                .padding(.horizontal,5) 
             }
             .refreshable {
                 await viewModel.loadMorePosts()
@@ -49,6 +49,7 @@ struct FeedView: View {
         }
     }
 }
+
 
 #Preview {
     FeedView()
