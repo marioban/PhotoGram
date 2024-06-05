@@ -16,13 +16,6 @@ struct PostGridView: View {
         self._viewModel = StateObject(wrappedValue: PostGridViewModel(user: user))
     }
     
-    
-   // private let gridItems: [GridItem] = [
-   //     .init(.flexible(), spacing: 1),
-   //     .init(.flexible(), spacing: 1),
-   //     .init(.flexible(), spacing: 1)
-   // ]
-    
     var body: some View {
         LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3), spacing: 2) {
             ForEach(viewModel.posts) { post in

@@ -21,7 +21,7 @@ struct FeedCell: View {
                 .shadow(radius: 5)
                 .padding(.horizontal, 5)
             
-            ActionButtonsView(didLike: viewModel.post.didLike ?? false, handleLikeTapped: handleLikeTapped, showComments: $showComments, imageUrl: viewModel.post.imageUrl, downloadImage: downloadImage)
+            ActionButtonsView(didLike: viewModel.post.didLike ?? false, didSave: viewModel.post.didSave ?? false, handleLikeTapped: handleLikeTapped, handleSaveTapped: viewModel.toggleSave, showComments: $showComments, imageUrl: viewModel.post.imageUrl, downloadImage: downloadImage)
                 .padding(.horizontal, 5)
             
             PostLikesView(likes: viewModel.post.likes)
@@ -76,9 +76,9 @@ struct UserInfoView: View {
     var body: some View {
         HStack {
             if let user = user {
-                CircularProfileImageView(user: user, size: .medium) // Consider increasing the size for visual impact
+                CircularProfileImageView(user: user, size: .medium)
                 Text(user.username)
-                    .font(.headline) // Upgraded from .footnote to .headline for better visibility
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
             }
@@ -109,7 +109,9 @@ struct PostImageView: View {
 
 struct ActionButtonsView: View {
     var didLike: Bool
+    var didSave: Bool
     var handleLikeTapped: () -> Void
+    var handleSaveTapped: () -> Void
     var showComments: Binding<Bool>
     var imageUrl: String
     var downloadImage: (String) -> Void
@@ -119,24 +121,30 @@ struct ActionButtonsView: View {
             Button(action: handleLikeTapped) {
                 Image(systemName: didLike ? "heart.fill" : "heart")
                     .imageScale(.large)
-                    .foregroundColor(didLike ? .red : .gray) // Changed the default color to gray for a more neutral look
+                    .foregroundColor(didLike ? .red : .gray)
             }
             
             Button(action: { showComments.wrappedValue.toggle() }) {
                 Image(systemName: "bubble.right")
                     .imageScale(.large)
-                    .foregroundColor(.gray) // Consistent color scheme
+                    .foregroundColor(.gray)
             }
             
             Button(action: { downloadImage(imageUrl) }) {
                 Image(systemName: "arrow.down.to.line")
                     .imageScale(.large)
-                    .foregroundColor(.gray) // Consistent color scheme
+                    .foregroundColor(.gray)
             }
             
             Spacer()
+            
+            Button(action: handleSaveTapped) {
+                           Image(systemName: didSave ? "bookmark.fill" : "bookmark")
+                               .imageScale(.large)
+                               .foregroundColor(didSave ? .black : .gray)
+            }
         }
-        .buttonStyle(PlainButtonStyle()) // Adding a button style for better touch interaction
+        .buttonStyle(PlainButtonStyle())
         .padding(.vertical, 5)
     }
 }
@@ -146,7 +154,7 @@ struct PostLikesView: View {
     var body: some View {
         if likes > 0 {
             Text("\(likes) likes")
-                .font(.subheadline) // Adjusted for a subtler appearance
+                .font(.subheadline)
                 .fontWeight(.medium)
                 .foregroundColor(.black)
         }
@@ -163,7 +171,7 @@ struct PostCaptionView: View {
             Text(post.caption ?? "")
                 .foregroundColor(.secondary)
         }
-        .font(.footnote) // Kept the smaller font size for the caption to maintain content hierarchy
+        .font(.footnote)
     }
 }
 
@@ -171,8 +179,8 @@ struct PostTimeStampView: View {
     var timeStamp: Timestamp
     var body: some View {
         Text(timeStamp.timestampString())
-            .font(.caption) // Smaller and more subtle font size for timestamp
-            .foregroundColor(.gray) // Color adjusted to make it less prominent
+            .font(.caption)
+            .foregroundColor(.gray)
     }
 }
 

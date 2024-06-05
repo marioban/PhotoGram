@@ -20,7 +20,7 @@ struct FeedView: View {
                     }
                 }
                 .padding(.top, 8)
-                .padding(.horizontal,5) 
+                .padding(.horizontal,5)
             }
             .refreshable {
                 await viewModel.loadMorePosts()
@@ -39,7 +39,7 @@ struct FeedView: View {
                     Button(action: {
                         print("Direct message view opened")
                     }) {
-                        Image(systemName: "message")
+                        Image(systemName: "bookmark")
                             .resizable()
                             .frame(width: 25, height: 25)
                     }

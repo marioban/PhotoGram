@@ -18,6 +18,7 @@ struct Post: Identifiable, Hashable, Codable {
     var user: User?
     
     var didLike: Bool? = false
+    var didSave: Bool? = false
 }
 
 
