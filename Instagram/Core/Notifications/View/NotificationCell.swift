@@ -12,7 +12,7 @@ struct NotificationCell: View {
     let notification: Notification
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             NavigationLink(value: notification.user) {
                 CircularProfileImageView(user: notification.user, size: .xSmall)
             }
@@ -27,6 +27,7 @@ struct NotificationCell: View {
                     .font(.caption)
                     .foregroundColor(.gray)
             }
+            .padding(.leading, 8)
             
             Spacer()
             
