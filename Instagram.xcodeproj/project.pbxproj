@@ -62,6 +62,7 @@
 		C6DCA48B2C08CFFC00BB2EC4 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48A2C08CFFC00BB2EC4 /* NotificationCell.swift */; };
 		C6DCA48D2C08D26400BB2EC4 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48C2C08D26300BB2EC4 /* Notification.swift */; };
 		C6DCA48F2C08D3E900BB2EC4 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48E2C08D3E900BB2EC4 /* NotificationViewModel.swift */; };
+		C6DCA49C2C11D67B00BB2EC4 /* SavedPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA49B2C11D67B00BB2EC4 /* SavedPost.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +125,7 @@
 		C6DCA48A2C08CFFC00BB2EC4 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C6DCA48C2C08D26300BB2EC4 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		C6DCA48E2C08D3E900BB2EC4 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		C6DCA49B2C11D67B00BB2EC4 /* SavedPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPost.swift; sourceTree = "<group>"; };
 		C6F34BA32BF3592000612CB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F406C1CDF0BF3CF286AF1088 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -436,6 +438,7 @@
 				C683A6792BFF650700139DC8 /* Comment.swift */,
 				C67666372C00F4ED008BDD3A /* UserList.swift */,
 				C6DCA48C2C08D26300BB2EC4 /* Notification.swift */,
+				C6DCA49B2C11D67B00BB2EC4 /* SavedPost.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				C6A851F62BE6714600118FBE /* LocationDetailView.swift in Sources */,
 				C670F6AF2B2219A200EF8D57 /* UserStatView.swift in Sources */,
 				C683A67A2BFF650700139DC8 /* Comment.swift in Sources */,
+				C6DCA49C2C11D67B00BB2EC4 /* SavedPost.swift in Sources */,
 				C670F6B12B23110900EF8D57 /* FeedView.swift in Sources */,
 				C60EF3222B7E45B000CB7E06 /* SearchViewModel.swift in Sources */,
 				C670F6AA2B22128E00EF8D57 /* MainTabView.swift in Sources */,
