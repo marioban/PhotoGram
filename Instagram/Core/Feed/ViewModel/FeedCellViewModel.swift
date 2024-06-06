@@ -48,8 +48,8 @@ class FeedCellViewModel: ObservableObject {
     }
     
     func toggleSave() {
-        post.didSave?.toggle() // Toggle the saved state
-        if post.didSave == true {
+        post.isSaved?.toggle() // Toggle the saved state
+        if post.isSaved == true {
             // Implement saving logic if needed
             print("Post saved")
         } else {

@@ -21,7 +21,7 @@ struct FeedCell: View {
                 .shadow(radius: 5)
                 .padding(.horizontal, 5)
             
-            ActionButtonsView(didLike: viewModel.post.didLike ?? false, didSave: viewModel.post.didSave ?? false, handleLikeTapped: handleLikeTapped, handleSaveTapped: viewModel.toggleSave, showComments: $showComments, imageUrl: viewModel.post.imageUrl, downloadImage: downloadImage)
+            ActionButtonsView(didLike: viewModel.post.didLike ?? false, didSave: viewModel.post.isSaved ?? false, handleLikeTapped: handleLikeTapped, handleSaveTapped: viewModel.toggleSave, showComments: $showComments, imageUrl: viewModel.post.imageUrl, downloadImage: downloadImage)
                 .padding(.horizontal, 5)
             
             PostLikesView(likes: viewModel.post.likes)
@@ -36,7 +36,7 @@ struct FeedCell: View {
         .background(Color.white)
         .cornerRadius(15)
         .shadow(color: .gray.opacity(0.4), radius: 5, x: 0, y: 2)
-        .padding(.horizontal,5) 
+        .padding(.horizontal,5)
         .padding(.bottom, 10)
         .frame(maxWidth: .infinity, alignment: .leading)
         .sheet(isPresented: $showComments) {
@@ -89,7 +89,7 @@ struct UserInfoView: View {
 
 struct PostImageView: View {
     var imageUrl: String
-
+    
     var body: some View {
         Group {
             if let url = URL(string: imageUrl), !imageUrl.isEmpty {
@@ -140,9 +140,9 @@ struct ActionButtonsView: View {
             Spacer()
             
             Button(action: handleSaveTapped) {
-                           Image(systemName: didSave ? "bookmark.fill" : "bookmark")
-                               .imageScale(.large)
-                               .foregroundColor(didSave ? .black : .gray)
+                Image(systemName: didSave ? "bookmark.fill" : "bookmark")
+                    .imageScale(.large)
+                    .foregroundColor(didSave ? .black : .gray)
             }
         }
         .buttonStyle(PlainButtonStyle())

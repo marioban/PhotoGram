@@ -18,9 +18,8 @@ struct Post: Identifiable, Hashable, Codable {
     var user: User?
     
     var didLike: Bool? = false
-    var didSave: Bool? = false
+    var isSaved: Bool? = false
 }
-
 
 extension Post {
     static var MOCK_POSTS: [Post] = [
