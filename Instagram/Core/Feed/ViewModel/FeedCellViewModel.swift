@@ -46,4 +46,16 @@ class FeedCellViewModel: ObservableObject {
     func checkIfUserLikedPost() async throws {
         self.post.didLike = try await PostService.checkIfUserLikedPost(post)
     }
+    
+    func toggleSave() {
+        post.isSaved?.toggle() // Toggle the saved state
+        if post.isSaved == true {
+            // Implement saving logic if needed
+            print("Post saved")
+        } else {
+            // Implement unsaving logic if needed
+            print("Post unsaved")
+        }
+        objectWillChange.send() // Notify the view model about the change
+    }
 }

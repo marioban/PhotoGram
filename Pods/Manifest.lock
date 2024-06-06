@@ -1124,6 +1124,11 @@ PODS:
   - nanopb/decode (2.30910.0)
   - nanopb/encode (2.30910.0)
   - PromisesObjC (2.4.0)
+  - Realm (10.50.0):
+    - Realm/Headers (= 10.50.0)
+  - Realm/Headers (10.50.0)
+  - RealmSwift (10.50.0):
+    - Realm (= 10.50.0)
   - RecaptchaInterop (100.0.0)
 
 DEPENDENCIES:
@@ -1132,6 +1137,7 @@ DEPENDENCIES:
   - FirebaseFirestore
   - GoogleSignIn
   - Kingfisher
+  - RealmSwift
 
 SPEC REPOS:
   trunk:
@@ -1159,6 +1165,8 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - Realm
+    - RealmSwift
     - RecaptchaInterop
 
 SPEC CHECKSUMS:
@@ -1186,8 +1194,10 @@ SPEC CHECKSUMS:
   leveldb-library: e8eadf9008a61f9e1dde3978c086d2b6d9b9dc28
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  Realm: a0a6a99e3dfa8959358a95c3c05845b5e5d6af30
+  RealmSwift: fa111fb98e092a4dff1d0785ad0c3483feda607a
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
 
-PODFILE CHECKSUM: 5263ad2106059e6f0c56718533d3e30882e37af3
+PODFILE CHECKSUM: 12aed826fb3a7dc7bdab300ff13fdac74427c65d
 
 COCOAPODS: 1.15.2
