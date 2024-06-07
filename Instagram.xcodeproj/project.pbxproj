@@ -63,6 +63,7 @@
 		C6DCA48D2C08D26400BB2EC4 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48C2C08D26300BB2EC4 /* Notification.swift */; };
 		C6DCA48F2C08D3E900BB2EC4 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48E2C08D3E900BB2EC4 /* NotificationViewModel.swift */; };
 		C6DCA49C2C11D67B00BB2EC4 /* SavedPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA49B2C11D67B00BB2EC4 /* SavedPost.swift */; };
+		C6DCA49E2C132FF900BB2EC4 /* RealmWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA49D2C132FF900BB2EC4 /* RealmWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +127,7 @@
 		C6DCA48C2C08D26300BB2EC4 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		C6DCA48E2C08D3E900BB2EC4 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		C6DCA49B2C11D67B00BB2EC4 /* SavedPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPost.swift; sourceTree = "<group>"; };
+		C6DCA49D2C132FF900BB2EC4 /* RealmWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmWrapper.swift; sourceTree = "<group>"; };
 		C6F34BA32BF3592000612CB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F406C1CDF0BF3CF286AF1088 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -439,6 +441,7 @@
 				C67666372C00F4ED008BDD3A /* UserList.swift */,
 				C6DCA48C2C08D26300BB2EC4 /* Notification.swift */,
 				C6DCA49B2C11D67B00BB2EC4 /* SavedPost.swift */,
+				C6DCA49D2C132FF900BB2EC4 /* RealmWrapper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -653,6 +656,7 @@
 				C676663A2C022C00008BDD3A /* UserListView.swift in Sources */,
 				C670F6B92B24B34F00EF8D57 /* AddEmailView.swift in Sources */,
 				C683A6622BFCADD200139DC8 /* CircularProfileImageView.swift in Sources */,
+				C6DCA49E2C132FF900BB2EC4 /* RealmWrapper.swift in Sources */,
 				C67666362C00CF4E008BDD3A /* ProfileViewModel.swift in Sources */,
 				C6AD4FF02B7BB99B0051EB8D /* PostGridView.swift in Sources */,
 				C6DCA4892C08CFF200BB2EC4 /* NotificationsView.swift in Sources */,
