@@ -3,7 +3,8 @@ import SwiftUI
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
     @State private var showComments = false
-
+    @State private var navigateToSavedPosts = false
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -36,15 +37,18 @@ struct FeedView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        print("Direct message view opened")
-                    }) {
-                        Image(systemName: "bookmark")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                    NavigationLink(destination: SavedFeedView(), isActive: $navigateToSavedPosts) {
+                        Button(action: {
+                            navigateToSavedPosts = true
+                        }) {
+                            Image(systemName: "bookmark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        .foregroundColor(Color.primary)
                     }
-                    .foregroundColor(Color.primary)
                 }
+                
             }
         }
     }

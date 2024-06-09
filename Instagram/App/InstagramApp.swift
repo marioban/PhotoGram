@@ -18,32 +18,33 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 
     private func initializeRealm() {
-        // Configure the default Realm
         let config = Realm.Configuration(
-            // New schema version (increase this number when you change the schema)
-            schemaVersion: 1,
+            schemaVersion: 3,  // Make sure this is incremented from the last version
 
-            // Define the migration block. This is called automatically when opening a Realm with a schema version lower than the one specified above
+            // Add a migration block
             migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 1 {
-                    // Perform migrations here. Example:
-                    // migration.enumerateObjects(ofType: SavedPost.className()) { oldObject, newObject in
-                    //     // Add a new field with default values
-                    //     newObject?["newFieldName"] = defaultValue
-                    // }
+                if oldSchemaVersion < 3 {
+                    migration.enumerateObjects(ofType: SavedPost.className()) { oldObject, newObject in
+                        let oldTimeStamp = oldObject?["timeStamp"] as? Date
+                        newObject?["timeStamp"] = oldTimeStamp
+
+                        if oldSchemaVersion < 2 {
+                            newObject?["didLike"] = oldObject?["didLike"] ?? false
+                            newObject?["username"] = oldObject?["username"] ?? "unknown"
+                            newObject?["userProfileImageUrl"] = oldObject?["userProfileImageUrl"] ?? ""
+                        }
+                    }
                 }
-                // Add additional conditions for further schema versions
             },
 
-            // Optional: Set this if you want to delete all data if migration is not possible
+            
             deleteRealmIfMigrationNeeded: false
         )
+
         
-        // Tell Realm to use this configuration for the default Realm
         Realm.Configuration.defaultConfiguration = config
-        
-        // Optionally, you can handle errors here, such as if Realm fails to initialize
     }
+
 }
 
 @main
@@ -52,6 +53,7 @@ struct InstagramApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(SavedPostsViewModel())
         }
     }
 }

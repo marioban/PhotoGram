@@ -21,7 +21,7 @@ struct FeedCell: View {
                 .shadow(radius: 5)
                 .padding(.horizontal, 5)
             
-            ActionButtonsView(didLike: viewModel.post.didLike ?? false, didSave: viewModel.post.isSaved ?? false, handleLikeTapped: handleLikeTapped, handleSaveTapped: viewModel.toggleSave, showComments: $showComments, imageUrl: viewModel.post.imageUrl, downloadImage: downloadImage)
+            ActionButtonsView(didLike: viewModel.post.didLike ?? false, didSave: viewModel.post.didSave ?? false, handleLikeTapped: handleLikeTapped, handleSaveTapped: handleSaveTapped, showComments: $showComments, imageUrl: viewModel.post.imageUrl, downloadImage: downloadImage)
                 .padding(.horizontal, 5)
             
             PostLikesView(likes: viewModel.post.likes)
@@ -30,7 +30,7 @@ struct FeedCell: View {
             PostCaptionView(post: viewModel.post)
                 .padding([.horizontal, .bottom], 10)
             
-            PostTimeStampView(timeStamp: viewModel.post.timeStamp)
+            PostTimeStampView(timeStamp: viewModel.post.timeStamp ?? Timestamp(date: Date()))
                 .padding([.horizontal, .bottom], 10)
         }
         .background(Color.white)
@@ -54,6 +54,12 @@ struct FeedCell: View {
             } else {
                 try await viewModel.like()
             }
+        }
+    }
+    
+    private func handleSaveTapped() {
+        Task {
+            await viewModel.toggleSave()
         }
     }
     
@@ -185,6 +191,8 @@ struct PostTimeStampView: View {
     }
 }
 
+/*
 #Preview {
     FeedCell(viewModel: FeedCellViewModel(post: Post.MOCK_POSTS[0]))
 }
+*/

@@ -14,13 +14,39 @@ struct Post: Identifiable, Hashable, Codable {
     let caption: String?
     var likes: Int
     var imageUrl: String
-    let timeStamp: Timestamp
+    let timeStamp: Timestamp?
     var user: User?
     
     var didLike: Bool? = false
-    var isSaved: Bool? = false
+    var didSave: Bool? = false
+    
+    init(id: String, ownerUid: String, caption: String?, likes: Int, imageUrl: String, timeStamp: Timestamp?) {
+        self.id = id
+        self.ownerUid = ownerUid
+        self.caption = caption
+        self.likes = likes
+        self.imageUrl = imageUrl
+        self.timeStamp = timeStamp
+        self.user = nil
+        self.didLike = false
+        self.didSave = false
+    }
+    
+    // Adding an initializer to create a Post from a SavedPost
+    init(from savedPost: SavedPost) {
+        self.id = savedPost.id
+        self.ownerUid = savedPost.ownerUid
+        self.caption = savedPost.caption
+        self.likes = savedPost.likes
+        self.imageUrl = savedPost.imageUrl
+        self.timeStamp = savedPost.timeStamp != nil ? Timestamp(date: savedPost.timeStamp!) : nil
+        self.didLike = savedPost.didLike
+        self.user = User(id: savedPost.ownerUid, username: savedPost.username ?? "unknown", profileImageUrl: savedPost.userProfileImageUrl, email: "")
+        self.didSave = true
+    }
 }
 
+/*
 extension Post {
     static var MOCK_POSTS: [Post] = [
         .init(id: NSUUID().uuidString,
@@ -72,3 +98,4 @@ extension Post {
                   user: User.MOCK_USERS[4])
     ]
 }
+*/
