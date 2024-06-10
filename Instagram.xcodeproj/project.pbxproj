@@ -66,6 +66,7 @@
 		C6DCA49E2C132FF900BB2EC4 /* RealmWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA49D2C132FF900BB2EC4 /* RealmWrapper.swift */; };
 		C6DCA4A02C163BE000BB2EC4 /* SavedPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA49F2C163BE000BB2EC4 /* SavedPostsViewModel.swift */; };
 		C6DCA4A22C1659B100BB2EC4 /* SavedFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA4A12C1659B100BB2EC4 /* SavedFeedView.swift */; };
+		C6DCA4A62C16716A00BB2EC4 /* LoadingFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA4A52C16716A00BB2EC4 /* LoadingFeedCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 		C6DCA49D2C132FF900BB2EC4 /* RealmWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmWrapper.swift; sourceTree = "<group>"; };
 		C6DCA49F2C163BE000BB2EC4 /* SavedPostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPostsViewModel.swift; sourceTree = "<group>"; };
 		C6DCA4A12C1659B100BB2EC4 /* SavedFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFeedView.swift; sourceTree = "<group>"; };
+		C6DCA4A52C16716A00BB2EC4 /* LoadingFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFeedCell.swift; sourceTree = "<group>"; };
 		C6F34BA32BF3592000612CB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F406C1CDF0BF3CF286AF1088 /* Pods_Instagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -379,6 +381,7 @@
 				C6AD4FEF2B7BB99B0051EB8D /* PostGridView.swift */,
 				C683A6612BFCADD200139DC8 /* CircularProfileImageView.swift */,
 				C67666392C022C00008BDD3A /* UserListView.swift */,
+				C6DCA4A52C16716A00BB2EC4 /* LoadingFeedCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				C683A6622BFCADD200139DC8 /* CircularProfileImageView.swift in Sources */,
 				C6DCA4A22C1659B100BB2EC4 /* SavedFeedView.swift in Sources */,
 				C6DCA49E2C132FF900BB2EC4 /* RealmWrapper.swift in Sources */,
+				C6DCA4A62C16716A00BB2EC4 /* LoadingFeedCell.swift in Sources */,
 				C67666362C00CF4E008BDD3A /* ProfileViewModel.swift in Sources */,
 				C6AD4FF02B7BB99B0051EB8D /* PostGridView.swift in Sources */,
 				C6DCA4892C08CFF200BB2EC4 /* NotificationsView.swift in Sources */,

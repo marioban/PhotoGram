@@ -26,6 +26,9 @@ struct SavedFeedView: View {
             .onAppear {
                 viewModel.loadSavedPosts()
             }
+            .refreshable {
+                viewModel.loadSavedPosts()
+            }
         }
     }
 }
