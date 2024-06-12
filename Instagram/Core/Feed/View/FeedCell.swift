@@ -130,12 +130,14 @@ struct ActionButtonsView: View {
                     .imageScale(.large)
                     .foregroundColor(didLike ? .red : .gray)
             }
+            .accessibility(identifier: "likeButton")
             
             Button(action: { showComments.wrappedValue.toggle() }) {
                 Image(systemName: "bubble.right")
                     .imageScale(.large)
                     .foregroundColor(.gray)
             }
+            .accessibility(identifier: "commentsButton")
             
             Button(action: { downloadImage(imageUrl) }) {
                 Image(systemName: "arrow.down.to.line")
@@ -150,6 +152,7 @@ struct ActionButtonsView: View {
                     .imageScale(.large)
                     .foregroundColor(didSave ? .black : .gray)
             }
+            .accessibility(identifier: "saveButton")
         }
         .buttonStyle(PlainButtonStyle())
         .padding(.vertical, 5)

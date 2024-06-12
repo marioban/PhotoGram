@@ -7,7 +7,6 @@ struct FeedView: View {
     
     var body: some View {
         NavigationStack {
-            
             if viewModel.isLoading {
                 VStack {
                     Spacer()
