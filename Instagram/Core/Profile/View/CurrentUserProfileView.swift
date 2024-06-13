@@ -33,6 +33,7 @@ struct CurrentUserProfileView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         AuthService.shared.signout()
+                        AuthService.shared.googleSignOut()
                     } label: {
                         Image(systemName: "line.3.horizontal")
                     }

@@ -79,4 +79,83 @@ class AuthService: ObservableObject {
         let encodedUser = try Firestore.Encoder().encode(user)
         try await FirebaseConstants.UsersCollection.document(user.id).setData(encodedUser)
     }
+    
+    func googleSignIn() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+                
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+                
+        GIDSignIn.sharedInstance.configuration = config
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
+
+        GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { signInResult, error in
+            if let error = error {
+                print("Error doing Google Sign-In, \(error)")
+                return
+            }
+
+            guard let signInResult = signInResult else {
+                print("Sign-In result is nil")
+                return
+            }
+
+            let user = signInResult.user
+            guard let idToken = user.idToken?.tokenString else {
+                print("Error during Google Sign-In authentication")
+                return
+            }
+            
+            let accessToken = user.accessToken.tokenString
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+
+            // Authenticate with Firebase
+            Auth.auth().signIn(with: credential) { [weak self] authResult, error in
+                if let e = error {
+                    print(e.localizedDescription)
+                    return
+                }
+                
+                guard let self = self, let user = authResult?.user else {
+                    print("Auth result or user is nil")
+                    return
+                }
+                
+                // Check if the user data exists in Firestore
+                self.checkAndSetupUser(uid: user.uid, email: user.email)
+            }
+        }
+    }
+    
+    private func checkAndSetupUser(uid: String, email: String?) {
+        let userRef = FirebaseConstants.UsersCollection.document(uid)
+        
+        userRef.getDocument { document, error in
+            if let document = document, document.exists {
+                print("User already exists, logging in.")
+                Task {
+                    try await self.loadUserData()
+                }
+            } else {
+                print("User does not exist, creating new user.")
+                let username = email?.components(separatedBy: "@").first ?? "Unknown"
+                Task {
+                    do {
+                        try await self.uploadUserData(uid: uid, username: username, email: email ?? "unknown@example.com")
+                        try await self.loadUserData()
+                    } catch {
+                        print("Error uploading user data: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+    
+    func googleSignOut() {
+        GIDSignIn.sharedInstance.signOut()
+    }
+
 }
