@@ -38,16 +38,6 @@ struct NotificationsView: View {
                         .scaledToFit()
                         .frame(width: 100, height: 32)
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        print("Direct message view opened")
-                    }) {
-                        Image(systemName: "message")
-                            .frame(width: 25, height: 25)
-                            .foregroundColor(.primary)
-                    }
-                }
             }
         }
     }

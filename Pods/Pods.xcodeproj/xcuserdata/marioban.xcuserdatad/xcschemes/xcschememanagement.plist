@@ -197,7 +197,7 @@
 		<key>RecaptchaInterop.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>46</integer>
+			<integer>45</integer>
 		</dict>
 		<key>abseil-xcprivacy.xcscheme</key>
 		<dict>

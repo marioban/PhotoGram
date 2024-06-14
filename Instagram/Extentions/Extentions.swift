@@ -10,6 +10,7 @@ import MapKit
 import UIKit
 import Firebase
 import FirebaseStorage
+import FirebaseFirestoreInternal
 
 class UserService {
     
@@ -124,17 +125,6 @@ struct ShareSheet: UIViewControllerRepresentable {
         // No update action needed
     }
 }
-
-struct IdentifiableAnnotation: Identifiable {
-    let id: UUID
-    var annotation: MKPointAnnotation
-    
-    init(annotation: MKPointAnnotation) {
-        self.id = UUID()
-        self.annotation = annotation
-    }
-}
-
 
 enum ImageType {
     case system(name: String)

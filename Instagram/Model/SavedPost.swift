@@ -14,7 +14,7 @@ class SavedPost: Object {
     @Persisted var caption: String?
     @Persisted var likes: Int
     @Persisted var imageUrl: String
-    @Persisted var timeStamp: Date
+    @Persisted var timeStamp: Date?
     @Persisted var didLike: Bool? = false
     
     @Persisted var username: String? = ""
@@ -22,15 +22,17 @@ class SavedPost: Object {
     
     convenience init(from post: Post) {
         self.init()
+        self.id = post.id  
         self.ownerUid = post.ownerUid
         self.caption = post.caption
         self.likes = post.likes
         self.imageUrl = post.imageUrl
-        self.timeStamp = post.timeStamp.dateValue()
+        self.timeStamp = post.timeStamp?.dateValue()
         self.didLike = post.didLike ?? false
         self.username = post.user?.username ?? "unknown"
         self.userProfileImageUrl = post.user?.profileImageUrl ?? ""
     }
+
     
     convenience init(savedPost: SavedPost) {
         self.init()
