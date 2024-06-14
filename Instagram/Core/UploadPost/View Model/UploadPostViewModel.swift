@@ -9,16 +9,10 @@ import Foundation
 import SwiftUI
 import PhotosUI
 import Firebase
+import FirebaseFirestoreInternal
 
 @MainActor
 class UploadPostViewModel: ObservableObject {
-    
-    struct LocationDetail {
-        var coordinate: CLLocationCoordinate2D
-        var streetName: String
-        var city: String
-        var establishmentName: String
-    }
     
     @Published var selectedImage: PhotosPickerItem? {
         didSet { Task { await loadImage(fromItem: selectedImage) }}
@@ -56,7 +50,7 @@ class UploadPostViewModel: ObservableObject {
             let postRef = Firestore.firestore().collection("posts").document()
             guard let imageUrl = try await ImageUploader.uploadImage(image: uiImage) else { throw NSError(domain: "UploadError", code: 0, userInfo: [NSLocalizedDescriptionKey : "Failed to upload image"]) }
             
-            let post = Post(id: postRef.documentID, ownerUid: uid, caption: caption, likes: 0, imageUrl: imageUrl, timeStamp: Timestamp())
+            let post = Post(id: postRef.documentID, ownerUid: uid, caption: caption, likes: 0, imageUrl: imageUrl, timeStamp: Timestamp(), locationDetail: locationDetail)
             guard let encodedPost = try? Firestore.Encoder().encode(post) else { throw NSError(domain: "EncodingError", code: 0, userInfo: [NSLocalizedDescriptionKey : "Failed to encode post"]) }
             
             try await postRef.setData(encodedPost)

@@ -9,7 +9,8 @@ struct FeedCell: View {
     @State private var showComments = false
     @State private var showingDownloadAlert = false
     @State private var downloadAlertMessage = ""
-    
+    @State private var showMap = false
+    @State private var selectedLocation: LocationDetail?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -19,7 +20,6 @@ struct FeedCell: View {
             PostImageView(imageUrl: viewModel.post.imageUrl)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .shadow(radius: 5)
-                .padding(.horizontal, 5)
             
             ActionButtonsView(didLike: viewModel.post.didLike ?? false, didSave: viewModel.post.didSave ?? false, handleLikeTapped: handleLikeTapped, handleSaveTapped: handleSaveTapped, showComments: $showComments, imageUrl: viewModel.post.imageUrl, downloadImage: downloadImage)
                 .padding(.horizontal, 5)
@@ -28,19 +28,35 @@ struct FeedCell: View {
                 .padding(.horizontal, 10)
             
             PostCaptionView(post: viewModel.post)
-                .padding([.horizontal, .bottom], 10)
+                .padding(.horizontal, 10)
+                .padding(.bottom, 3)
+            
+            if let locationDetail = viewModel.post.locationDetail {
+                Button(action: {
+                    selectedLocation = locationDetail
+                    showMap.toggle()
+                }) {
+                    LocationDetailView(coordinate: locationDetail.coordinate, streetName: locationDetail.streetName, city: locationDetail.city, establishmentName: locationDetail.establishmentName)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+            }
             
             PostTimeStampView(timeStamp: viewModel.post.timeStamp ?? Timestamp(date: Date()))
                 .padding([.horizontal, .bottom], 10)
+            
         }
-        .background(Color.white)
+        .background(Color(UIColor.systemBackground))
         .cornerRadius(15)
-        .shadow(color: .gray.opacity(0.4), radius: 5, x: 0, y: 2)
-        .padding(.horizontal,5)
+        .shadow(color: Color(UIColor.label).opacity(0.4), radius: 5, x: 0, y: 2)
+        .padding(.horizontal, 5)
         .padding(.bottom, 10)
         .frame(maxWidth: .infinity, alignment: .leading)
         .sheet(isPresented: $showComments) {
             CommentsView(post: viewModel.post)
+        }
+        .sheet(item: $selectedLocation) { location in
+            MapView(locationDetail: location, uploadPostViewModel: UploadPostViewModel())
         }
         .alert(isPresented: $showingDownloadAlert) {
             Alert(title: Text("Download Complete"), message: Text(downloadAlertMessage), dismissButton: .default(Text("OK")))
@@ -77,6 +93,8 @@ struct FeedCell: View {
     }
 }
 
+
+
 struct UserInfoView: View {
     var user: User?
     var body: some View {
@@ -102,17 +120,16 @@ struct PostImageView: View {
                 KFImage(url)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(maxHeight: 400)
+                    .frame(maxWidth: .infinity)
                     .clipped()
             } else {
                 Color.gray.frame(height: 200)
             }
         }
         .cornerRadius(10)
+        .padding(.horizontal)
     }
 }
-
-
 
 struct ActionButtonsView: View {
     var didLike: Bool
@@ -166,7 +183,7 @@ struct PostLikesView: View {
             Text("\(likes) likes")
                 .font(.subheadline)
                 .fontWeight(.medium)
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
         }
     }
 }
@@ -195,7 +212,6 @@ struct PostTimeStampView: View {
 }
 
 /*
-#Preview {
-    FeedCell(viewModel: FeedCellViewModel(post: Post.MOCK_POSTS[0]))
-}
-*/
+ #Preview {
+ FeedCell(viewModel: FeedCellViewModel(post: Post.MOCK_POSTS[0]))
+ }*/

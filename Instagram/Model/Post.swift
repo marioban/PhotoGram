@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestoreInternal
 
 struct Post: Identifiable, Hashable, Codable {
     let id: String
@@ -16,11 +17,12 @@ struct Post: Identifiable, Hashable, Codable {
     var imageUrl: String
     let timeStamp: Timestamp?
     var user: User?
-    
+    var locationDetail: LocationDetail?
+
     var didLike: Bool? = false
     var didSave: Bool? = false
-    
-    init(id: String, ownerUid: String, caption: String?, likes: Int, imageUrl: String, timeStamp: Timestamp?) {
+
+    init(id: String, ownerUid: String, caption: String?, likes: Int, imageUrl: String, timeStamp: Timestamp?, locationDetail: LocationDetail?) {
         self.id = id
         self.ownerUid = ownerUid
         self.caption = caption
@@ -30,8 +32,9 @@ struct Post: Identifiable, Hashable, Codable {
         self.user = nil
         self.didLike = false
         self.didSave = false
+        self.locationDetail = locationDetail
     }
-    
+
     // Adding an initializer to create a Post from a SavedPost
     init(from savedPost: SavedPost) {
         self.id = savedPost.id
@@ -43,8 +46,11 @@ struct Post: Identifiable, Hashable, Codable {
         self.didLike = savedPost.didLike
         self.user = User(id: savedPost.ownerUid, username: savedPost.username ?? "unknown", profileImageUrl: savedPost.userProfileImageUrl, email: "")
         self.didSave = true
+        self.locationDetail = nil // Initialize with nil or appropriate value
     }
 }
+
+
 
 /*
 extension Post {

@@ -7,9 +7,9 @@ struct UploadPostView: View {
     @State private var imagePickerPresented = false
     @StateObject var viewModel = UploadPostViewModel()
     @Binding var tabIndex: Int
-    
+
     @State private var navigateToLocation = false
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -29,11 +29,11 @@ struct UploadPostView: View {
             .navigationBarTitle("New Post", displayMode: .inline)
             .navigationBarItems(
                 leading: cancelButton,
-                trailing: uploadButton.disabled(viewModel.isUploading)  
+                trailing: uploadButton.disabled(viewModel.isUploading)
             )
         }
     }
-    
+
     var content: some View {
         VStack {
             postContent
@@ -41,7 +41,7 @@ struct UploadPostView: View {
             Spacer()
         }
     }
-    
+
     var topBar: some View {
         HStack {
             cancelButton
@@ -55,14 +55,14 @@ struct UploadPostView: View {
         .padding()
         .background(Color(UIColor.systemBackground))
     }
-    
+
     var cancelButton: some View {
         Button("Cancel") {
             clearPostDataAndReturnToFeed()
         }
         .disabled(viewModel.isUploading)
     }
-    
+
     var uploadButton: some View {
         Button("Upload") {
             Task {
@@ -72,18 +72,23 @@ struct UploadPostView: View {
         }
         .disabled(viewModel.isUploading)
     }
-    
+
     var postContent: some View {
         HStack(spacing: 16) {
             if let image = viewModel.postImage {
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 100)
-                    .clipped()
-                    .cornerRadius(8)
+                Button(action: {
+                    imagePickerPresented = true
+                }) {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                        .cornerRadius(8)
+                }
+                .buttonStyle(PlainButtonStyle()) 
             }
-            
+
             TextField("Enter your caption...", text: $caption)
                 .frame(height: 100)
                 .padding(8)
@@ -92,7 +97,7 @@ struct UploadPostView: View {
         }
         .padding(.horizontal)
     }
-    
+
     var locationSection: some View {
         HStack {
             NavigationLink(destination: MapView(uploadPostViewModel: viewModel).navigationBarBackButtonHidden(true), isActive: $navigateToLocation) {
@@ -102,7 +107,7 @@ struct UploadPostView: View {
                 .buttonStyle(.borderedProminent)
                 .padding()
             }
-            
+
             if let locationDetail = viewModel.locationDetail {
                 LocationDetailView(
                     coordinate: locationDetail.coordinate,
@@ -113,7 +118,7 @@ struct UploadPostView: View {
             }
         }
     }
-    
+
     func clearPostDataAndReturnToFeed() {
         caption = ""
         viewModel.selectedImage = nil

@@ -47,6 +47,7 @@
 		C6A851F62BE6714600118FBE /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A851F52BE6714600118FBE /* LocationDetailView.swift */; };
 		C6A851FB2BE67A3200118FBE /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A851FA2BE67A3200118FBE /* SearchBarView.swift */; };
 		C6AB7AFE2C1A35810038750A /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AB7AFD2C1A35810038750A /* NotificationsView.swift */; };
+		C6AB7B002C1CC82D0038750A /* LocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AB7AFF2C1CC82D0038750A /* LocationDetail.swift */; };
 		C6AD4FEA2B7BA63B0051EB8D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FE92B7BA63B0051EB8D /* User.swift */; };
 		C6AD4FEC2B7BAEC30051EB8D /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FEB2B7BAEC30051EB8D /* CurrentUserProfileView.swift */; };
 		C6AD4FEE2B7BB2AB0051EB8D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD4FED2B7BB2AB0051EB8D /* Post.swift */; };
@@ -132,6 +133,7 @@
 		C6A851F52BE6714600118FBE /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		C6A851FA2BE67A3200118FBE /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		C6AB7AFD2C1A35810038750A /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		C6AB7AFF2C1CC82D0038750A /* LocationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetail.swift; sourceTree = "<group>"; };
 		C6AD4FE92B7BA63B0051EB8D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C6AD4FEB2B7BAEC30051EB8D /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
 		C6AD4FED2B7BB2AB0051EB8D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 				C6DCA48C2C08D26300BB2EC4 /* Notification.swift */,
 				C6DCA49B2C11D67B00BB2EC4 /* SavedPost.swift */,
 				C6DCA49D2C132FF900BB2EC4 /* RealmWrapper.swift */,
+				C6AB7AFF2C1CC82D0038750A /* LocationDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				C6AD50072B7D05280051EB8D /* AuthService.swift in Sources */,
 				C6A851F22BE6707E00118FBE /* MapView.swift in Sources */,
 				C6AD4FEE2B7BB2AB0051EB8D /* Post.swift in Sources */,
+				C6AB7B002C1CC82D0038750A /* LocationDetail.swift in Sources */,
 				C6DCA48D2C08D26400BB2EC4 /* Notification.swift in Sources */,
 				C683A66C2BFDE49100139DC8 /* PostGridViewModel.swift in Sources */,
 				C670F6912B220C0C00EF8D57 /* InstagramApp.swift in Sources */,
