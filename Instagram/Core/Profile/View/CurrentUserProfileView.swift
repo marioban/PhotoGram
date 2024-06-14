@@ -34,6 +34,7 @@ struct CurrentUserProfileView: View {
                     Button {
                         AuthService.shared.signout()
                         AuthService.shared.googleSignOut()
+                        AuthService.shared.githubSignOut()
                     } label: {
                         Image(systemName: "line.3.horizontal")
                     }
