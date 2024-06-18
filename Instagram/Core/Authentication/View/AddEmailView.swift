@@ -9,7 +9,7 @@ struct AddEmailView: View {
             Text("Add your email")
                 .font(.title)
                 .fontWeight(.semibold)
-                .foregroundColor(Color.primary) // Use system color that adapts to theme
+                .foregroundColor(Color.primary)
                 .padding(.top)
             
             Text("You'll use this email to sign into your account")

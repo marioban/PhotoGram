@@ -15,6 +15,12 @@ class FeedViewModel: ObservableObject {
     private var lastDocumentSnapshot: DocumentSnapshot?
     
     init() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(refreshPosts),
+            name: NSNotification.Name("PostUploaded"),
+            object: nil
+        )
         Task{ await loadMorePosts()}
     }
     
@@ -32,5 +38,11 @@ class FeedViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    @objc func refreshPosts() {
+        Task {
+            await loadMorePosts()
+        }
     }
 }

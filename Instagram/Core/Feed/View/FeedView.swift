@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct FeedView: View {
+    @EnvironmentObject var authService: AuthService
     @StateObject var viewModel = FeedViewModel()
     @State private var showComments = false
     @State private var navigateToSavedPosts = false
@@ -39,33 +40,34 @@ struct FeedView: View {
                     .padding(.top, 8)
                     .padding(.horizontal,5)
                 }
-                .refreshable {
-                    await viewModel.loadMorePosts()
+                .padding(.top, 8)
+            }
+            .refreshable {
+                await viewModel.loadMorePosts()
+            }
+            .onAppear {
+                if authService.isAnonymous {
+                    Task {await viewModel.loadMorePosts()}
                 }
-                .navigationTitle("Feed")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Image("Instagram_logo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 32)
-                    }
-                    
-                    
+            }
+            .navigationTitle("Feed")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image("Instagram_logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 32)
+                }
+                
+                if authService.isAnonymous {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink(destination: SavedFeedView(), isActive: $navigateToSavedPosts) {
-                            Button(action: {
-                                navigateToSavedPosts = true
-                            }) {
-                                Image(systemName: "bookmark")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                            }
-                            .foregroundColor(Color.primary)
+                        Button(action: {
+                            authService.exitAnonymousMode()
+                        }) {
+                            Image(systemName: "door.left.hand.open")
                         }
                     }
-                    
                 }
             }
         }
