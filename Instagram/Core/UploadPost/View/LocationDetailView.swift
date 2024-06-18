@@ -33,6 +33,6 @@ struct LocationDetailView: View {
                 Text("Location details not available")
             }
         }
-        .padding()
+        .padding(.horizontal,10)
     }
 }

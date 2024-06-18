@@ -36,7 +36,8 @@ struct CurrentUserProfileView: View {
                         AuthService.shared.googleSignOut()
                         AuthService.shared.githubSignOut()
                     } label: {
-                        Image(systemName: "line.3.horizontal")
+                        Image(systemName: "door.left.hand.open")
+                            .foregroundColor(.black)
                     }
                 }
             }

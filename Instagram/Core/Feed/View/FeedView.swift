@@ -4,21 +4,41 @@ struct FeedView: View {
     @EnvironmentObject var authService: AuthService
     @StateObject var viewModel = FeedViewModel()
     @State private var showComments = false
+    @State private var navigateToSavedPosts = false
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVStack(spacing: 32) {
-                    ForEach(viewModel.posts) { post in
-                        FeedCell(post: post)
-                            .onAppear{
-                                if post == viewModel.posts.last {
-                                    Task {
-                                        await viewModel.loadMorePosts()
+            if viewModel.isLoading {
+                VStack {
+                    Spacer()
+                    VStack {
+                        Text("Loading posts...")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                        LoadingAnimationView()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .navigationTitle("Feed")
+                .navigationBarTitleDisplayMode(.inline)
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 32) {
+                        ForEach(viewModel.posts) { post in
+                            FeedCell(viewModel: FeedCellViewModel(post: post))
+                                .onAppear{
+                                    if post == viewModel.posts.last {
+                                        Task {
+                                            await viewModel.loadMorePosts()
+                                        }
                                     }
                                 }
-                            }
+                        }
                     }
+                    .padding(.top, 8)
+                    .padding(.horizontal,5)
                 }
                 .padding(.top, 8)
             }
@@ -53,6 +73,7 @@ struct FeedView: View {
         }
     }
 }
+
 
 #Preview {
     FeedView()

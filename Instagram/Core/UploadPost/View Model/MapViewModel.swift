@@ -9,6 +9,15 @@ import Foundation
 import MapKit
 import CoreLocation
 
+struct IdentifiableAnnotation: Identifiable {
+    let id = UUID()
+    var annotation: MKPointAnnotation
+    
+    var coordinate: CLLocationCoordinate2D {
+        annotation.coordinate
+    }
+}
+
 class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion()
     @Published var searchText = ""
@@ -37,7 +46,6 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         annotations.append(identifiableAnnotation)
     }
 
-    
     func search(_ query: String) {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = query
@@ -56,23 +64,15 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     strongSelf.streetName = mapItem.placemark.thoroughfare ?? ""
                     strongSelf.city = mapItem.placemark.locality ?? ""
                     strongSelf.establishmentName = mapItem.name ?? ""  // Capture establishment name
-                    
-                    // Assuming that the selected city is stored in a variable named "selectedCity" in the MapViewModel
-                    //strongSelf.selectedCity = mapItem.placemark.locality ?? ""
                 } else {
                     strongSelf.streetName = ""
                     strongSelf.city = ""
                     strongSelf.establishmentName = ""  // Reset if no results
-                    
-                    // Reset selected city if no results
-                    //strongSelf.selectedCity = ""
                 }
             }
         }
     }
 
-
-    
     func resetSearch() {
         searchText = ""
         locationSelected = false

@@ -12,23 +12,22 @@ struct NotificationCell: View {
     let notification: Notification
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             NavigationLink(value: notification.user) {
                 CircularProfileImageView(user: notification.user, size: .xSmall)
             }
             
-            HStack {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(notification.user?.username ?? "")
                     .font(.subheadline)
-                    .fontWeight(.semibold) +
-                
+                    .fontWeight(.bold) +
                 Text(" \(notification.type.notificationMessage)")
-                    .font(.subheadline) +
-                
+                    .font(.subheadline)
                 Text(" \(notification.timestamp.timestampString())")
-                    .foregroundStyle(.gray)
-                    .font(.footnote)
+                    .font(.caption)
+                    .foregroundColor(.gray)
             }
+            .padding(.leading, 8)
             
             Spacer()
             
@@ -37,14 +36,15 @@ struct NotificationCell: View {
                     KFImage(URL(string: notification.post?.imageUrl ?? ""))
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 40,height: 40)
+                        .frame(width: 40, height: 40)
                         .clipped()
-                        .padding(.leading, 2)
+                        .cornerRadius(5)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
                 }
             } else {
-                Button {
+                Button(action: {
                     print("DEBUG: follow")
-                } label: {
+                }) {
                     Text("Follow")
                         .font(.subheadline)
                         .fontWeight(.semibold)
@@ -56,10 +56,6 @@ struct NotificationCell: View {
             }
         }
         .padding(.horizontal)
+        .padding(.vertical, 8)
     }
 }
-/*
-#Preview {
-    NotificationCell()
-}
-*/
