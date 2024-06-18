@@ -44,7 +44,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         Realm.Configuration.defaultConfiguration = config
     }
-
 }
 
 @main

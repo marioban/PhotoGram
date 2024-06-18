@@ -69,6 +69,7 @@ struct FeedCell: View {
                 try await viewModel.unlike()
             } else {
                 try await viewModel.like()
+                print("liked")
             }
         }
     }
@@ -122,12 +123,12 @@ struct PostImageView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity)
                     .clipped()
+                    .cornerRadius(10)
+                    .padding(.horizontal)
             } else {
                 Color.gray.frame(height: 200)
             }
         }
-        .cornerRadius(10)
-        .padding(.horizontal)
     }
 }
 

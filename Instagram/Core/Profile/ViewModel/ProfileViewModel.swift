@@ -30,7 +30,7 @@ class ProfileViewModel: ObservableObject {
             try await UserService.unfollow(uid: user.id)
             user.isFollowed = false
             
-            await NotificationManager.shared.deleteFollowNotification(notificatinOwnerUid: user.id)
+            await NotificationManager.shared.deleteFollowNotification(notificationOwnerUid: user.id)
         }
     }
     
