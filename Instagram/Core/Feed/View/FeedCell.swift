@@ -5,6 +5,11 @@ import Photos
 
 struct FeedCell: View {
     @ObservedObject var viewModel: FeedCellViewModel
+    @State private var showComments = false
+    @State private var showingDownloadAlert = false
+    @State private var downloadAlertMessage = ""
+    @State private var showMap = false
+    @State private var selectedLocation: LocationDetail?
     @EnvironmentObject var authService: AuthService
     
     private var post: Post {
@@ -49,60 +54,13 @@ struct FeedCell: View {
             // Action buttons
             HStack(spacing: 16) {
                 Button(action: {
-                    performActionOrLogin {
-                        handleLikeTapped()
-                    }
+                    selectedLocation = locationDetail
+                    showMap.toggle()
                 }) {
                     Image(systemName: didLike ? "heart.fill" : "heart")
                         .imageScale(.large)
                         .foregroundColor(didLike ? .red : .primary)
                 }
-                
-                Button(action: {
-                    performActionOrLogin {
-                        $showComments.wrappedValue.toggle()
-                    }
-                }) {
-                    Image(systemName: "bubble.right")
-                        .imageScale(.large)
-                        .foregroundColor(Color.primary)
-                }
-                
-                Button(action: {}) {
-                    ShareLink(item: URL(string: post.imageUrl) ?? URL(fileURLWithPath: "")) {
-                        Image(systemName: "paperplane")
-                            .imageScale(.large)
-                            .foregroundColor(Color.primary)
-                    }
-                }
-                
-                Button(action: {
-                    performActionOrLogin {
-                            downloadImage(from: post.imageUrl)
-                    }
-                }) {
-                    Image(systemName: "arrow.down.to.line")
-                        .imageScale(.large)
-                        .foregroundColor(Color.primary)
-                }
-                .sheet(isPresented: $showLoginView) {
-                    LoginView()
-                }
-                
-                Spacer()
-            }
-            .padding(.leading, 8)
-            .padding(.top, 4)
-            
-            // Likes
-            if post.likes > 0 {
-                Text("\(post.likes) likes")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color.primary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 8)
-                    .padding(.top, 1)
             }
             
             // Caption
