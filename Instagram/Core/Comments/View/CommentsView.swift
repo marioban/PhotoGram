@@ -53,7 +53,7 @@ struct CommentsView: View {
                     
                     Button(action: {
                         Task {
-                            try await viewModel.uploadComment(comment: commentText)
+                            try await viewModel.uploadComment(commentText: commentText)
                             commentText = ""
                         }
                     }, label: {

@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct UserListView: View {
-    @StateObject var viewModel = UserListViewModel()
+    @StateObject var viewModel: UserListViewModel
     @State private var searchText = ""
     
     private let config: UserList
     
-    init(config: UserList) {
+    init(config: UserList, searchViewModel: SearchViewModel) {
         self.config = config
+        _viewModel = StateObject(wrappedValue: UserListViewModel(searchViewModel: searchViewModel))
     }
     
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
-                ForEach(viewModel.filteredUsers) { user in  // Use filteredUsers here
+                ForEach(viewModel.filteredUsers) { user in
                     NavigationLink(value: user) {
                         HStack {
                             CircularProfileImageView(user: user, size: .xSmall)
@@ -55,5 +56,6 @@ struct UserListView: View {
 }
 
 #Preview {
-    UserListView(config: .explore)
+    UserListView(config: .explore, searchViewModel: SearchViewModel())
 }
+

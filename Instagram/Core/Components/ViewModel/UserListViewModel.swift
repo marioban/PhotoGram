@@ -8,12 +8,18 @@
 import Foundation
 
 @MainActor
-class UserListViewModel: ObservableObject {
+class UserListViewModel: ObservableObject, SearchObserver {
     @Published var users = [User]()
     @Published var filteredUsers = [User]()
+    private let searchViewModel: SearchViewModel
     
-    init() {
-        print("DEBUG: DID INIT")
+    init(searchViewModel: SearchViewModel) {
+        self.searchViewModel = searchViewModel
+        searchViewModel.addObserver(self)
+    }
+    
+    deinit {
+        searchViewModel.removeObserver(self)
     }
     
     func fetchUsers(forConfig config: UserList) async {
@@ -21,16 +27,17 @@ class UserListViewModel: ObservableObject {
             let fetchedUsers = try await UserService.fetchUsers(forConfig: config)
             self.users = fetchedUsers
             self.filteredUsers = fetchedUsers
+            searchViewModel.filterUsers(for: "")
         } catch {
             print("DEBUG: ERROR \(error.localizedDescription)")
         }
     }
     
     func filterUsers(for query: String) {
-        if query.isEmpty {
-            filteredUsers = users
-        } else {
-            filteredUsers = users.filter { $0.username.lowercased().contains(query.lowercased()) }
-        }
+        searchViewModel.filterUsers(for: query)
+    }
+    
+    func onUsersUpdated(users: [User]) {
+        self.filteredUsers = users
     }
 }

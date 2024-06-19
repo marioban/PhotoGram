@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileHeaderView: View {
+struct ProfileHeaderView: View, ProfileComponent {
     @ObservedObject var viewModel: ProfileViewModel
     @State private var showEditProfile = false
     
@@ -117,7 +117,7 @@ struct ProfileHeaderView: View {
             Divider()
         }
         .navigationDestination(for: UserList.self, destination: { config in
-            UserListView(config: config)
+            UserListView(config: config, searchViewModel: SearchViewModel())
         })
         .onAppear(perform: {
             Task {
@@ -135,6 +135,10 @@ struct ProfileHeaderView: View {
         } else {
             viewModel.follow()
         }
+    }
+    
+    func render() -> AnyView {
+        AnyView(self)
     }
 }
 

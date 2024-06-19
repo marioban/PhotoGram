@@ -10,18 +10,19 @@ import SwiftUI
 struct ProfileView: View {
     
     @StateObject var viewModel: ProfileViewModel
+    private var profileComposite: ProfileComposite
     
     init(user: User) {
         _viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+        
+        profileComposite = ProfileComposite()
+        profileComposite.add(component: ProfileHeaderView(user: user))
+        profileComposite.add(component: PostGridView(user: user))
     }
     
     var body: some View {
         ScrollView {
-            // MARK: Header
-            ProfileHeaderView(user: viewModel.user)
-            
-            //MARK: Post grid
-            PostGridView(user: viewModel.user)
+            profileComposite.render()
         }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
