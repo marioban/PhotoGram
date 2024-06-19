@@ -38,7 +38,7 @@ class UploadPostViewModel: ObservableObject {
         self.uiImage = uiImage
     }
     
-    func uploadPost(caption: String) async throws { //to add location
+    func uploadPost(caption: String) async throws { 
         guard let uid = Auth.auth().currentUser?.uid else { return  }
         guard let uiImage = uiImage else { return }
         

@@ -243,7 +243,7 @@ struct CommentService {
 }
 
 
-class NotificationService {
+class NotificationService: NotificationServiceProtocol {
     
     func fetchNotifications() async throws -> [Notification] {
         guard let currentUid = Auth.auth().currentUser?.uid else { return []}
@@ -285,6 +285,7 @@ class NotificationService {
         
     }
 }
+
 
 class NotificationManager {
     private let service = NotificationService()

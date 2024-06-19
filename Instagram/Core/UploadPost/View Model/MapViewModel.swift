@@ -55,17 +55,12 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     strongSelf.addAnnotation(at: coordinate)
                     strongSelf.streetName = mapItem.placemark.thoroughfare ?? ""
                     strongSelf.city = mapItem.placemark.locality ?? ""
-                    strongSelf.establishmentName = mapItem.name ?? ""  // Capture establishment name
+                    strongSelf.establishmentName = mapItem.name ?? "" 
                     
-                    // Assuming that the selected city is stored in a variable named "selectedCity" in the MapViewModel
-                    //strongSelf.selectedCity = mapItem.placemark.locality ?? ""
                 } else {
                     strongSelf.streetName = ""
                     strongSelf.city = ""
-                    strongSelf.establishmentName = ""  // Reset if no results
-                    
-                    // Reset selected city if no results
-                    //strongSelf.selectedCity = ""
+                    strongSelf.establishmentName = ""
                 }
             }
         }
