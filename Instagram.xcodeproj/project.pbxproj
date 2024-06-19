@@ -58,6 +58,8 @@
 		C6AD500B2B7D12E80051EB8D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD500A2B7D12E80051EB8D /* ContentViewModel.swift */; };
 		C6AD500E2B7D166A0051EB8D /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AD500D2B7D166A0051EB8D /* RegistrationViewModel.swift */; };
 		C6D5929D2BF204F6006F57ED /* Models+FunctionsExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D5929C2BF204F6006F57ED /* Models+FunctionsExt.swift */; };
+		C6D6C9BD2C22B00300B8C889 /* AuthStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D6C9BC2C22B00300B8C889 /* AuthStrategy.swift */; };
+		C6D6C9C02C22BB3300B8C889 /* PostFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D6C9BF2C22BB3300B8C889 /* PostFacade.swift */; };
 		C6DCA4892C08CFF200BB2EC4 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA4882C08CFF200BB2EC4 /* NotificationsView.swift */; };
 		C6DCA48B2C08CFFC00BB2EC4 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48A2C08CFFC00BB2EC4 /* NotificationCell.swift */; };
 		C6DCA48D2C08D26400BB2EC4 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DCA48C2C08D26300BB2EC4 /* Notification.swift */; };
@@ -121,6 +123,8 @@
 		C6AD500D2B7D166A0051EB8D /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		C6D5929B2BEE71E1006F57ED /* Instagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Instagram.entitlements; sourceTree = "<group>"; };
 		C6D5929C2BF204F6006F57ED /* Models+FunctionsExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+FunctionsExt.swift"; sourceTree = "<group>"; };
+		C6D6C9BC2C22B00300B8C889 /* AuthStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStrategy.swift; sourceTree = "<group>"; };
+		C6D6C9BF2C22BB3300B8C889 /* PostFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFacade.swift; sourceTree = "<group>"; };
 		C6DCA4882C08CFF200BB2EC4 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		C6DCA48A2C08CFFC00BB2EC4 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C6DCA48C2C08D26300BB2EC4 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
@@ -277,9 +281,9 @@
 		C670F6A22B2211E800EF8D57 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				C6AD50052B7D05170051EB8D /* Service */,
 				C6AD50042B7D05060051EB8D /* View */,
 				C6AD500C2B7D164C0051EB8D /* View Model */,
-				C6AD50052B7D05170051EB8D /* Service */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -287,6 +291,7 @@
 		C670F6A32B2211F800EF8D57 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				C6D6C9BE2C22BB1C00B8C889 /* Service */,
 				C683A6642BFCC5DF00139DC8 /* View */,
 				C683A6632BFCC5D700139DC8 /* ViewModel */,
 			);
@@ -459,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				C6AD50062B7D05280051EB8D /* AuthService.swift */,
+				C6D6C9BC2C22B00300B8C889 /* AuthStrategy.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -486,6 +492,14 @@
 				C60EF31B2B7E09BD00CB7E06 /* LoginViewModel.swift */,
 			);
 			path = "View Model";
+			sourceTree = "<group>";
+		};
+		C6D6C9BE2C22BB1C00B8C889 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C6D6C9BF2C22BB3300B8C889 /* PostFacade.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		C6DCA4852C08CFB100BB2EC4 /* Notifications */ = {
@@ -638,6 +652,7 @@
 				C6DCA48B2C08CFFC00BB2EC4 /* NotificationCell.swift in Sources */,
 				C670F6932B220C0C00EF8D57 /* ContentView.swift in Sources */,
 				C683A67C2BFF668900139DC8 /* CommentsViewModel.swift in Sources */,
+				C6D6C9BD2C22B00300B8C889 /* AuthStrategy.swift in Sources */,
 				C670F6B72B23340200EF8D57 /* LoginView.swift in Sources */,
 				C67666342C00C967008BDD3A /* Constants.swift in Sources */,
 				C60BA7492B989C9C0037D99B /* EditProfileViewModel.swift in Sources */,
@@ -661,6 +676,7 @@
 				C670F6BD2B24B7FF00EF8D57 /* CreateUsernameView.swift in Sources */,
 				C6AD500B2B7D12E80051EB8D /* ContentViewModel.swift in Sources */,
 				C683A6762BFF5ECC00139DC8 /* CommentsView.swift in Sources */,
+				C6D6C9C02C22BB3300B8C889 /* PostFacade.swift in Sources */,
 				C60BA7452B9896FA0037D99B /* EditProfileView.swift in Sources */,
 				C60EF31C2B7E09BD00CB7E06 /* LoginViewModel.swift in Sources */,
 				C6AD500E2B7D166A0051EB8D /* RegistrationViewModel.swift in Sources */,
