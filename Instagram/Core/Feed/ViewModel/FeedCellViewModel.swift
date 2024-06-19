@@ -13,15 +13,17 @@ import RealmSwift
 @MainActor
 class FeedCellViewModel: ObservableObject {
     @Published var post: Post
-    
-    init(post: Post) {
+    private let repository: RealmRepository
+
+    init(post: Post, repository: RealmRepository = RealmRepositoryImpl()) {
         self.post = post
+        self.repository = repository
         Task {
             try await checkIfUserLikedPost()
             try await checkIfPostIsSaved()
         }
     }
-    
+
     func like() async throws {
         do {
             let postCopy = post
@@ -34,7 +36,7 @@ class FeedCellViewModel: ObservableObject {
             post.likes -= 1
         }
     }
-    
+
     func unlike() async throws {
         do {
             let postCopy = post
@@ -46,9 +48,8 @@ class FeedCellViewModel: ObservableObject {
             post.didLike = true
             post.likes += 1
         }
-
     }
-    
+
     func checkIfUserLikedPost() async throws {
         guard let uid = Auth.auth().currentUser?.uid, !post.id.isEmpty else {
             throw NSError(domain: "AppError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid user ID or post ID"])
@@ -75,16 +76,10 @@ class FeedCellViewModel: ObservableObject {
         }
     }
 
-    func checkIfPostIsSaved() async throws{
-        let realm = try await Realm()
-        if let _ = realm.object(ofType: SavedPost.self, forPrimaryKey: post.id) {
-            post.didSave = true
-        } else {
-            post.didSave = false
-        }
+    func checkIfPostIsSaved() async throws {
+        self.post.didSave = repository.exists(SavedPost.self, id: post.id)
     }
 
-    
     func toggleSave() async {
         let currentIsSaved = post.didSave
         post.didSave?.toggle()
@@ -92,10 +87,10 @@ class FeedCellViewModel: ObservableObject {
         do {
             if post.didSave ?? false {
                 print("Post saved")
-                try await savePostToRealm(post: post)
+                try repository.save(object: SavedPost(from: post))
             } else {
                 print("Post unsaved")
-                try await removePostFromRealm(postId: post.id)
+                try repository.deleteById(SavedPost.self, id: post.id)
             }
             objectWillChange.send()
         } catch {
@@ -103,35 +98,4 @@ class FeedCellViewModel: ObservableObject {
             post.didSave = currentIsSaved
         }
     }
-
-    // Asynchronous function to save a post to Realm
-    func savePostToRealm(post: Post) async throws {
-        let realm = try await Realm()
-        print("Attempting to save post with ID: \(post.id)")
-        if realm.object(ofType: SavedPost.self, forPrimaryKey: post.id) == nil {
-            let savedPost = SavedPost(from: post)
-            try realm.write {
-                realm.add(savedPost)
-                print("Post saved with ID: \(savedPost.id)")
-            }
-        } else {
-            print("Post with ID \(post.id) already exists. Not saving again.")
-        }
-    }
-
-
-    // Asynchronous function to remove a post from Realm
-    func removePostFromRealm(postId: String) async throws {
-        let realm = try await Realm()
-        print("Attempting to delete post with ID: \(postId)")
-        guard let savedPost = realm.object(ofType: SavedPost.self, forPrimaryKey: postId) else {
-            print("No post found with ID \(postId) to delete.")
-            return
-        }
-        try realm.write {
-            realm.delete(savedPost)
-            print("Post deleted from Realm.")
-        }
-    }
-    
 }

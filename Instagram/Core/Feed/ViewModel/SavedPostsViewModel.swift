@@ -10,23 +10,20 @@ import RealmSwift
 
 class SavedPostsViewModel: ObservableObject {
     @Published var savedPosts: [Post] = []
+    private let repository: RealmRepository
 
-    init() {
+    init(repository: RealmRepository = RealmRepositoryImpl()) {
+        self.repository = repository
         loadSavedPosts()
     }
 
     func loadSavedPosts() {
-        do {
-            let realm = try Realm()
-            let results = realm.objects(SavedPost.self)
+        if let results = repository.fetch(SavedPost.self) {
             results.forEach { savedPost in
                 print("Post ID: \(savedPost.id), Caption: \(savedPost.caption ?? "N/A")")
             }
             self.savedPosts = results.map { Post(from: $0) }
             print("Currently saved posts: \(self.savedPosts.map { $0.id })")
-        } catch {
-            print("Error loading posts from Realm: \(error)")
         }
     }
-
 }

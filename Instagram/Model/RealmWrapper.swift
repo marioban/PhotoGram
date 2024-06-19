@@ -8,65 +8,70 @@
 import Foundation
 import RealmSwift
 
-class RealmWrapper {
-    
-    static var realm: Realm {
+protocol RealmRepository {
+    func save<T: Object>(object: T) throws
+    func fetch<T: Object>(_ objectType: T.Type) -> Results<T>?
+    func delete<T: Object>(object: T) throws
+    func exists<T: Object>(_ objectType: T.Type, id: String) -> Bool
+    func deleteById<T: Object>(_ objectType: T.Type, id: String) throws
+}
+
+class RealmRepositoryImpl: RealmRepository {
+
+    private let realm: Realm
+
+    init() {
         do {
-            return try Realm()
+            self.realm = try Realm()
         } catch {
-            fatalError("Realm initialization error: \(error)")
+            fatalError("Failed to initialize Realm: \(error.localizedDescription)")
         }
-    }
-    
-    func saveObjects<T: Object>(objects: T) {
-        do {
-            try RealmWrapper.realm.write {
-                RealmWrapper.realm.add(objects, update: .all)
-            }
-        } catch {
-            print("Failed to save object: \(error.localizedDescription)")
-        }
-    }
-    
-    func getObjects<T: Object>(objects: T.Type) -> Results<T>? {
-        return RealmWrapper.realm.objects(objects)
     }
 
-    func deleteObjects<T: Object>(objects: T) {
-        do{
-            try RealmWrapper.realm.write{
-                RealmWrapper.realm.delete(objects)
+    func save<T: Object>(object: T) throws {
+        do {
+            try realm.write {
+                realm.add(object, update: .all)
             }
-        } catch{
-            debugPrint(error)
+        } catch {
+            throw error
         }
     }
-    
-    func doesExist(id: String) -> Bool {
-        let posts = RealmWrapper.realm.objects(SavedPost.self)
-        
-        let query = posts.where {
-            $0.id == id
-        }
-        
-        return query.count != 0
+
+    func fetch<T: Object>(_ objectType: T.Type) -> Results<T>? {
+        return realm.objects(objectType)
     }
-    
-    func deletePost(withId id: String) async throws {
-        let realm = try await Realm()
-        guard let postToDelete = realm.object(ofType: SavedPost.self, forPrimaryKey: id) else {
-            print("No post found with ID \(id) to delete.")
-            return
-        }
-        try realm.write {
-            realm.delete(postToDelete)
-            print("Successfully deleted post with ID \(id).")
+
+    func delete<T: Object>(object: T) throws {
+        do {
+            try realm.write {
+                realm.delete(object)
+            }
+        } catch {
+            throw error
         }
     }
-    
+
+    func exists<T: Object>(_ objectType: T.Type, id: String) -> Bool {
+        let objects = realm.objects(objectType)
+        return objects.filter("id == %@", id).count != 0
+    }
+
+    func deleteById<T: Object>(_ objectType: T.Type, id: String) throws {
+        do {
+            if let objectToDelete = realm.object(ofType: objectType, forPrimaryKey: id) {
+                try realm.write {
+                    realm.delete(objectToDelete)
+                }
+            }
+        } catch {
+            throw error
+        }
+    }
 }
 
 
+/*
 extension RealmWrapper {
     func saveObjects<T: Object>(objects: T) async throws {
         do {
@@ -78,3 +83,4 @@ extension RealmWrapper {
         }
     }
 }
+*/

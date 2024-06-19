@@ -20,8 +20,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     private func initializeRealm() {
         let config = Realm.Configuration(
             schemaVersion: 3,  // Make sure this is incremented from the last version
-
-            // Add a migration block
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 3 {
                     migration.enumerateObjects(ofType: SavedPost.className()) { oldObject, newObject in
@@ -36,12 +34,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                     }
                 }
             },
-
-            
             deleteRealmIfMigrationNeeded: false
         )
-
-        
         Realm.Configuration.defaultConfiguration = config
     }
 }
