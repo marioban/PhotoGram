@@ -33,6 +33,8 @@ struct CurrentUserProfileView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         AuthService.shared.signout()
+                        AuthService.shared.googleSignOut()
+                        AuthService.shared.githubSignOut()
                     } label: {
                         Image(systemName: "door.left.hand.open")
                             .foregroundColor(.black)

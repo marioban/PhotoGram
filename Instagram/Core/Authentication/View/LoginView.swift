@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var authService: AuthService
     @StateObject var viewModel = LoginViewModel()
+    @StateObject var registrationViewModel = RegistrationViewModel()
     
     var body: some View {
         NavigationStack {
@@ -16,7 +18,7 @@ struct LoginView: View {
                 
                 Spacer()
                 
-                Image("Instagram_logo")  
+                Image("Instagram_logo")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 100)
@@ -69,15 +71,23 @@ struct LoginView: View {
                 }
                 .padding(.horizontal, 24)
                 
-                socialLoginButton(imageType: .asset(name: "google-logo"), buttonText: "Login with Google", topPadding: 10)
-                socialLoginButton(imageType: .asset(name: "github-logo"), buttonText: "Login with GitHub", topPadding: 10)
-                socialLoginButton(imageType: .asset(name: "apple-logo"), buttonText: "Login with Apple", topPadding: 10)
-
+                socialLoginButton(imageType: .asset(name: "google-logo"), buttonText: "Login with Google", topPadding: 10) {
+                    authService.googleSignIn()
+                }
+                socialLoginButton(imageType: .asset(name: "github-logo"), buttonText: "Login with GitHub", topPadding: 10) {
+                    print("GitHub login button pressed")
+                    authService.githubSignIn()
+                }
+                socialLoginButton(imageType: .system(name: "theatermasks.circle"), buttonText: "Go Anonymus", topPadding: 10) {
+                    authService.enterAnonymousMode()
+                }
+                
                 
                 Spacer()
                 Divider()
                 NavigationLink {
                     AddEmailView()
+                        .environmentObject(registrationViewModel)
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack(spacing: 3) {
@@ -93,37 +103,37 @@ struct LoginView: View {
     }
     
     @ViewBuilder
-    private func socialLoginButton(imageType: ImageType, buttonText: String, topPadding: CGFloat = 0) -> some View {
-        HStack {
-            Group {
-                switch imageType {
-                case .system(let name):
-                    Image(systemName: name)
-                    .resizable()
-                case .asset(let name):
-                    Image(name)
-                    .resizable()
+    private func socialLoginButton(imageType: ImageType, buttonText: String, topPadding: CGFloat = 0, action: @escaping () -> Void) -> some View {
+        Button(action: {
+            action()
+        }) {
+            HStack {
+                Group {
+                    switch imageType {
+                    case .system(let name):
+                        Image(systemName: name)
+                            .resizable()
+                    case .asset(let name):
+                        Image(name)
+                            .resizable()
+                    }
                 }
-            }
-            .scaledToFit()
-            .frame(width: 30, height: 30)
-            .background(
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 30, height: 30)
-            )
-            .clipShape(Circle())
-            
-            Button {
-                print("\(buttonText)")
-            } label: {
+                .scaledToFit()
+                .frame(width: 30, height: 30)
+                .background(
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 30, height: 30)
+                )
+                .clipShape(Circle())
+                
                 Text(buttonText)
                     .font(.subheadline)
                     .fontWeight(.semibold)
             }
+            .padding(.top, topPadding)
+            .foregroundColor(Color.primary)
         }
-        .padding(.top, topPadding)
-        .foregroundColor(Color.primary)
     }
 }
 

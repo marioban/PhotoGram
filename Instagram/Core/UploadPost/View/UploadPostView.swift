@@ -1,6 +1,7 @@
 import SwiftUI
 import PhotosUI
 import MapKit
+import UIKit
 
 struct UploadPostView: View {
     @State private var caption = ""
@@ -13,13 +14,31 @@ struct UploadPostView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if viewModel.isUploading {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(1.5)
-                        .padding()
-                } else {
-                    content
+                HStack {
+                    Button {
+                        clearPostDataAndReturnToFeed()
+                    } label: {
+                        Text("Cancel")
+                            .fontWeight(.semibold)
+                    }
+                    
+                    Spacer()
+                    
+                    Text("New post")
+                        .fontWeight(.semibold)
+                    
+                    Spacer()
+                    
+                    Button {
+                        Task {
+                            try await viewModel.uploadPost(caption: caption)
+                            NotificationCenter.default.post(name: NSNotification.Name("PostUploaded"), object: nil)
+                            clearPostDataAndReturnToFeed()
+                        }
+                    } label: {
+                        Text("Upload")
+                            .fontWeight(.semibold)
+                    }
                 }
             }
             .onAppear(perform: {
