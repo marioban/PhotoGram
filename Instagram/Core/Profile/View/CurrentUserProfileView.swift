@@ -1,28 +1,22 @@
-//
-//  CurrentUserProfileView.swift
-//  Instagram
-//
-//  Created by Mario Ban on 13.02.2024..
-//
-
 import SwiftUI
 
 struct CurrentUserProfileView: View {
     
     @StateObject var viewModel: ProfileViewModel
+    private var profileComposite: ProfileComposite
     
     init(user: User) {
         _viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+        
+        profileComposite = ProfileComposite()
+        profileComposite.add(component: ProfileHeaderView(user: user))
+        profileComposite.add(component: PostGridView(user: user))
     }
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                // MARK: Header
-                ProfileHeaderView(user: viewModel.user)
-                
-                //MARK: Post grid
-                PostGridView(user: viewModel.user)
+                profileComposite.render()
             }
             .refreshable {
                 await viewModel.refreshProfile()
@@ -30,21 +24,21 @@ struct CurrentUserProfileView: View {
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        AuthService.shared.signout()
-                        AuthService.shared.googleSignOut()
-                        AuthService.shared.githubSignOut()
-                    } label: {
-                        Image(systemName: "door.left.hand.open")
-                            .foregroundColor(.black)
-                    }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    signOutButton
                 }
             }
         }
     }
-}
-
-#Preview {
-    CurrentUserProfileView(user: User.MOCK_USERS[0])
+    
+    private var signOutButton: some View {
+        Button {
+            AuthService.shared.signout()
+            AuthService.shared.googleSignOut()
+            AuthService.shared.githubSignOut()
+        } label: {
+            Image(systemName: "door.left.hand.open")
+                .foregroundColor(Color.primary)
+        }
+    }
 }

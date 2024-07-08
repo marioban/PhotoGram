@@ -27,7 +27,7 @@ struct NotificationsView: View {
                 ProfileView(user: user)
             })
             .navigationDestination(for: Post.self, destination: { post in
-                FeedCell(viewModel: FeedCellViewModel(post: post))
+                FeedCell(post: post)
             })
             .navigationTitle("Notifications")
             .navigationBarTitleDisplayMode(.inline)

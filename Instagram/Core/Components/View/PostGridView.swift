@@ -8,7 +8,8 @@
 import SwiftUI
 import Kingfisher
 
-struct PostGridView: View {
+struct PostGridView: View, ProfileComponent {
+    
     private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 3) - 4
     @StateObject var viewModel: PostGridViewModel
     
@@ -19,7 +20,7 @@ struct PostGridView: View {
     var body: some View {
         LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3), spacing: 2) {
             ForEach(viewModel.posts) { post in
-                NavigationLink(destination: FeedCell(viewModel: FeedCellViewModel(post: post))) {
+                NavigationLink(destination: FeedCell(post: post)) {
                     KFImage(URL(string: post.imageUrl))
                         .resizable()
                         .scaledToFill()
@@ -32,6 +33,10 @@ struct PostGridView: View {
             }
         }
         .padding(2)
+    }
+    
+    func render() -> AnyView {
+        AnyView(self)
     }
 }
 

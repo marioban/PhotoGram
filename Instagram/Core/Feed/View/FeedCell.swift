@@ -28,38 +28,36 @@ struct FeedCell: View {
     @State private var showingDownloadAlert = false
     @State private var downloadAlertMessage = ""
     @State private var showLoginView = false
+    @State private var showMap = false
+    @State private var selectedLocation: LocationDetail?
     
     var body: some View {
-        VStack {
-            // Image + Username
-            HStack {
-                if let user = post.user {
-                    CircularProfileImageView(user: user, size: .xSmall)
-                    Text(user.username)
-                        .font(.footnote)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color.primary)
-                }
-                Spacer()
-            }
-            .padding(.leading, 8)
+        VStack(alignment: .leading, spacing: 10) {
+            UserInfoView(user: viewModel.post.user)
+                .padding([.horizontal, .top], 5)
             
-            // Post image
-            KFImage(URL(string: post.imageUrl))
-                .resizable()
-                .scaledToFit()
-                .frame(height: 400)
-                .clipShape(Rectangle())
+            PostImageView(imageUrl: viewModel.post.imageUrl)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .shadow(radius: 5)
             
-            // Action buttons
-            HStack(spacing: 16) {
+            ActionButtonsView(didLike: viewModel.post.didLike ?? false, didSave: viewModel.post.didSave ?? false, handleLikeTapped: handleLikeTapped, handleSaveTapped: handleSaveTapped, showComments: $showComments, imageUrl: viewModel.post.imageUrl, downloadImage: downloadImage)
+                .padding(.horizontal, 5)
+            
+            PostLikesView(likes: viewModel.post.likes)
+                .padding(.horizontal, 10)
+            
+            PostCaptionView(post: viewModel.post)
+                .padding(.horizontal, 10)
+                .padding(.bottom, 3)
+            
+            if let locationDetail = viewModel.post.locationDetail {
                 Button(action: {
                     selectedLocation = locationDetail
                     showMap.toggle()
                 }) {
-                    Image(systemName: didLike ? "heart.fill" : "heart")
-                        .imageScale(.large)
-                        .foregroundColor(didLike ? .red : .primary)
+                    LocationDetailView(coordinate: locationDetail.coordinate, streetName: locationDetail.streetName, city: locationDetail.city, establishmentName: locationDetail.establishmentName)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
                 }
             }
             
@@ -167,7 +165,7 @@ struct ActionButtonsView: View {
             Button(action: handleSaveTapped) {
                 Image(systemName: didSave ? "bookmark.fill" : "bookmark")
                     .imageScale(.large)
-                    .foregroundColor(didSave ? .black : .gray)
+                    .foregroundColor(didSave ? Color.primary : Color.secondary)
             }
             .accessibility(identifier: "saveButton")
         }

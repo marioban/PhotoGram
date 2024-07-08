@@ -10,12 +10,12 @@ import Foundation
 @MainActor
 class NotificationViewModel: ObservableObject {
     @Published var notifications = [Notification]()
-    private let service: NotificationService
+    private let service: NotificationServiceProtocol
     private var currentUser: User?
     
-    init(service: NotificationService) {
+    init(service: NotificationServiceProtocol = LoggingNotificationDecorator(wrapped: NotificationService())) {
         self.service = service
-        Task {await fetchNotifications()}
+        Task { await fetchNotifications() }
         self.currentUser = UserService.shared.currentUser
     }
     
@@ -29,7 +29,7 @@ class NotificationViewModel: ObservableObject {
     }
     
     private func updateNotifications() async throws {
-        for i in 0 ..< notifications.count {
+        for i in 0..<notifications.count {
             var notification = notifications[i]
             
             notification.user = try await UserService.fetchUser(withUid: notification.notificationSenderUid)

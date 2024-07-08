@@ -14,31 +14,13 @@ struct UploadPostView: View {
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    Button {
-                        clearPostDataAndReturnToFeed()
-                    } label: {
-                        Text("Cancel")
-                            .fontWeight(.semibold)
-                    }
-                    
-                    Spacer()
-                    
-                    Text("New post")
-                        .fontWeight(.semibold)
-                    
-                    Spacer()
-                    
-                    Button {
-                        Task {
-                            try await viewModel.uploadPost(caption: caption)
-                            NotificationCenter.default.post(name: NSNotification.Name("PostUploaded"), object: nil)
-                            clearPostDataAndReturnToFeed()
-                        }
-                    } label: {
-                        Text("Upload")
-                            .fontWeight(.semibold)
-                    }
+                if viewModel.isUploading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5)
+                        .padding()
+                } else {
+                    content
                 }
             }
             .onAppear(perform: {
@@ -125,6 +107,7 @@ struct UploadPostView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .padding()
+                .tint(.accentColor) 
             }
 
             if let locationDetail = viewModel.locationDetail {

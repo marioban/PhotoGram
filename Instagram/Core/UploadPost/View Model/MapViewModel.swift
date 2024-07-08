@@ -63,11 +63,12 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     strongSelf.addAnnotation(at: coordinate)
                     strongSelf.streetName = mapItem.placemark.thoroughfare ?? ""
                     strongSelf.city = mapItem.placemark.locality ?? ""
-                    strongSelf.establishmentName = mapItem.name ?? ""  // Capture establishment name
+                    strongSelf.establishmentName = mapItem.name ?? "" 
+                    
                 } else {
                     strongSelf.streetName = ""
                     strongSelf.city = ""
-                    strongSelf.establishmentName = ""  // Reset if no results
+                    strongSelf.establishmentName = ""
                 }
             }
         }

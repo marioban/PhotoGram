@@ -21,7 +21,7 @@ class FeedViewModel: ObservableObject {
             name: NSNotification.Name("PostUploaded"),
             object: nil
         )
-        Task{ await loadMorePosts()}
+        Task { await loadMorePosts() }
     }
     
     @MainActor
@@ -30,7 +30,7 @@ class FeedViewModel: ObservableObject {
         isLoading = true
         
         do {
-            let (newPosts, lastSnapshot) = try await PostService.fetchFeedPosts(startingAfter: lastDocumentSnapshot)
+            let (newPosts, lastSnapshot) = try await PostFacade.shared.fetchFeedPosts(startingAfter: lastDocumentSnapshot)
             lastDocumentSnapshot = lastSnapshot
             posts.append(contentsOf: newPosts)
         } catch let error {

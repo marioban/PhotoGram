@@ -29,8 +29,7 @@ class FeedCellViewModel: ObservableObject {
             let postCopy = post
             post.didLike = true
             post.likes += 1
-            try await PostService.likePost(postCopy)
-            NotificationManager.shared.uploadLikeNotification(toUid: post.ownerUid, post: post)
+            try await PostFacade.shared.likePost(postCopy)
         } catch {
             post.didLike = false
             post.likes -= 1
@@ -42,8 +41,7 @@ class FeedCellViewModel: ObservableObject {
             let postCopy = post
             post.didLike = false
             post.likes -= 1
-            try await PostService.unlikePost(postCopy)
-            await NotificationManager.shared.deleteLikeNotification(notificationOwnerUid: post.ownerUid, post: post)
+            try await PostFacade.shared.unlikePost(postCopy)
         } catch {
             post.didLike = true
             post.likes += 1
@@ -99,3 +97,4 @@ class FeedCellViewModel: ObservableObject {
         }
     }
 }
+

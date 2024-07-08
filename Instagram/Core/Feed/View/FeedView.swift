@@ -27,7 +27,7 @@ struct FeedView: View {
                 ScrollView {
                     LazyVStack(spacing: 32) {
                         ForEach(viewModel.posts) { post in
-                            FeedCell(viewModel: FeedCellViewModel(post: post))
+                            FeedCell(post: post)
                                 .onAppear{
                                     if post == viewModel.posts.last {
                                         Task {
@@ -40,34 +40,33 @@ struct FeedView: View {
                     .padding(.top, 8)
                     .padding(.horizontal,5)
                 }
-                .padding(.top, 8)
-            }
-            .refreshable {
-                await viewModel.loadMorePosts()
-            }
-            .onAppear {
-                if authService.isAnonymous {
-                    Task {await viewModel.loadMorePosts()}
+                .refreshable {
+                    await viewModel.loadMorePosts()
                 }
-            }
-            .navigationTitle("Feed")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image("Instagram_logo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 32)
-                }
-                
-                if authService.isAnonymous {
+                .navigationTitle("Feed")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Image("Instagram_logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 32)
+                    }
+                    
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            authService.exitAnonymousMode()
-                        }) {
-                            Image(systemName: "door.left.hand.open")
+                        NavigationLink(destination: SavedFeedView(), isActive: $navigateToSavedPosts) {
+                            Button(action: {
+                                navigateToSavedPosts = true
+                            }) {
+                                Image(systemName: "bookmark")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                            }
+                            .foregroundColor(Color.primary)
                         }
                     }
+                    
                 }
             }
         }
