@@ -191,7 +191,7 @@ struct ActionButtonsView: View {
             Button(action: handleSaveTapped) {
                 Image(systemName: didSave ? "bookmark.fill" : "bookmark")
                     .imageScale(.large)
-                    .foregroundColor(didSave ? .black : .gray)
+                    .foregroundColor(didSave ? Color.primary : Color.secondary)
             }
             .accessibility(identifier: "saveButton")
         }

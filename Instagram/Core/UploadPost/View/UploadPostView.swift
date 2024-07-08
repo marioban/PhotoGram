@@ -107,6 +107,7 @@ struct UploadPostView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .padding()
+                .tint(.accentColor) 
             }
 
             if let locationDetail = viewModel.locationDetail {

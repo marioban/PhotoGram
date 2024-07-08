@@ -108,26 +108,26 @@ struct LoginView: View {
     
     @ViewBuilder
     private func socialLoginButton(imageType: ImageType, buttonText: String, topPadding: CGFloat = 0, action: @escaping () -> Void) -> some View {
-        Button(action: {
-            action()
-        }) {
+        Button(action: action) {
             HStack {
                 Group {
                     switch imageType {
                     case .system(let name):
                         Image(systemName: name)
                             .resizable()
+                            .foregroundColor(Color.primary)
                     case .asset(let name):
                         Image(name)
                             .resizable()
+                            .renderingMode(.original)
                     }
                 }
                 .scaledToFit()
                 .frame(width: 30, height: 30)
                 .background(
                     Circle()
-                        .fill(Color.white)
-                        .frame(width: 30, height: 30)
+                        .fill(Color(UIColor.systemBackground))
+                        .shadow(radius: 2)
                 )
                 .clipShape(Circle())
                 
@@ -136,9 +136,10 @@ struct LoginView: View {
                     .fontWeight(.semibold)
             }
             .padding(.top, topPadding)
-            .foregroundColor(Color.primary)
+            .foregroundColor(Color.primary) 
         }
     }
+
 }
 
 #Preview {
