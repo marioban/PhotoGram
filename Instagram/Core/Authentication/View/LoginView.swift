@@ -74,10 +74,14 @@ struct LoginView: View {
                 socialLoginButton(imageType: .asset(name: "google-logo"), buttonText: "Login with Google", topPadding: 10) {
                     authService.googleSignIn()
                 }
+                
+                /*
                 socialLoginButton(imageType: .asset(name: "github-logo"), buttonText: "Login with GitHub", topPadding: 10) {
                     print("GitHub login button pressed")
                     authService.githubSignIn()
                 }
+                */
+                
                 socialLoginButton(imageType: .system(name: "theatermasks.circle"), buttonText: "Go Anonymus", topPadding: 10) {
                     authService.enterAnonymousMode()
                 }
