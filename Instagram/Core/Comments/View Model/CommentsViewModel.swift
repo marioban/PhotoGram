@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestoreInternal
 
 @MainActor
 class CommentsViewModel: ObservableObject {

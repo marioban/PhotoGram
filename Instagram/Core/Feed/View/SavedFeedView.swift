@@ -15,7 +15,7 @@ struct SavedFeedView: View {
             ScrollView {
                 LazyVStack(spacing: 32) {
                     ForEach(viewModel.savedPosts, id: \.id) { post in
-                        FeedCell(viewModel: FeedCellViewModel(post: post))
+                        FeedCell(post: post)
                     }
                 }
                 .padding(.top, 8)

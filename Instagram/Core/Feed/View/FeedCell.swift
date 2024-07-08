@@ -24,9 +24,6 @@ struct FeedCell: View {
     @State private var showingDownloadAlert = false
     @State private var downloadAlertMessage = ""
     @State private var showLoginView = false
-    @State private var showComments = false
-    @State private var showingDownloadAlert = false
-    @State private var downloadAlertMessage = ""
     @State private var showMap = false
     @State private var selectedLocation: LocationDetail?
     
