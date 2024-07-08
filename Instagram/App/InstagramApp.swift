@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 import FirebaseCore
+import GoogleSignIn
 import RealmSwift
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -43,9 +44,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct InstagramApp: SwiftUI.App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var authService = AuthService.shared
+    @StateObject private var registrationViewModel = RegistrationViewModel()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(authService) 
+                .environmentObject(registrationViewModel)
                 .environmentObject(SavedPostsViewModel())
         }
     }

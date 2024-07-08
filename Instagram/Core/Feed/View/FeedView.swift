@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct FeedView: View {
+    @EnvironmentObject var authService: AuthService
     @StateObject var viewModel = FeedViewModel()
     @State private var showComments = false
     @State private var navigateToSavedPosts = false

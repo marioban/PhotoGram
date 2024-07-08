@@ -6,6 +6,24 @@ import Photos
 
 struct FeedCell: View {
     @ObservedObject var viewModel: FeedCellViewModel
+    @EnvironmentObject var authService: AuthService
+    
+    private var post: Post {
+        return viewModel.post
+    }
+    
+    private var didLike: Bool {
+        return post.didLike ?? false
+    }
+    
+    init(post: Post) {
+        self.viewModel = FeedCellViewModel(post: post)
+    }
+    
+    @State private var showComments = false
+    @State private var showingDownloadAlert = false
+    @State private var downloadAlertMessage = ""
+    @State private var showLoginView = false
     @State private var showComments = false
     @State private var showingDownloadAlert = false
     @State private var downloadAlertMessage = ""
@@ -91,6 +109,14 @@ struct FeedCell: View {
             }
         }
         task.resume()
+    }
+    
+    private func performActionOrLogin(_ action: @escaping () -> Void) {
+        if authService.isAnonymous {
+            showLoginView = true
+        } else {
+            action()
+        }
     }
 }
 

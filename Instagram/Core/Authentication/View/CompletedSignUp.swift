@@ -11,14 +11,14 @@ struct CompletedSignUp: View {
             Text("Welcome to Instagram, \(viewModel.username)")
                 .font(.title)
                 .fontWeight(.semibold)
-                .foregroundColor(Color.primary) // Use system color that adapts to theme
+                .foregroundColor(Color.primary)
                 .padding(.top)
                 .multilineTextAlignment(.center)
             
             Text("Click below to complete registration and start using Instagram")
                 .font(.subheadline)
                 .fontWeight(.light)
-                .foregroundColor(Color.secondary) // Subtle text in both themes
+                .foregroundColor(Color.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
             
@@ -28,9 +28,9 @@ struct CompletedSignUp: View {
                 Text("Complete registration")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundColor(.white) // White text for contrast on button
+                    .foregroundColor(.white)
                     .frame(width: 360, height: 44)
-                    .background(Color.blue) // System color that adapts slightly between modes
+                    .background(Color.blue)
                     .cornerRadius(8)
                     .padding(.top)
             }
@@ -38,13 +38,13 @@ struct CompletedSignUp: View {
             Spacer()
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) { // Adjusted for correct placement
+            ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .imageScale(.large)
-                        .foregroundColor(Color.primary) // Ensure the icon is visible in both light and dark mode
+                        .foregroundColor(Color.primary) 
                 }
             }
         }

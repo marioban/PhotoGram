@@ -1,6 +1,7 @@
 import SwiftUI
 import PhotosUI
 import MapKit
+import UIKit
 
 struct UploadPostView: View {
     @State private var caption = ""

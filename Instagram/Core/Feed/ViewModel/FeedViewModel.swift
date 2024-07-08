@@ -15,7 +15,13 @@ class FeedViewModel: ObservableObject {
     private var lastDocumentSnapshot: DocumentSnapshot?
     
     init() {
-        Task{ await loadMorePosts()}
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(refreshPosts),
+            name: NSNotification.Name("PostUploaded"),
+            object: nil
+        )
+        Task { await loadMorePosts() }
     }
     
     @MainActor
@@ -24,7 +30,7 @@ class FeedViewModel: ObservableObject {
         isLoading = true
         
         do {
-            let (newPosts, lastSnapshot) = try await PostService.fetchFeedPosts(startingAfter: lastDocumentSnapshot)
+            let (newPosts, lastSnapshot) = try await PostFacade.shared.fetchFeedPosts(startingAfter: lastDocumentSnapshot)
             lastDocumentSnapshot = lastSnapshot
             posts.append(contentsOf: newPosts)
         } catch let error {
@@ -32,5 +38,11 @@ class FeedViewModel: ObservableObject {
         }
         
         isLoading = false
+    }
+    
+    @objc func refreshPosts() {
+        Task {
+            await loadMorePosts()
+        }
     }
 }
