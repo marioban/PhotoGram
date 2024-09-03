@@ -1,6 +1,0 @@
-framework module GoogleSignIn {
-  umbrella header "GoogleSignIn-iOS17.0-umbrella.h"
-
-  export *
-  module * { export * }
-}

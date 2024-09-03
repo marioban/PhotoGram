@@ -1,5 +1,5 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+# Specify the platform and version for your project
+platform :ios, '17.0'
 
 def shared_pods
   pod 'FirebaseAuth'
@@ -7,20 +7,24 @@ def shared_pods
   pod 'Firebase/Storage'
   pod 'GoogleSignIn'
   pod 'Kingfisher'
-  pod 'RealmSwift'
+  pod 'RealmSwift'##, '~> 10.39.1'
 end
 
 target 'Instagram' do
-  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  
-  # Pods for Instagram
   shared_pods
 end
 
 target 'InstagramUITests' do
   use_frameworks!
-  
-  # Pods for InstagramUITests
   shared_pods
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '17.0'
+    end
+  end
 end
