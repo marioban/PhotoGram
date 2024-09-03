@@ -1,0 +1,27 @@
+${PODS_ROOT}/Target Support Files/Pods-InstagramUITests/Pods-InstagramUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AppAuth-iOS17.4/AppAuth.framework
+${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC-iOS17.4/openssl_grpc.framework
+${BUILT_PRODUCTS_DIR}/FirebaseAppCheckInterop-iOS17.4/FirebaseAppCheckInterop.framework
+${BUILT_PRODUCTS_DIR}/FirebaseAuth-iOS17.4/FirebaseAuth.framework
+${BUILT_PRODUCTS_DIR}/FirebaseAuthInterop-iOS17.4/FirebaseAuthInterop.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCore-iOS17.4/FirebaseCore.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCoreExtension-iOS17.4/FirebaseCoreExtension.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal-iOS17.4/FirebaseCoreInternal.framework
+${BUILT_PRODUCTS_DIR}/FirebaseFirestore-iOS17.4/FirebaseFirestore.framework
+${BUILT_PRODUCTS_DIR}/FirebaseFirestoreInternal-iOS17.4/FirebaseFirestoreInternal.framework
+${BUILT_PRODUCTS_DIR}/FirebaseSharedSwift-iOS17.4/FirebaseSharedSwift.framework
+${BUILT_PRODUCTS_DIR}/FirebaseStorage-iOS17.4/FirebaseStorage.framework
+${BUILT_PRODUCTS_DIR}/GTMAppAuth-iOS17.4/GTMAppAuth.framework
+${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS17.4/GTMSessionFetcher.framework
+${BUILT_PRODUCTS_DIR}/GoogleSignIn-iOS17.4/GoogleSignIn.framework
+${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS17.4/GoogleUtilities.framework
+${BUILT_PRODUCTS_DIR}/Kingfisher-iOS17.4/Kingfisher.framework
+${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS17.4/FBLPromises.framework
+${BUILT_PRODUCTS_DIR}/Realm-iOS17.4/Realm.framework
+${BUILT_PRODUCTS_DIR}/RealmSwift-iOS17.4/RealmSwift.framework
+${BUILT_PRODUCTS_DIR}/RecaptchaInterop-iOS17.4/RecaptchaInterop.framework
+${BUILT_PRODUCTS_DIR}/abseil-iOS17.4/absl.framework
+${BUILT_PRODUCTS_DIR}/gRPC-C++-iOS17.4/grpcpp.framework
+${BUILT_PRODUCTS_DIR}/gRPC-Core-iOS17.4/grpc.framework
+${BUILT_PRODUCTS_DIR}/leveldb-library-iOS17.4/leveldb.framework
+${BUILT_PRODUCTS_DIR}/nanopb-iOS17.4/nanopb.framework
