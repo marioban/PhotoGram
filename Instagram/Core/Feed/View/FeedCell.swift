@@ -84,6 +84,7 @@ struct FeedCell: View {
                     Image(systemName: "arrow.down.to.line")
                         .imageScale(.large)
                         .foregroundColor(Color.primary)
+                        .accessibilityLabel("arrow.down.to.line")
                 }
                 .sheet(isPresented: $showLoginView) {
                     LoginView()

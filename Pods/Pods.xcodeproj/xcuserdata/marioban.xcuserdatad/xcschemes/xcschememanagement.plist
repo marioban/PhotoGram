@@ -228,46 +228,68 @@
 			<key>orderHint</key>
 			<integer>42</integer>
 		</dict>
-		<key>PromisesObjC-FBLPromises_Privacy.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>44</integer>
-		</dict>
-		<key>PromisesObjC.xcscheme</key>
+		<key>Pods-InstagramUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>43</integer>
 		</dict>
-		<key>Realm-realm_objc_privacy.xcscheme</key>
+		<key>Pods-InstagramUnitTests.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>47</integer>
+			<integer>44</integer>
 		</dict>
-		<key>Realm.xcscheme</key>
+		<key>PromisesObjC-FBLPromises_Privacy.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>46</integer>
+		</dict>
+		<key>PromisesObjC.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>45</integer>
 		</dict>
+		<key>Realm-realm_objc_privacy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>48</integer>
+		</dict>
+		<key>Realm.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>47</integer>
+		</dict>
 		<key>RealmSwift-realm_swift_privacy.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>49</integer>
+			<integer>50</integer>
 		</dict>
 		<key>RealmSwift.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>48</integer>
+			<integer>49</integer>
 		</dict>
 		<key>RecaptchaInterop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>46</integer>
+			<integer>51</integer>
 		</dict>
 		<key>abseil-xcprivacy.xcscheme</key>
 		<dict>

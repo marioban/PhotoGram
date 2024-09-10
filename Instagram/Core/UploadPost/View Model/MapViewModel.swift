@@ -19,7 +19,7 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var city: String = ""
     @Published var establishmentName: String = ""
 
-    private var locationManager = CLLocationManager()
+    internal var locationManager = CLLocationManager()
     
     override init() {
         super.init()
