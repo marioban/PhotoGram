@@ -43,6 +43,7 @@ class UserService {
     
     //MARK: fetching
     //aspect usage
+    //single responsability principle
     @MainActor
     func fetchCurrentUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -93,7 +94,6 @@ class UserService {
     
     //fpp
     //pure function
-    //doesnt modify any external
     static func checkIfUserIsFollowed(uid: String) async throws -> Bool {
         guard let currentUid = Auth.auth().currentUser?.uid else { return false }
         

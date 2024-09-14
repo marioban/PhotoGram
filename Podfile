@@ -8,6 +8,9 @@ def shared_pods
   pod 'GoogleSignIn'
   pod 'Kingfisher'
   pod 'RealmSwift'##, '~> 10.39.1'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Performance'
+
 end
 
 target 'Instagram' do
