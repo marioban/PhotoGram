@@ -91,6 +91,9 @@ class UserService {
         async let _ = try await FirebaseConstants.FollowersCollection.document(uid).collection("user-followers").document(currentUid).delete()
     }
     
+    //fpp
+    //pure function
+    //doesnt modify any external
     static func checkIfUserIsFollowed(uid: String) async throws -> Bool {
         guard let currentUid = Auth.auth().currentUser?.uid else { return false }
         
@@ -112,7 +115,9 @@ class UserService {
     }
     
     //MARK:
-    
+    //fpp
+    //fetching users based on their configuration
+    //high-order function
     static func fetchUsers(forConfig config: UserList) async throws -> [User] {
         switch config {
         case .followers(let uid):
@@ -206,6 +211,9 @@ struct PostService {
     
     //MARK: Fetch
     //aspect usage
+    //fpp
+    //composition
+    //shows function composition by combining fetching of posts with fetching user data
     static func fetchFeedPosts(startingAfter document: DocumentSnapshot? = nil) async throws -> ([Post], DocumentSnapshot?) {
         var query = FirebaseConstants.PostCollection.order(by: "timeStamp", descending: true).limit(to: 10)
         if let lastDocument = document {
@@ -216,12 +224,15 @@ struct PostService {
             let snapshot = try await query.getDocuments()
             logger.log("Successfully fetched feed posts")
             var posts = try snapshot.documents.compactMap { try $0.data(as: Post.self) }
+            //fetch posts
             for i in 0..<posts.count {
                 let ownerUid = posts[i].ownerUid
                 do {
+                    //for user
                     let user = try await UserService.fetchUser(withUid: ownerUid)
                     posts[i].user = user
                 } catch {
+                    //error handling
                     logger.log("Failed to fetch user for post \(i)")
                     errorHandler.handleError(error)
                 }
@@ -229,6 +240,7 @@ struct PostService {
             let lastSnapshot = snapshot.documents.last
             return (posts, lastSnapshot)
         } catch {
+            //error handling
             logger.log("Failed to fetch feed posts")
             errorHandler.handleError(error)
             throw error
@@ -236,7 +248,8 @@ struct PostService {
     }
     
     
-    
+    //fpp
+    //use of compact maps,doesnt return nil
     static func fetchUserPosts(uid: String) async throws -> [Post] {
         let snapshot = try await FirebaseConstants.PostCollection.whereField("ownerUid", isEqualTo: uid).getDocuments()
         return try snapshot.documents.compactMap { try $0.data(as: Post.self) }
