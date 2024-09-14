@@ -14,6 +14,7 @@
 		C60A435C2C87AD9100AD2881 /* FeedCellUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60A435B2C87AD9100AD2881 /* FeedCellUITests.swift */; };
 		C60A436F2C87B34400AD2881 /* TimestampUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60A436E2C87B34400AD2881 /* TimestampUnitTests.swift */; };
 		C60A43712C87B6F700AD2881 /* MapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60A43702C87B6F700AD2881 /* MapViewModelUnitTests.swift */; };
+		C60A43CA2C935EB100AD2881 /* LoginViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60A43C92C935EB100AD2881 /* LoginViewUITests.swift */; };
 		C60BA7452B9896FA0037D99B /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BA7442B9896FA0037D99B /* EditProfileView.swift */; };
 		C60BA7492B989C9C0037D99B /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BA7482B989C9C0037D99B /* EditProfileViewModel.swift */; };
 		C60EF31C2B7E09BD00CB7E06 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60EF31B2B7E09BD00CB7E06 /* LoginViewModel.swift */; };
@@ -110,6 +111,7 @@
 		C60A43652C87B2E800AD2881 /* InstagramUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstagramUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60A436E2C87B34400AD2881 /* TimestampUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampUnitTests.swift; sourceTree = "<group>"; };
 		C60A43702C87B6F700AD2881 /* MapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelUnitTests.swift; sourceTree = "<group>"; };
+		C60A43C92C935EB100AD2881 /* LoginViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewUITests.swift; sourceTree = "<group>"; };
 		C60BA7442B9896FA0037D99B /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		C60BA7482B989C9C0037D99B /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		C60EF31B2B7E09BD00CB7E06 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				C60A43522C87A95000AD2881 /* InstagramUITestsLaunchTests.swift */,
 				C60A43592C87AA9400AD2881 /* FeedViewUITests.swift */,
 				C60A435B2C87AD9100AD2881 /* FeedCellUITests.swift */,
+				C60A43C92C935EB100AD2881 /* LoginViewUITests.swift */,
 			);
 			path = InstagramUITests;
 			sourceTree = "<group>";
@@ -913,6 +916,7 @@
 			files = (
 				C60A435C2C87AD9100AD2881 /* FeedCellUITests.swift in Sources */,
 				C60A435A2C87AA9400AD2881 /* FeedViewUITests.swift in Sources */,
+				C60A43CA2C935EB100AD2881 /* LoginViewUITests.swift in Sources */,
 				C60A43532C87A95000AD2881 /* InstagramUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

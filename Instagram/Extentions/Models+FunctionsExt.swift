@@ -11,24 +11,64 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
+//aspects
+protocol LoggingAspect {
+    func log(_ message: String)
+}
+
+protocol ErrorHandlingAspect {
+    func handleError(_ error: Error)
+}
+
+class ConsoleLoggingAspect: LoggingAspect {
+    func log(_ message: String) {
+        print("LOG: \(message)")
+    }
+}
+
+class ConsoleErrorHandlingAspect: ErrorHandlingAspect {
+    func handleError(_ error: Error) {
+        print("ERROR: \(error.localizedDescription)")
+    }
+}
+
+
 class UserService {
     
     @Published var currentUser: User?
     
     static let shared = UserService()
-    
+    private static let logger: LoggingAspect = ConsoleLoggingAspect()
+    private static let errorHandler: ErrorHandlingAspect = ConsoleErrorHandlingAspect()
     
     //MARK: fetching
+    //aspect usage
     @MainActor
     func fetchCurrentUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        self.currentUser = try await FirebaseConstants.UsersCollection.document(uid).getDocument(as: User.self)
+        do {
+            self.currentUser = try await FirebaseConstants.UsersCollection.document(uid).getDocument(as: User.self)
+            UserService.logger.log("Successfully fetched current user: \(uid)")
+        } catch {
+            UserService.logger.log("Failed to fetch current user")
+            UserService.errorHandler.handleError(error)
+            throw error
+        }
     }
     
+    //aspect usage
     static func fetchUser(withUid uid: String) async throws -> User {
-        let snapshot = try await FirebaseConstants.UsersCollection.document(uid).getDocument()
-        return try snapshot.data(as: User.self)
+        do {
+            let snapshot = try await FirebaseConstants.UsersCollection.document(uid).getDocument()
+            UserService.logger.log("Successfully fetched user with UID: \(uid)")
+            return try snapshot.data(as: User.self)
+        } catch {
+            ConsoleLoggingAspect().log("Failed to fetch user with UID: \(uid)")
+            ConsoleErrorHandlingAspect().handleError(error)
+            throw error
+        }
     }
+    
     
     static func fetchAllUsers() async throws -> [User]{
         let snapshot = try await FirebaseConstants.UsersCollection.getDocuments()
@@ -161,33 +201,40 @@ struct ImageUploader {
 
 struct PostService {
     
+    private static let logger: LoggingAspect = ConsoleLoggingAspect()
+    private static let errorHandler: ErrorHandlingAspect = ConsoleErrorHandlingAspect()
+    
     //MARK: Fetch
+    //aspect usage
     static func fetchFeedPosts(startingAfter document: DocumentSnapshot? = nil) async throws -> ([Post], DocumentSnapshot?) {
-        // Define the query with pagination and sorting.
         var query = FirebaseConstants.PostCollection.order(by: "timeStamp", descending: true).limit(to: 10)
         if let lastDocument = document {
             query = query.start(afterDocument: lastDocument)
         }
 
-        // Execute the query to fetch posts.
-        let snapshot = try await query.getDocuments()
-        var posts = try snapshot.documents.compactMap { try $0.data(as: Post.self) }
-        
-        // Iterate through fetched posts to enrich them with user details.
-        for i in 0..<posts.count {
-            let ownerUid = posts[i].ownerUid
-            do {
-                let user = try await UserService.fetchUser(withUid: ownerUid)
-                posts[i].user = user
-            } catch {
-                print("Failed to fetch user for post \(i): \(error)")
+        do {
+            let snapshot = try await query.getDocuments()
+            logger.log("Successfully fetched feed posts")
+            var posts = try snapshot.documents.compactMap { try $0.data(as: Post.self) }
+            for i in 0..<posts.count {
+                let ownerUid = posts[i].ownerUid
+                do {
+                    let user = try await UserService.fetchUser(withUid: ownerUid)
+                    posts[i].user = user
+                } catch {
+                    logger.log("Failed to fetch user for post \(i)")
+                    errorHandler.handleError(error)
+                }
             }
+            let lastSnapshot = snapshot.documents.last
+            return (posts, lastSnapshot)
+        } catch {
+            logger.log("Failed to fetch feed posts")
+            errorHandler.handleError(error)
+            throw error
         }
-
-        let lastSnapshot = snapshot.documents.last
-        return (posts, lastSnapshot)
     }
-
+    
     
     
     static func fetchUserPosts(uid: String) async throws -> [Post] {
@@ -196,13 +243,21 @@ struct PostService {
     }
     
     //MARK: Likes
-    
+    //aspect usage
     static func likePost(_ post: Post) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        async let _ = try await FirebaseConstants.PostCollection.document(post.id).collection("post-likes").document(uid).setData([:])
-        async let _ = try await FirebaseConstants.PostCollection.document(post.id).updateData(["likes" : post.likes + 1])
-        async let _ = FirebaseConstants.UsersCollection.document(uid).collection("user-likes").document(post.id).setData([:])
+        do {
+            async let _ = try await FirebaseConstants.PostCollection.document(post.id).collection("post-likes").document(uid).setData([:])
+            async let _ = try await FirebaseConstants.PostCollection.document(post.id).updateData(["likes" : post.likes + 1])
+            async let _ = FirebaseConstants.UsersCollection.document(uid).collection("user-likes").document(post.id).setData([:])
+            logger.log("User \(uid) liked post \(post.id)")
+        } catch {
+            logger.log("Failed to like post \(post.id)")
+            errorHandler.handleError(error)
+            throw error
+        }
     }
+
     
     static func unlikePost(_ post: Post) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -228,18 +283,35 @@ struct PostService {
 struct CommentService {
     
     let postId: String
+    private let logger: LoggingAspect = ConsoleLoggingAspect()
+    private let errorHandler: ErrorHandlingAspect = ConsoleErrorHandlingAspect()
     
+    //aspect usage
     func uploadComment(_ comment: Comment) async throws {
         guard let commentData = try? Firestore.Encoder().encode(comment) else { return }
-        
-        try await FirebaseConstants.PostCollection.document(postId).collection("post-comments").addDocument(data: commentData)
+        do {
+            try await FirebaseConstants.PostCollection.document(postId).collection("post-comments").addDocument(data: commentData)
+            logger.log("Successfully uploaded comment for post \(postId)")
+        } catch {
+            logger.log("Failed to upload comment for post \(postId)")
+            errorHandler.handleError(error)
+            throw error
+        }
     }
-    
+
+    //aspet usage
     func fetchComments() async throws -> [Comment] {
-        let snapshot = try await FirebaseConstants.PostCollection.document(postId).collection("post-comments").order(by: "timestamp", descending: false).getDocuments()
-        
-        return snapshot.documents.compactMap({ try? $0.data(as: Comment.self)})
+        do {
+            let snapshot = try await FirebaseConstants.PostCollection.document(postId).collection("post-comments").order(by: "timestamp", descending: false).getDocuments()
+            logger.log("Successfully fetched comments for post \(postId)")
+            return snapshot.documents.compactMap({ try? $0.data(as: Comment.self)})
+        } catch {
+            logger.log("Failed to fetch comments for post \(postId)")
+            errorHandler.handleError(error)
+            throw error
+        }
     }
+
 }
 
 

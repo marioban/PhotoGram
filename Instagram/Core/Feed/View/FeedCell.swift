@@ -57,6 +57,7 @@ struct FeedCell: View {
                         .imageScale(.large)
                         .foregroundColor(didLike ? .red : .primary)
                 }
+                .accessibilityIdentifier(didLike ? "heart.fill" : "heart")
                 
                 Button(action: {
                     performActionOrLogin {
@@ -84,8 +85,9 @@ struct FeedCell: View {
                     Image(systemName: "arrow.down.to.line")
                         .imageScale(.large)
                         .foregroundColor(Color.primary)
-                        .accessibilityLabel("arrow.down.to.line")
+                        .accessibilityLabel("Download")
                 }
+                .accessibilityIdentifier("arrow.down.to.line")
                 .sheet(isPresented: $showLoginView) {
                     LoginView()
                 }
@@ -124,6 +126,7 @@ struct FeedCell: View {
                 .padding(.leading, 8)
                 .padding(.top, 1)
         }
+        .accessibilityIdentifier("FeedCell")
         .sheet(isPresented: $showComments) {
             CommentsView(post: post)
                 .presentationDragIndicator(.visible)

@@ -22,14 +22,17 @@ struct LoginView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 100)
+                    .accessibilityIdentifier("instagramLogo")
                 
                 VStack {
                     TextField("Enter your email", text: $viewModel.email)
                         .textInputAutocapitalization(.never)
                         .modifier(IGTextFieldModifier())
+                        .accessibilityIdentifier("emailTextField")
                     
                     SecureField("Enter your password", text: $viewModel.password)
                         .modifier(IGTextFieldModifier())
+                        .accessibilityIdentifier("passwordTextField")
                 }
                 
                 Button {
@@ -40,6 +43,7 @@ struct LoginView: View {
                         .fontWeight(.semibold)
                         .padding(.top)
                         .padding(.trailing, 28)
+                        .accessibilityIdentifier("forgotPasswordButton")
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundColor(Color.primary)
@@ -54,6 +58,7 @@ struct LoginView: View {
                         .frame(width: 360, height: 44)
                         .background(Color.blue)
                         .cornerRadius(8)
+                        .accessibilityIdentifier("loginButton")
                 }
                 .padding(.vertical)
                 
