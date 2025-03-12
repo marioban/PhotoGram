@@ -17,7 +17,7 @@ struct ProfileView: View {
         
         profileComposite = ProfileComposite()
         profileComposite.add(component: ProfileHeaderView(user: user))
-        profileComposite.add(component: PostGridView(user: user))
+        profileComposite.add(component: PostGridView(user: user) as! ProfileComponent)
     }
     
     var body: some View {

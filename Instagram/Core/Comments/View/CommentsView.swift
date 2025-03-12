@@ -70,6 +70,8 @@ struct CommentsView: View {
     }
 }
 
+/*
 #Preview {
     CommentsView(post: Post.MOCK_POSTS[1])
 }
+*/

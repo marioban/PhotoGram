@@ -1,10 +1,3 @@
-//
-//  CurrentUserProfileView.swift
-//  Instagram
-//
-//  Created by Mario Ban on 13.02.2024..
-//
-
 import SwiftUI
 
 struct CurrentUserProfileView: View {
@@ -31,20 +24,21 @@ struct CurrentUserProfileView: View {
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        AuthService.shared.signout()
-                        AuthService.shared.googleSignOut()
-                        AuthService.shared.githubSignOut()
-                    } label: {
-                        Image(systemName: "line.3.horizontal")
-                    }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    signOutButton
                 }
             }
         }
     }
-}
-
-#Preview {
-    CurrentUserProfileView(user: User.MOCK_USERS[0])
+    
+    private var signOutButton: some View {
+        Button {
+            AuthService.shared.signout()
+            AuthService.shared.googleSignOut()
+            AuthService.shared.githubSignOut()
+        } label: {
+            Image(systemName: "door.left.hand.open")
+                .foregroundColor(Color.primary)
+        }
+    }
 }

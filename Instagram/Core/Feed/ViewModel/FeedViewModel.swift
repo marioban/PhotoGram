@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestoreInternal
 
 class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()

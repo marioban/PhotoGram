@@ -9,6 +9,15 @@ import Foundation
 import MapKit
 import CoreLocation
 
+struct IdentifiableAnnotation: Identifiable {
+    let id = UUID()
+    var annotation: MKPointAnnotation
+    
+    var coordinate: CLLocationCoordinate2D {
+        annotation.coordinate
+    }
+}
+
 class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion()
     @Published var searchText = ""
@@ -37,7 +46,6 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         annotations.append(identifiableAnnotation)
     }
 
-    
     func search(_ query: String) {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = query
@@ -66,8 +74,6 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
-
-    
     func resetSearch() {
         searchText = ""
         locationSelected = false

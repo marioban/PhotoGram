@@ -12,4 +12,5 @@ target 'Instagram' do
   pod 'Firebase/Storage'
 	pod 'GoogleSignIn'
   pod 'Kingfisher'
+  pod 'RealmSwift'
 end

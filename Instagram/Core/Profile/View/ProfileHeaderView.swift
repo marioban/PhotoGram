@@ -82,16 +82,17 @@ struct ProfileHeaderView: View, ProfileComponent {
             //MARK: Name and bio
             VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel.user.fullname ?? "")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
+                    .font(.title2)
+                    .fontWeight(.bold)
                 
                 if let bio = viewModel.user.bio {
                     Text(bio)
-                        .font(.footnote)
+                        .font(.body)
+                        .foregroundColor(.secondary)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
+            .padding(.leading,20)
             
             //edit button
             Button {
@@ -108,10 +109,8 @@ struct ProfileHeaderView: View, ProfileComponent {
                     .foregroundColor(buttonForegroundColor)
                     .background(buttonBackgroundColor)
                     .cornerRadius(6)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 6)
-                            .stroke(buttonBorderColor, lineWidth: 1)
-                    )
+                    .clipShape(Capsule())
+                    .overlay(Capsule().stroke(Color.gray, lineWidth: 1))
             }
             
             Divider()
